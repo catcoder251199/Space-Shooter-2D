@@ -38,6 +38,7 @@ public class SingleShotBehaviour : AttackBehaviour
     public override void StopDoing() 
     {
         StopCoroutine(_shootRoutine);
+        shooting = false;
     }
 
     private IEnumerator ShootCoroutine()

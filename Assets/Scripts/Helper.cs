@@ -15,6 +15,22 @@ namespace Helper
             Top,
             Bottom
         }
+        public static Vector3 GetRandomPosOnSide(Side side, float offset = 0, float inputZ = 0, float minRange = 0f, float maxRange = 1f)
+        {
+            switch (side)
+            {
+                case Side.Left:
+                    return GetLeftSideRandomPos(offset, inputZ, minRange, maxRange);
+                case Side.Right:
+                    return GetRightSideRandomPos(offset, inputZ, minRange, maxRange);
+                case Side.Top:
+                    return GetTopSideRandomPos(offset, inputZ, minRange, maxRange);
+                case Side.Bottom:
+                    return GetBottomSideRandomPos(offset, inputZ, minRange, maxRange);
+                default:
+                    return Vector3.zero;
+            }
+        }
 
         public static Vector3 GetRandomPosOn1Side(Side[] sides, float offset = 0, float inputZ = 0, float minRange = 0f, float maxRange = 1f)
         {
