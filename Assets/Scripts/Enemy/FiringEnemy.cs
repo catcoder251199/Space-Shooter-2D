@@ -13,7 +13,6 @@ namespace Enemy
         [SerializeField] float _offsetFromBounds = 4f; // in pixels
         [SerializeField] bool _active = true;
         [SerializeField] Enemy.ShootingBehaviour _shootingBehaviour;
-        private Vector2 _destPos;
 
         private void Start()
         {
@@ -126,8 +125,5 @@ namespace Enemy
                 _shootingBehaviour.EndAttack();
             }
         }
-
-
     }
-
 }

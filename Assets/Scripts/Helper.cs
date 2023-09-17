@@ -133,6 +133,11 @@ namespace Helper
 
             return new Vector3(camPos.x + Random.Range(absMinRange, absMaxRange), camPos.y - camHalfHeight - offset, inputZ);
         }
+    
+        public static bool IsVisibleToCamera()
+        {
+            return true;
+        }
     };
 }
 
