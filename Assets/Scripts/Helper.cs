@@ -133,10 +133,31 @@ namespace Helper
 
             return new Vector3(camPos.x + Random.Range(absMinRange, absMaxRange), camPos.y - camHalfHeight - offset, inputZ);
         }
-    
+
         public static bool IsVisibleToCamera()
         {
             return true;
+        }
+
+        public static Rect GetWorldCameraRect(Camera cam = null)
+        {
+            if (cam == null)
+                cam = Camera.main;
+
+            var lowerCorner = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+            var upperCorner = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
+            return Rect.MinMaxRect(lowerCorner.x, upperCorner.y, upperCorner.x, lowerCorner.y);
+        }
+
+        public static bool IsPositionInWorldCamRect(Vector3 position, float offsetFromBounds = 0f)
+        {
+            var camRect = Helper.Cam.GetWorldCameraRect();
+            return (position.x >= camRect.xMin + offsetFromBounds && position.x <= camRect.xMax - offsetFromBounds)
+                || (position.y <= camRect.yMin - offsetFromBounds || position.y >= camRect.yMax - offsetFromBounds);
+        }
+        public static bool IsPositionOutWorldCamRect(Vector3 position, float offsetFromBounds = 0f)
+        {
+            return IsPositionInWorldCamRect(position, -offsetFromBounds);
         }
     };
 }
