@@ -1,12 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Test;
 
 namespace Helper
 {
+    /*
+     All helper methods are useful only if we are mentioning "main Camera"
+     */
     public static class Cam
     {
+        public static float HalfHeight() => Camera.main.orthographicSize;
+        public static float HalfWidth() => HalfHeight() * Camera.main.aspect;
+        public static Vector3 WorldPos() => Camera.main.transform.position;
+        public static float WorldLeft() => WorldPos().x - HalfWidth();
+        public static float WorldRight() => WorldPos().x - HalfHeight();
+        public static float WorldTop() => WorldPos().y + HalfHeight();
+        public static float WorldBottom() => WorldPos().y - HalfHeight();
+
         public enum Side
         {
             None,
@@ -111,9 +119,8 @@ namespace Helper
             float absMaxRange = Mathf.Lerp(-camHalfHeight, camHalfHeight, maxRange);
 
             return new Vector3(-camHalfWidth - offset, camPos.y + Random.Range(absMinRange, absMaxRange), inputZ);
-
         }
-
+        
         public static Vector3 GetBottomSideRandomPos(float offset = 0f, float inputZ = 0)
         {
             return GetBottomSideRandomPos(offset, inputZ, 0f, 1f);
@@ -151,14 +158,103 @@ namespace Helper
 
         public static bool IsPositionInWorldCamRect(Vector3 position, float offsetFromBounds = 0f)
         {
-            var camRect = Helper.Cam.GetWorldCameraRect();
-            return (position.x >= camRect.xMin + offsetFromBounds && position.x <= camRect.xMax - offsetFromBounds)
-                || (position.y <= camRect.yMin - offsetFromBounds || position.y >= camRect.yMax - offsetFromBounds);
+            /*
+             Consider offsetFromBounds as a unknown number x.
+             if offsetFromBounds is positive. It means we're using a larger camera rect which has each side x units larger than the responding side of the original one .. to discern the position.
+             if offsetFromBounds is negative. It means we're using a smaller camera rect which has each side x units larger than the responding side of the original one .. to discern the position.
+             */
+            var camRect = GetWorldCameraRect();
+            return (position.x >= camRect.xMin - offsetFromBounds && position.x <= camRect.xMax + offsetFromBounds)
+                && (position.y <= camRect.yMin + offsetFromBounds && position.y >= camRect.yMax - offsetFromBounds);
         }
+
         public static bool IsPositionOutWorldCamRect(Vector3 position, float offsetFromBounds = 0f)
         {
-            return IsPositionInWorldCamRect(position, -offsetFromBounds);
+            /*
+             Consider offsetFromBounds as a unknown number x.
+             if offsetFromBounds is positive. It means we're using a larger camera rect which has each side x units larger than the responding side of the original one .. to discern the position.
+             if offsetFromBounds is negative. It means we're using a smaller camera rect which has each side x units larger than the responding side of the original one .. to discern the position.
+             */
+            return !IsPositionInWorldCamRect(position, offsetFromBounds);
         }
-    };
+
+        public static Vector3 GetLeftSidePos(float pos01, float offset = 0f, float inputZ = 0)
+        {
+            // pos01: normalized-valued position on left edge.
+            // pos01 == 0 -> it's located at the lowermost point of the vertical left edge
+            // pos01 == 1 -> it's located at the uppermost point of the vertical left edge
+
+            Camera cam = Camera.main;
+            float camHalfHeight = cam.orthographicSize; // Height of camera rect
+            float camHalfWidth = cam.orthographicSize * cam.aspect; // Width of camera rect == Height * ratio and ratio == Height / Width
+            Vector3 camPos = cam.transform.position;
+
+            float absValue = Mathf.Lerp(-camHalfHeight, camHalfHeight, Mathf.Clamp01(pos01));
+            offset = Mathf.Max(offset, 0);
+            return new Vector3(-camHalfWidth - offset, camPos.y + absValue, inputZ);
+        }
+
+        public static float GetVerticalEdge01Pos(float wPosY)
+        {
+            /*
+             wPosY: the world position of a point on a vertical edge (left or right edge).
+             return pos01:
+                pos01: normalized-valued position on vertical edge.
+                pos01 == 0 -> it's located at the lowermost point of the vertical edge
+                pos01 == 1 -> it's located at the uppermost point of the vertical edge
+             */
+            Camera cam = Camera.main;
+            float camHalfHeight = cam.orthographicSize; // Height of camera rect
+            Vector3 camPos = cam.transform.position;
+            return Mathf.InverseLerp(camPos.y - camHalfHeight, camPos.y + camHalfHeight, wPosY);
+        }
+
+        public static float GetHorizontalEdge01Pos(float wPosX)
+        {
+            /*
+             wPosX: the world position of a point on a horizontal edge (bottom or top edge).
+             return pos01:
+                pos01: normalized-valued position on vertical edge.
+                pos01 == 0 -> it's located at the lowermost point of the horizontal edge
+                pos01 == 1 -> it's located at the uppermost point of the horizontal edge
+             */
+            Camera cam = Camera.main;
+            float camHalfWidth = cam.orthographicSize * cam.aspect; // Width of camera rect == Height * ratio and ratio == Height / Width
+            Vector3 camPos = cam.transform.position;
+            return Mathf.InverseLerp(camPos.x - camHalfWidth, camPos.x + camHalfWidth, wPosX);
+        }
+
+        public static Vector3 GetRightSidePos(float pos01, float offset = 0f, float inputZ = 0)
+        {
+            // pos01: normalized-valued position on left edge.
+            // pos01 == 0 -> it's located at the lowermost point of the vertical right edge
+            // pos01 == 1 -> it's located at the uppermost point of the vertical right edge
+
+            Camera cam = Camera.main;
+            float camHalfHeight = cam.orthographicSize; // Height of camera rect
+            float camHalfWidth = cam.orthographicSize * cam.aspect; // Width of camera rect == Height * ratio and ratio == Height / Width
+            Vector3 camPos = cam.transform.position;
+
+            float absValue = Mathf.Lerp(-camHalfHeight, camHalfHeight, Mathf.Clamp01(pos01));
+            offset = Mathf.Max(offset, 0);
+            return new Vector3(camPos.x + camHalfWidth + offset, camPos.y + absValue, inputZ);
+        }
+
+        public static Vector3 GetBottomSidePos(float pos01, float offset = 0f, float inputZ = 0)
+        {
+            // pos01: normalized-valued position on left edge.
+            // pos01 == 0 -> it's located at the leftmost point of the horizontal bottom edge
+            // pos01 == 1 -> it's located at the rightmost point of the horizontal bottom edge
+
+            Camera cam = Camera.main;
+            float camHalfHeight = cam.orthographicSize; // Height of camera rect
+            float camHalfWidth = cam.orthographicSize * cam.aspect; // Width of camera rect == Height * ratio and ratio == Height / Width
+            Vector3 camPos = cam.transform.position;
+
+            float absValue = Mathf.Lerp(-camHalfWidth, camHalfWidth, Mathf.Clamp01(pos01));
+            offset = Mathf.Max(offset, 0);
+            return new Vector3(camPos.x + absValue, camPos.y - camHalfHeight - offset, inputZ);
+        }
+    }
 }
 

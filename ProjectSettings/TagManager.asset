@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Camera
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Bullet
     uniqueID: 2044853051
+    locked: 0
+  - name: Falling Meteor
+    uniqueID: 2739447097
     locked: 0
