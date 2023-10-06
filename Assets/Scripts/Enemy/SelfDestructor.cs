@@ -35,7 +35,6 @@ public class SelfDestructor : MonoBehaviour
     {
         if (_countDownTime <= 0)
         {
-            Debug.Log("Exploding");
             Destroy(gameObject);
             Destroy(_canvasUI.gameObject);
             Instantiate(_explosionVFX, this.transform.position, Quaternion.identity);
