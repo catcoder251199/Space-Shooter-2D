@@ -13,6 +13,7 @@ public class SelfDestructor : MonoBehaviour
     [SerializeField] float _offsetFromBounds = 2f;
     [SerializeField] float _countDownTime = 5f;
 
+    [SerializeField] GameObject _explosionVFX;
 
     private Transform _worldUI;
     [SerializeField] RectTransform _canvasUI;
@@ -37,6 +38,7 @@ public class SelfDestructor : MonoBehaviour
             Debug.Log("Exploding");
             Destroy(gameObject);
             Destroy(_canvasUI.gameObject);
+            Instantiate(_explosionVFX, this.transform.position, Quaternion.identity);
         }
         else
         {
