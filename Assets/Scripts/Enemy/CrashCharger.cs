@@ -97,13 +97,7 @@ namespace Enemy
         }
         private Vector2 GetRandomPositionInRect(float left, float right, float top, float bottom) // left, right, top, bottom are normalized
         {
-            left = Mathf.Clamp01(left);
-            right = Mathf.Clamp01(right);
-            top = Mathf.Clamp01(top);
-            bottom = Mathf.Clamp01(bottom);
-
-            Camera cam = Camera.main;
-            return cam.ViewportToWorldPoint(new Vector3(Random.Range(left, right), Random.Range(bottom, top), cam.nearClipPlane));
+            return Helper.Cam.GetRandomPositionInRect(left, right, top, bottom);
         }
 
         private void OnMoveToScreenStateEntered()

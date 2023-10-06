@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - World UI
   layers:
   - Default
   - TransparentFX
@@ -52,4 +53,7 @@ TagManager:
     locked: 0
   - name: Falling Meteor
     uniqueID: 2739447097
+    locked: 0
+  - name: VFX
+    uniqueID: 2155313009
     locked: 0
