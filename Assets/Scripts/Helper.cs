@@ -10,6 +10,8 @@ namespace Helper
     {
         public static float HalfHeight() => Camera.main.orthographicSize;
         public static float HalfWidth() => HalfHeight() * Camera.main.aspect;
+
+        public static float DiagonalLength() => Mathf.Sqrt(Mathf.Pow(HalfHeight() * 2, 2) + Mathf.Pow(HalfWidth() * 2, 2));
         public static Vector3 WorldPos() => Camera.main.transform.position;
         public static float WorldLeft() => WorldPos().x - HalfWidth();
         public static float WorldRight() => WorldPos().x - HalfHeight();
