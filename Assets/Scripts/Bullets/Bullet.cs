@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : BulletBase
 {
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _screenOffset = 10f;
@@ -19,8 +19,8 @@ public class Bullet : MonoBehaviour
             || screenPosition.y + _screenOffset < 0 || screenPosition.y - _screenOffset > Screen.height;
             Destroy(gameObject);
         }
-    }
 #endif
+    }
 
     bool IsOutOfScreen()
     {
