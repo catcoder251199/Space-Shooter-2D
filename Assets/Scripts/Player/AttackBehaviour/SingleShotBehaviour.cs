@@ -10,7 +10,7 @@ public class SingleShotBehaviour : AttackBehaviour
 
     private bool shooting = false;
     private Coroutine _shootRoutine;
-    [SerializeField] private Player _player;
+    private Player _player;
     private SingleShotBehaviourSO _behaviourData;
 
     private void Awake()
@@ -23,7 +23,6 @@ public class SingleShotBehaviour : AttackBehaviour
     private void Init()
     {
         _fireRate = _behaviourData.fireRate;
-        _bulletPrefab = _player.GetBulletPrefab();
         _bulletSpawn = transform.Find("SingleShot/BulletSpawn");
     }
 
@@ -45,7 +44,8 @@ public class SingleShotBehaviour : AttackBehaviour
     {
         while (shooting)
         {
-            Instantiate(_player.GetBulletPrefab(), _bulletSpawn.position, Quaternion.identity);
+            Instantiate(_bulletPrefab, _bulletSpawn.position, Quaternion.identity);
+            _player.Health.SetHealth(_player.Health.GetHealth() - 20); // Delete
             yield return new WaitForSeconds(_fireRate);
         }
     }

@@ -12,17 +12,16 @@ public class Player : MonoBehaviour
     };
 
     [SerializeField] private PlayerController _controller;
-    [SerializeField] private GameObject _bulletPrefab;
-
     [SerializeField] private List<AttackBehaviourSO> _attackBehaviourData;
     [SerializeField] private AttackBehaviour _attackBehaviour;
+
+    [SerializeField] private Health _health;
+    public Health Health => _health;
 
     private void Start()
     {
         _attackBehaviour.StartDoing();
     }
-
-    public GameObject GetBulletPrefab() => _bulletPrefab;
     public AttackBehaviourSO GetAttackBehaviourData(AttackBehaviourType type) => _attackBehaviourData[(int) type];
 
     public bool IsAlive() => true;

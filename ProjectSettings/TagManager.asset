@@ -13,8 +13,8 @@ TagManager:
   - Water
   - UI
   - Camera
-  - 
-  - 
+  - Laser
+  - Player
   - 
   - 
   - 
@@ -56,4 +56,10 @@ TagManager:
     locked: 0
   - name: VFX
     uniqueID: 2155313009
+    locked: 0
+  - name: Laser
+    uniqueID: 808809367
+    locked: 0
+  - name: HUD
+    uniqueID: 3859991587
     locked: 0
