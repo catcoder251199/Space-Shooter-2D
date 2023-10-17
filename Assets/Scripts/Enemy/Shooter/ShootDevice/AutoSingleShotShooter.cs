@@ -23,6 +23,11 @@ public class AutoSingleShotShooter : AutoShootDevice
         }
     }
 
+    public override bool IsActivate()
+    {
+        return shooterEnabled;
+    }
+
     public override void Activate()
     {
         if (!shooterEnabled)
@@ -42,7 +47,8 @@ public class AutoSingleShotShooter : AutoShootDevice
         while (shooterEnabled)
         {
             yield return new WaitForSeconds(_delay);
-            Instantiate(_bulletPrefab, _spawnLocation.position, gameObject.transform.rotation);
+            BulletBase bullet = Instantiate(_bulletPrefab, _spawnLocation.position, gameObject.transform.rotation, PlaySceneGlobal.Instance.BulletParent);
+            bullet.DamagableCollider.SetDamage(_damage);
             yield return new WaitForSeconds(_fireRate);
         }
     }

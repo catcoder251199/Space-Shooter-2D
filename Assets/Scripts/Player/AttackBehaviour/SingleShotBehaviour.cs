@@ -5,7 +5,7 @@ using UnityEngine.Analytics;
 public class SingleShotBehaviour : AttackBehaviour
 {
     [SerializeField] private float _fireRate = 1f;
-    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private BulletBase _bulletPrefab;
     [SerializeField] private Transform _bulletSpawn;
 
     private bool shooting = false;
@@ -44,8 +44,8 @@ public class SingleShotBehaviour : AttackBehaviour
     {
         while (shooting)
         {
-            Instantiate(_bulletPrefab, _bulletSpawn.position, Quaternion.identity);
-            _player.Health.SetHealth(_player.Health.GetHealth() - 20); // Delete
+            BulletBase bullet = Instantiate(_bulletPrefab, _bulletSpawn.position, Quaternion.identity, PlaySceneGlobal.Instance.BulletParent);
+            bullet.DamagableCollider.SetDamage(_player.Damge);
             yield return new WaitForSeconds(_fireRate);
         }
     }

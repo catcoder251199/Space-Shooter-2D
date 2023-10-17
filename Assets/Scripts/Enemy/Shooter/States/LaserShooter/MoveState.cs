@@ -20,7 +20,7 @@ namespace Enemy
             {
                 _targetPosition = Helper.Cam.GetRandomPositionInRect(0.1f, 0.9f, 0.8f, 0.5f);
             }
-            public void Execute()
+            public void UpdateExecute()
             {
                 if (Vector2.Distance(_subject.transform.position, _targetPosition) > Mathf.Epsilon)
                 {
@@ -35,6 +35,7 @@ namespace Enemy
                     _subject.ChangeState(_subject.WaitState);
                 }
             }
+            public void FixedUpdateExecute() { }
             public void OnStateExit() { }
         }
     }

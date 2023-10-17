@@ -37,17 +37,30 @@ namespace Enemy
             {
                 _subject.transform.position = GetRandOffScreenPosition();
                 _startPosition = Helper.Cam.GetRandomPositionInRect(0.1f, 0.9f, 0.9f, 0.5f);
-                var moveDir = _startPosition - _subject.transform.position; moveDir.z = _subject.transform.position.z;
-                _subject.transform.rotation = Quaternion.LookRotation(_subject.transform.forward, moveDir);
+                var direction = (_startPosition - _subject.transform.position).normalized;
+                _subject.transform.rotation = Quaternion.LookRotation(_subject.transform.forward, direction);
             }
-            public void Execute()
+            public void UpdateExecute()
+            {
+                //if (Vector2.Distance(_subject.transform.position, _startPosition) > Mathf.Epsilon)
+                //{
+                //    _subject.transform.position = Vector2.MoveTowards(
+                //        _subject.transform.position,
+                //        _startPosition,
+                //        Time.deltaTime * _subject.Speed);
+                //}
+                //else
+                //{
+                //    _subject.ChangeState(_subject.AttackState);
+                //}
+            }
+
+            public void FixedUpdateExecute() 
             {
                 if (Vector2.Distance(_subject.transform.position, _startPosition) > Mathf.Epsilon)
                 {
-                    _subject.transform.position = Vector2.MoveTowards(
-                        _subject.transform.position,
-                        _startPosition,
-                        Time.deltaTime * _subject.Speed);
+                    Vector2 nextPosition = Vector2.MoveTowards(_subject.Rigidbody.position, _startPosition, _subject.Speed * Time.fixedDeltaTime);
+                    _subject.Rigidbody.MovePosition(nextPosition);
                 }
                 else
                 {

@@ -45,7 +45,7 @@ namespace Enemy
 
         private void Update()
         {
-            _currentState.Execute();
+            _currentState.UpdateExecute();
         }
     }
 }

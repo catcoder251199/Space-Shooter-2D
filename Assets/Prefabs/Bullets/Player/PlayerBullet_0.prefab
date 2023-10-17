@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 1939454426976275520}
   - component: {fileID: 4039336185552367464}
   - component: {fileID: 2194343756167590472}
+  - component: {fileID: 6132036539452818160}
   m_Layer: 0
-  m_Name: NormalBullet
-  m_TagString: Untagged
+  m_Name: PlayerBullet_0
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7169935248538771979
 SpriteRenderer:
@@ -74,9 +75,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2119940839
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c4ec75d5b2a0ab34daff6724c0b0d589, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60dd4b9c3c97c4b42a0893f78bc0beaa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -150,14 +151,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.13, y: 0.54}
+    oldSize: {x: 0.13, y: 0.57}
     newSize: {x: 0.13, y: 0.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.13, y: 0.54}
+  m_Size: {x: 0.13, y: 0.6}
   m_EdgeRadius: 0
 --- !u!114 &2194343756167590472
 MonoBehaviour:
@@ -171,5 +172,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a047db0b40762ad46bf88a9a5dba9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageColider: {fileID: 6132036539452818160}
+  _hitVFX: {fileID: 617113067751822425, guid: 83bcb95a31943234db02b0bcb6d5cf66, type: 3}
   _speed: 10
   _screenOffset: 200
+--- !u!114 &6132036539452818160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4273708318967418783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c60a867fcde34f4587294be3cab6170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 0

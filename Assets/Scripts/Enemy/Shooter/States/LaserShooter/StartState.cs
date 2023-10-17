@@ -40,7 +40,7 @@ namespace Enemy
                 var moveDir = _startPosition - _subject.transform.position; moveDir.z = _subject.transform.position.z;
                 _subject.transform.rotation = Quaternion.LookRotation(_subject.transform.forward, moveDir);
             }
-            public void Execute()
+            public void UpdateExecute()
             {
                 if (Vector2.Distance(_subject.transform.position, _startPosition) > Mathf.Epsilon)
                 {
@@ -54,7 +54,7 @@ namespace Enemy
                     _subject.ChangeState(_subject.WaitState);
                 }
             }
-
+            public void FixedUpdateExecute() { }
             public void OnStateExit() { }
         }
     }

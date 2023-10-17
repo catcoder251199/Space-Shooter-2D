@@ -1,9 +1,11 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+    public UnityEvent OnPlayerDiedEvent;
     public enum AttackBehaviourType
     {
         Single = 0,
@@ -14,15 +16,65 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerController _controller;
     [SerializeField] private List<AttackBehaviourSO> _attackBehaviourData;
     [SerializeField] private AttackBehaviour _attackBehaviour;
-
     [SerializeField] private Health _health;
+
+    [SerializeField, Header("Player Base Stats")] private int _damage = 100;
+    [SerializeField] private int _maxHp = 100;
+    //[SerializeField] private int _critRate = 100;
+    public int Damge => _damage;
+    public int MaxHp 
+    {
+        get { return _maxHp; }
+        set
+        {
+            _maxHp = value;
+            _health.SetMaxHealth(_maxHp);
+        }
+    }
+
     public Health Health => _health;
+
+    private void Awake()
+    {
+        MaxHp = _maxHp;
+    }
 
     private void Start()
     {
         _attackBehaviour.StartDoing();
     }
-    public AttackBehaviourSO GetAttackBehaviourData(AttackBehaviourType type) => _attackBehaviourData[(int) type];
+    public AttackBehaviourSO GetAttackBehaviourData(AttackBehaviourType type) => _attackBehaviourData[(int)type];
 
-    public bool IsAlive() => true;
+    public bool IsAlive() => Health.GetHealth() > 0;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+        if (hitCollider != null)
+        {
+            if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_EnemyBullet))
+            {
+                Debug.Log("take " + hitCollider.GetDamage() + " damage");
+                TakeDamage(hitCollider.GetDamage());
+                Destroy(hitCollider.gameObject);
+            }
+        }
+    }
+
+    private void TakeDamage(int damage)
+    {
+        _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
+
+        if (_health.GetHealth() <= 0)
+        {
+            OnPlayerDied();
+        }
+    }
+
+    private void OnPlayerDied()
+    {
+        Debug.Log("Player destroyed -> Game Over !");
+        _attackBehaviour.StopDoing();
+        OnPlayerDiedEvent?.Invoke();
+    }
 }

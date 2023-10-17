@@ -22,7 +22,7 @@ namespace Enemy
                 _rotatedTime = _subject.WaitTime;
                 _subject.LaserGun.SwitchMode(SingleLaserGun.Mode.Probe);
             }
-            public void Execute()
+            public void UpdateExecute()
             {
                 if (_rotatedTime > 0)
                 {
@@ -37,6 +37,7 @@ namespace Enemy
                     _subject.ChangeState(_subject.AttackState);
                 }
             }
+            public void FixedUpdateExecute() { }
             public void OnStateExit() { }
         }
     }

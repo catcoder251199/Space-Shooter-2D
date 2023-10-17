@@ -25,10 +25,9 @@ namespace Enemy
                 _subject.LaserGun.Activate();
                 _attackCount--;
             }
-            public void Execute()
-            {
-                
-            }
+            public void UpdateExecute() { }
+            public void FixedUpdateExecute() { }
+
             public void OnStateExit()
             {
             }

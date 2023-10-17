@@ -12,6 +12,10 @@ namespace Enemy
         [SerializeField] float _attackTime = 1f;
         [SerializeField] float _offsetFromBounds = 2f;
         [SerializeField] AutoShootDevice _shootDevice;
+        [SerializeField] ParticleSystem _explosionEffect;
+
+        private Rigidbody2D _rb;
+        private Health _health;
 
         private StartState _startState;
         private MoveState _moveState;
@@ -30,6 +34,7 @@ namespace Enemy
         public float RotateSpeed=> _rotateSpeed;
         public float AttackTime => _attackTime;
         public float OffsetFromBounds => _offsetFromBounds;
+        public Rigidbody2D Rigidbody => _rb;
 
         private void Awake()
         {
@@ -39,11 +44,53 @@ namespace Enemy
 
             ChangeState(_startState);
             _target = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            _rb = GetComponent<Rigidbody2D>();
+            _health = GetComponent<Health>();
         }
 
         private void Update()
         {
-            _currentState.Execute();
+            _currentState.UpdateExecute();
+        }
+
+        private void FixedUpdate()
+        {
+            _currentState.FixedUpdateExecute();
+        }
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+            DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+            if (hitCollider != null)
+            {
+                //Debug.Log("Enemy take damage " + hitCollider.GetDamage());
+                if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
+                {
+                    var bullet = hitCollider.GetComponent<BulletBase>();
+                    if (bullet != null)
+                        bullet.TriggerHitVFX();
+
+                    TakeDamage(hitCollider.GetDamage());
+                    Destroy(hitCollider.gameObject);
+                }
+            }
+        }
+        private void TakeDamage(int damage)
+        {
+            _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
+
+            if (_health.GetHealth() <= 0)
+            {
+                OnDied();
+            }
+        }
+
+        private void OnDied()
+        {
+            if (_explosionEffect != null)
+                Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
+
+            Destroy(gameObject, 0.1f);
         }
     }
 }

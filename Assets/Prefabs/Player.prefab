@@ -461,7 +461,7 @@ Transform:
   - {fileID: 7074060078271304778}
   - {fileID: 8221846244585377593}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9143712122380775402
 MonoBehaviour:
@@ -480,6 +480,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: de74b183451f4124f8d17304a1ecee5e, type: 2}
   _attackBehaviour: {fileID: 3817600495363909019}
   _health: {fileID: 4367512585151530262}
+  _damage: 80
+  _maxHp: 500
 --- !u!114 &3817600495363909019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,7 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fireRate: 1
-  _bulletPrefab: {fileID: 4273708318967418783, guid: 675479d94c4f1024196b27f9277c02d9, type: 3}
+  _bulletPrefab: {fileID: 2194343756167590472, guid: 675479d94c4f1024196b27f9277c02d9, type: 3}
   _bulletSpawn: {fileID: 0}
 --- !u!114 &493004860517365993
 MonoBehaviour:
