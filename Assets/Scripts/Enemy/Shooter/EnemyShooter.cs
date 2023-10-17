@@ -78,7 +78,7 @@ namespace Enemy
         private void TakeDamage(int damage)
         {
             _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
-
+            DamagePopup.Create(damage, transform.position, false);
             if (_health.GetHealth() <= 0)
             {
                 OnDied();

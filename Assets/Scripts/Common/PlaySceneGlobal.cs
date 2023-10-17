@@ -32,4 +32,9 @@ public class PlaySceneGlobal : MonoBehaviour
     public Transform VFXParent => _vfxParent;
     public Transform BulletParent => _bulletParent;
     //--------------------------------------------
+
+    //--------------Prefabs-----------------------
+    [SerializeField] GameObject _damagePopupPrefab;
+    public GameObject DamagePopPrefab => _damagePopupPrefab;
+    //--------------------------------------------
 };

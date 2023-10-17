@@ -174,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageColider: {fileID: 6132036539452818160}
   _hitVFX: {fileID: 617113067751822425, guid: 83bcb95a31943234db02b0bcb6d5cf66, type: 3}
-  _speed: 10
+  _speed: 20
   _screenOffset: 200
 --- !u!114 &6132036539452818160
 MonoBehaviour:
