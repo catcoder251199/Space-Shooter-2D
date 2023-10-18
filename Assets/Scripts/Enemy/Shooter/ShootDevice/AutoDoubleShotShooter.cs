@@ -1,17 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
-public class AutoSingleShotShooter : AutoShootDevice
+public class AutoDoubleShotShooter : AutoShootDevice
 {
     [SerializeField] BulletBase _bulletPrefab;
-    [SerializeField] Transform _spawnLocation;
-
+    [SerializeField] Transform[] _spawnLocation;
     [SerializeField] float _fireRate = 1.0f;
     [SerializeField] float _delayStart = 0f;
     [SerializeField] bool _shootOnStart = false;
 
     [SerializeField, Header("Bullet")] int _damage = 1;
-    [SerializeField] int _bulletSpeed = 1;
+    [SerializeField] float _bulletSpeed = 1.0f;
 
     private bool shooterEnabled = false;
     private Coroutine _shootRoutine;
@@ -51,9 +50,12 @@ public class AutoSingleShotShooter : AutoShootDevice
 
         while (shooterEnabled)
         {
-            BulletBase bullet = Instantiate(_bulletPrefab, _spawnLocation.position, gameObject.transform.rotation, PlaySceneGlobal.Instance.BulletParent);
-            bullet.DamagableCollider.SetDamage(_damage);
-            bullet.Speed = _bulletSpeed;
+            for (int i = 0; i < 2; i++)
+            {
+                BulletBase bullet = Instantiate(_bulletPrefab, _spawnLocation[i].position, gameObject.transform.rotation, PlaySceneGlobal.Instance.BulletParent);
+                bullet.DamagableCollider.SetDamage(_damage);
+                bullet.Speed = _bulletSpeed;
+            }
             yield return new WaitForSeconds(_fireRate);
         }
     }

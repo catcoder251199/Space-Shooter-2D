@@ -24,7 +24,6 @@ public class DamagePopup : MonoBehaviour
     private void Awake()
     {
         _textMeshPro = GetComponent<TextMeshPro>();
-        SetDamage(99, Random.Range(0f, 1f) < 0.5f);
         _textColor = _textMeshPro.color;
         minScale = transform.localScale * 0.5f;
 

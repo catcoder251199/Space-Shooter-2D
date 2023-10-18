@@ -5,9 +5,9 @@ using UnityEngine;
 public class Bullet : BulletBase
 {
     [SerializeField] private ParticleSystem _hitVFX;
-    [SerializeField] private float _speed = 1f;
     [SerializeField] private float _screenOffset = 10f;
     Rigidbody2D _rb;
+
 
     private void Awake()
     {

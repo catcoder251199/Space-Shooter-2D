@@ -1,12 +1,15 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
-public class AutoSingleShotShooter : AutoShootDevice
+public class FanMultipleShotsShooter : AutoShootDevice
 {
     [SerializeField] BulletBase _bulletPrefab;
     [SerializeField] Transform _spawnLocation;
 
     [SerializeField] float _fireRate = 1.0f;
+    [SerializeField] int _bulletsPerShot = 5;
+    [SerializeField] float _bulletSpreadAngle = 45f;
+
     [SerializeField] float _delayStart = 0f;
     [SerializeField] bool _shootOnStart = false;
 
@@ -44,17 +47,28 @@ public class AutoSingleShotShooter : AutoShootDevice
         StopCoroutine(_shootRoutine);
         shooterEnabled = false;
     }
-
     private IEnumerator ShootCoroutine()
     {
         yield return new WaitForSeconds(_delayStart);
 
         while (shooterEnabled)
         {
-            BulletBase bullet = Instantiate(_bulletPrefab, _spawnLocation.position, gameObject.transform.rotation, PlaySceneGlobal.Instance.BulletParent);
+            FireFanShot();
+            yield return new WaitForSeconds(_fireRate);
+        }
+    }
+
+    private void FireFanShot()
+    {
+        float angleStep = _bulletSpreadAngle / (_bulletsPerShot - 1);
+        float startAngle = transform.rotation.eulerAngles.z - _bulletSpreadAngle / 2;
+        for (int i = 0; i < _bulletsPerShot; i++)
+        {
+            float angle = startAngle + i * angleStep;
+            Quaternion bulletRotation = Quaternion.Euler(0, 0, angle);
+            BulletBase bullet = Instantiate(_bulletPrefab, _spawnLocation.position, bulletRotation, PlaySceneGlobal.Instance.BulletParent);
             bullet.DamagableCollider.SetDamage(_damage);
             bullet.Speed = _bulletSpeed;
-            yield return new WaitForSeconds(_fireRate);
         }
     }
 }
