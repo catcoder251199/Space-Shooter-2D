@@ -30,15 +30,12 @@ public class Laser : MonoBehaviour
     private float _existedTime = 3f;
     private BoxCollider2D _boxCollider;
     private SpriteRenderer _spriteRenderer;
-    private ScaleUpDown _scaleAnimator;
     private bool _isLaserEnabled = false;
 
     private void Awake()
     {
         _boxCollider = GetComponent<BoxCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _scaleAnimator = GetComponent<ScaleUpDown>();
-
         transform.localScale = new Vector3(_width, _length, 1f);
         SetCurrentLength(0.01f);
         _spriteRenderer.enabled = false; // Turn off on awake
@@ -78,9 +75,6 @@ public class Laser : MonoBehaviour
             _spriteRenderer.enabled = true;
             _isLaserEnabled = true;
             _existedTime = _lifeTime;
-            //_scaleAnimator.TriggerForever(_width - 0.01f, _width - 0.01f, true, 60, 0.5f);
-            //_scaleAnimator.TriggerForever(1f, 2f, true, 60, 1f);
-
             MoveToNextState();
         }
     }
@@ -116,10 +110,8 @@ public class Laser : MonoBehaviour
             //_length = 0.01f;
         }
         transform.localScale = new Vector3(_width, _length * _scaleFitOneUnit, transform.localScale.z);
-
         if (_existedTime <= 0 && _isLaserEnabled) // When the beam is being active, then it begins disappearing
         {
-            //_scaleAnimator.StopAnimation();
             MoveToNextState();
         }
     }

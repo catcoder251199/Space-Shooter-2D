@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class LaserGunner : MonoBehaviour
 {
     private Transform _target;
-    private Vector2 _targetPosition;
 
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _rotateSpeed = 90f;

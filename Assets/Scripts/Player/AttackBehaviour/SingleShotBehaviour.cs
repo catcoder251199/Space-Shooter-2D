@@ -36,7 +36,8 @@ public class SingleShotBehaviour : AttackBehaviour
     }
     public override void StopDoing() 
     {
-        StopCoroutine(_shootRoutine);
+        if (_shootRoutine != null)
+            StopCoroutine(_shootRoutine);
         shooting = false;
     }
 
@@ -46,6 +47,8 @@ public class SingleShotBehaviour : AttackBehaviour
         {
             BulletBase bullet = Instantiate(_bulletPrefab, _bulletSpawn.position, Quaternion.identity, PlaySceneGlobal.Instance.BulletParent);
             bullet.DamagableCollider.SetDamage(_player.Damge);
+            bullet.DamagableCollider.SetCritRate(_player.CritRate);
+            bullet.DamagableCollider.SetCritModifier(_player.CritModifier);
             yield return new WaitForSeconds(_fireRate);
         }
     }

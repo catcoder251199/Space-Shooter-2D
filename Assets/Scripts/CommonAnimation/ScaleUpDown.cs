@@ -1,116 +1,92 @@
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using UnityEngine;
 
-public class ScaleUpDown : MonoBehaviour
+public class ScaleUpDown : SimpleAnimationBase
 {
-    Coroutine _curRoutine;
-    Vector3 oldScale;
     public bool LockX = false;
     public bool LockY = false;
     public bool LockZ = false;
 
+    public Vector3 maxScale = new Vector3(2f, 2f, 2f);
+    public Vector3 minScale = new Vector3(0.5f, 0.5f, 0.5f);
+    public float scalingSpeed = 1.0f;  // // Scaling speed (scale_units/seconds)
+
+    private Vector3 _oldScale = Vector3.one;
+    private bool _isScalingUp = true;
+    private bool _isTriggered = false;
+
     private void Start()
     {
-        Trigger(0.74f, 0.75f, true, 60, 0.05f, 5f);
     }
 
-    private IEnumerator ScaleUpDownRoutine(float initScale, float targetScale, bool upscale, float fps, float time, bool runForever = false, float timer = 0f)
+    private void Update()
     {
+        if (!_isTriggered)
+            return;
 
-        float deltaTime = 1 / fps; // Time between frame
-        //* the rate at which the scale changes over a time period
-        float rate = (targetScale - initScale) / time; // time is the time to chane from initscale to targetscale
-        float dScale = rate * deltaTime;
-        float currentScale = initScale;
-
-        oldScale = this.transform.localScale;
-
-
-        Func<bool> ShouldStop = () =>
+        if (_runForever || (!_runForever && _countDownTime > 0f))
         {
-            if (runForever)
-            {
-                return false;
-            }
-            else
-                return timer <= 0;
-        };
-        while (!ShouldStop())
-        {
-            while (upscale)
-            {
-                yield return new WaitForSeconds(deltaTime);
-                timer -= deltaTime;
+            // Calculate the scale change based on the current direction
+            float scaleFactor = (_isScalingUp) ? scalingSpeed : -scalingSpeed;
 
-                currentScale += dScale;
-                if (currentScale > targetScale)
-                {
-                    upscale = false;
-                    currentScale = targetScale;
-                }
-                Vector3 baseScale = Vector3.one * currentScale;
-                if (LockX)
-                    baseScale.x = oldScale.x;
-                if (LockY)
-                    baseScale.y = oldScale.y;
-                if (LockZ)
-                    baseScale.z = oldScale.z;
+            // Get the current scale of the object
+            Vector3 currentScale = transform.localScale;
 
-                transform.localScale = baseScale;
+            // Calculate the new scale
+            Vector3 newScale = currentScale + new Vector3(scaleFactor, scaleFactor, scaleFactor) * Time.deltaTime;
+
+            // Clamp the new scale within the specified maxScale and minScale
+            newScale.x = Mathf.Clamp(newScale.x, minScale.x, maxScale.x);
+            newScale.y = Mathf.Clamp(newScale.y, minScale.y, maxScale.y);
+            newScale.z = Mathf.Clamp(newScale.z, minScale.z, maxScale.z);
+
+            if (LockX)
+                newScale.x = transform.localScale.x;
+            if (LockY)
+                newScale.y = transform.localScale.y;
+            if (LockZ)
+                newScale.z = transform.localScale.z;
+
+            // Assign the new scale to the object
+            transform.localScale = newScale;
+
+            // Reverse direction when reaching the max or min limit
+            if (newScale == maxScale || newScale == minScale)
+            {
+                _isScalingUp = !_isScalingUp;
             }
 
-            while (!upscale)
+            if (!_runForever)
             {
-                yield return new WaitForSeconds(deltaTime);
-                timer -= deltaTime;
-
-                currentScale -= dScale;
-                if (currentScale < initScale)
-                {
-                    upscale = true;
-                    currentScale = initScale;
-                }
-                Vector3 baseScale = Vector3.one * currentScale;
-                if (LockX)
-                    baseScale.x = oldScale.x;
-                if (LockY)
-                    baseScale.y = oldScale.y;
-                if (LockZ)
-                    baseScale.z = oldScale.z;
-                transform.localScale = baseScale;
+                _countDownTime -= Time.deltaTime;
+                if (_countDownTime <= 0f)
+                    StopAnimation();
             }
         }
-    
-        StopAnimation();
+    }
+    public override void StartAnimationForever()
+    {
+        _isTriggered = true;
+        _oldScale = transform.localScale;
+        _runForever = true;
+    }
+    public override void StartAnimationWithTimer()
+    {
+        _isTriggered = true;
+        _oldScale = transform.localScale;
+        _runForever = false;
+        _countDownTime = _timer;
+    }
+    public override void StopAnimation()
+    {
+        _isTriggered = false;
+        transform.localScale = _oldScale;
+        _countDownTime = -1f;
     }
 
-    public void Trigger(float initScale, float targetScale, bool upscale, float fps, float time, float timer)
+    public override bool IsAnimating()
     {
-        if (!CanTrigger())
-            return;
-        _curRoutine = StartCoroutine(ScaleUpDownRoutine(initScale, targetScale, upscale, fps, time, false, timer));
-    }
-
-    public void TriggerForever(float initScale, float targetScale, bool upscale, float fps, float time)
-    {
-        if (!CanTrigger())
-            return;
-        _curRoutine = StartCoroutine(ScaleUpDownRoutine(initScale, targetScale, upscale, fps, time, true));
-    }
-    public bool CanTrigger()
-    {
-        return _curRoutine == null;
-    }
-    public void StopAnimation(bool backToOldScale = true)
-    {
-        StopCoroutine(_curRoutine);
-        _curRoutine = null;
-        this.transform.localScale = oldScale;
+        return _isTriggered;
     }
 }
-
-

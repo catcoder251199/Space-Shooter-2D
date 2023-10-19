@@ -1,47 +1,87 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
 public class SelfDestructor : MonoBehaviour
 {
-    [SerializeField] float _speed = 1f;
-    [SerializeField] float _rotateSpeed = 90f;
-    [SerializeField] float _rotateTime = 1f;
-    [SerializeField] float _fromPlayerRadiusMin = 1f;
-    [SerializeField] float _fromPlayerRadiusMax = 2f;
-    [SerializeField] float _offsetFromBounds = 2f;
-    [SerializeField] float _countDownTime = 5f;
+    [SerializeField] private float _speed = 1f;
+    [SerializeField] private float _rotateSpeed = 90f;
+    [SerializeField] private float _offsetFromBounds = 2f;
+    [SerializeField] private int _damage = 200;
 
-    [SerializeField] GameObject _explosionVFX;
+    [SerializeField, Header("Count down")] private float _countDownTime = 5f;
+    [SerializeField] private float _countDownDelay = 0f;
+    private bool _isCountDownTriggered = false;
 
-    private Transform _worldUI;
-    [SerializeField] RectTransform _canvasUI;
-    [SerializeField] TextMeshProUGUI _countDownText;
+    //[SerializeField, Header("Attached")] GameObject _explosionVFX;
+    [SerializeField, Header("Attached")] private DamagableExplosion _explosionPrefab;
+    [SerializeField] private Blink2Colors _blinkAnimator;
+    [SerializeField] private RectTransform _canvasUI;
+    private Quaternion _canvasUIOriginalRotation;
+    [SerializeField] private TextMeshProUGUI _countDownText;
 
-    private Vector3 _destination;
-    private Transform _target;
+    private Player _target;
+    private Rigidbody2D _rb;
+    private Health _health;
+
+    private Vector3 _moveDirection;
+    private bool _following = false;
+
+    private void Awake()
+    {
+        _blinkAnimator = GetComponent<Blink2Colors>();
+        _rb = GetComponent<Rigidbody2D>();
+        _health = GetComponent<Health>();
+    }
 
     void Start()
     {
-        _target = GameObject.FindGameObjectWithTag("Player").transform;
-        _worldUI = GameObject.FindGameObjectWithTag("World UI").transform;
-        _canvasUI.SetParent(_worldUI);
-        
-        StartCoroutine(MoveRoutine());
+        _target = GameManager.Instance.Player;
+        if (_target == null)
+            Debug.LogError("SelfDestructor.Start(): _target == null");
+        StartCoroutine(StartRoutine());
     }
-
+    private IEnumerator StartRoutine()
+    {
+        this.transform.position = GetStartPosition(); // set up first position
+        if (_blinkAnimator != null)
+            _blinkAnimator.StartAnimationWithTimer(); // make object blink
+        _canvasUIOriginalRotation = _canvasUI.rotation; 
+        _following = true; // trigger flag to make object start follow target
+        yield return new WaitForSeconds(_countDownDelay);
+        _isCountDownTriggered = true; // trigger flag to make object start count down to zero
+    }
     private void Update()
     {
         if (_countDownTime <= 0)
         {
-            Destroy(gameObject);
-            Destroy(_canvasUI.gameObject);
-            Instantiate(_explosionVFX, this.transform.position, Quaternion.identity);
+            OnDied();
         }
         else
         {
-            _countDownTime -= Time.deltaTime;
+            if (_isCountDownTriggered)
+                _countDownTime -= Time.deltaTime;
+        }
+
+        _moveDirection = (_target.transform.position - transform.position).normalized;
+        _canvasUI.rotation = _canvasUIOriginalRotation;
+    }
+
+    void FixedUpdate()
+    {
+        if (_following && _target.IsAlive())
+        {
+            _rb.velocity = _moveDirection * _speed;
+            
+            Vector2 direction = _target.transform.position - transform.position;
+            direction.Normalize();
+            float step = Time.fixedDeltaTime * _rotateSpeed;
+            float toTargetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+            float nextAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, toTargetAngle, step);
+            _rb.MoveRotation(nextAngle);
         }
     }
 
@@ -51,12 +91,6 @@ public class SelfDestructor : MonoBehaviour
         _countDownText.text = ((int) _countDownTime).ToString();
     }
 
-    private Vector2 GetNextDestination()
-    {
-        return (Vector2)_target.position
-            + Random.insideUnitCircle.normalized 
-            * Random.Range(_fromPlayerRadiusMin, _fromPlayerRadiusMax);
-    }
     private Vector2 GetStartPosition()
     {
         var sides = new Helper.Cam.Side[] {
@@ -77,58 +111,40 @@ public class SelfDestructor : MonoBehaviour
         return retPos;
     }
 
-    private Vector2 GetRandomInsidePosition()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        return Helper.Cam.GetRandomPositionInRect(0.1f, 0.9f, 0.9f, 0.5f);
-    }
-
-    IEnumerator MoveToScreenRoutine()
-    {
-        this.transform.position = GetStartPosition();
-        Vector2 destination = GetRandomInsidePosition();
-
-        while (Vector2.Distance(this.transform.position, destination) > Mathf.Epsilon)
+        DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+        if (hitCollider != null)
         {
-            this.transform.position =  Vector2.MoveTowards(this.transform.position, destination, _speed * Time.deltaTime);
-            yield return null;
+            if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
+            {
+                var bullet = hitCollider.GetComponent<BulletBase>();
+                if (bullet != null)
+                    bullet.TriggerHitVFX();
+                bool isCritical = false;
+                int damage = hitCollider.GetCalculatedDamage(out isCritical);
+                TakeDamage(damage, isCritical);
+                Destroy(hitCollider.gameObject);
+            }
         }
     }
 
-    IEnumerator WaitAndLookRoutine()
+    private void TakeDamage(int damage, bool isCritical = false)
     {
-        float rotatedTime = 0f;
-        while (rotatedTime < _rotateTime)
+        _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
+        DamagePopup.Create(damage, transform.position, isCritical);
+        if (_health.GetHealth() <= 0)
         {
-            var directionToTarget = _target.transform.position - this.transform.position;
-            directionToTarget.z = this.transform.position.z; // Keep the z coord of this object
-            var targetRotation = Quaternion.LookRotation(Vector3.forward, directionToTarget);
-            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, targetRotation, Time.deltaTime * _rotateSpeed);
-            
-            rotatedTime += Time.deltaTime;
-
-            yield return null;
+            OnDied();
         }
     }
-    IEnumerator MoveToDestinationRoutine()
+    private void OnDied()
     {
-        while (Vector2.Distance(this.transform.position, _destination) > Mathf.Epsilon)
+        Destroy(gameObject);
+        if (_explosionPrefab != null)
         {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, _destination, _speed * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    IEnumerator MoveRoutine()
-    {
-        yield return StartCoroutine(MoveToScreenRoutine());
-
-        while (true)
-        {
-            yield return 0.2f;
-            yield return StartCoroutine(WaitAndLookRoutine());
-            yield return 0.2f;
-            yield return StartCoroutine(MoveToDestinationRoutine());
-            _destination = GetNextDestination();
+            DamagableExplosion explosion = Instantiate(_explosionPrefab, this.transform.position, Quaternion.identity);
+            explosion.SetDamage(_damage);
         }
     }
 }

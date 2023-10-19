@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,8 +20,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Health _health;
 
     [SerializeField, Header("Player Base Stats")] private int _damage = 100;
+    [SerializeField ,Range(0, 1)] private float _critRate = 0.1f;
+    [SerializeField, Range(0, 1)] private float _critModifier = 0.5f;
     [SerializeField] private int _maxHp = 100;
-    //[SerializeField] private int _critRate = 100;
     public int Damge => _damage;
     public int MaxHp 
     {
@@ -32,12 +34,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    public float CritRate => Mathf.Clamp01(_critRate);
+    public float CritModifier => Mathf.Max(_critModifier, 0);
     public Health Health => _health;
 
     private void Awake()
     {
         MaxHp = _maxHp;
     }
+
+    public void SetCritRate(float critRate) =>_critRate = critRate;
 
     private void Start()
     {
@@ -60,11 +66,10 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool isCritical = false)
     {
         _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
-        DamagePopup.Create(damage, transform.position, false);
+        DamagePopup.Create(damage, transform.position, isCritical);
         if (_health.GetHealth() <= 0)
         {
             OnPlayerDied();

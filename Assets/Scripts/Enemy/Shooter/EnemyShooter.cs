@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Enemy.EnemyShooterState;
@@ -69,16 +67,17 @@ namespace Enemy
                     var bullet = hitCollider.GetComponent<BulletBase>();
                     if (bullet != null)
                         bullet.TriggerHitVFX();
-
-                    TakeDamage(hitCollider.GetDamage());
+                    bool isCritical = false; 
+                    int damage = hitCollider.GetCalculatedDamage(out isCritical);
+                    TakeDamage(damage, isCritical);
                     Destroy(hitCollider.gameObject);
                 }
             }
         }
-        private void TakeDamage(int damage)
+        private void TakeDamage(int damage, bool isCritical)
         {
             _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
-            DamagePopup.Create(damage, transform.position, false);
+            DamagePopup.Create(damage, transform.position, isCritical);
             if (_health.GetHealth() <= 0)
             {
                 OnDied();

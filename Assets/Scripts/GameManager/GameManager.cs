@@ -1,18 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameManager Instance;
+
+    private Player _player;
+
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+
+            _player = FindPlayer(); ;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public Player Player => _player;
+
+    private Player FindPlayer()
     {
-        
+        Player player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
+        if (player == null)
+        {
+            player = FindObjectOfType<Player>();
+        }
+        return player;
     }
 }

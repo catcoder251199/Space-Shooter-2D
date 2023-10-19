@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class DamagableCollider : MonoBehaviour
 {
-   [SerializeField] int _damage;
+    [SerializeField] int _damage;
+    [SerializeField] float _critDmgModifier = 0.1f;
+    [SerializeField] float _critRate = 0.1f;
+    public void SetCritRate(float critRate) => _critRate = Mathf.Max(critRate, 0f);
+    public void SetCritModifier(float critModifier) => _critDmgModifier = critModifier;
+    public float GetCritRate() => _critRate;
+    public bool IsCritMaximized() => GetCritRate() >= 1f;
     public int GetDamage() => _damage;
-    public void SetDamage(int damage)
+    public int GetCritDamage() => _damage + Mathf.RoundToInt(_damage * _critDmgModifier);
+    public int GetCalculatedDamage(out bool isCritical)
     {
-        _damage = Mathf.Max(0, damage);
+       isCritical = Random.Range(0f, 1f) < GetCritRate();
+       return isCritical ? GetCritDamage() : GetDamage();
     }
+    public void SetDamage(int damage) => _damage = Mathf.Max(0, damage);
 }

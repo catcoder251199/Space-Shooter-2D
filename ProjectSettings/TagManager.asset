@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Global
   - PlayerBullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -22,9 +23,9 @@ TagManager:
   - PlayerBullet
   - Enemy
   - EnemyBullet
-  - 
-  - 
-  - 
+  - Shield
+  - EnemyExplosion
+  - EnemyLaser
   - 
   - 
   - 

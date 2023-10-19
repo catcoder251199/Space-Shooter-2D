@@ -20,10 +20,13 @@ public class PlaySceneGlobal : MonoBehaviour
         }
     }
     //--------------Tags-------------------------
+    [SerializeField] string _tag_player = "Player";
     [SerializeField] string _tag_EnemyBullet;
     [SerializeField] string _tag_PlayerBullet;
     public string Tag_EnemyBullet => _tag_EnemyBullet;
     public string Tag_PlayerBullet => _tag_PlayerBullet;
+    public string Tag_Player => _tag_player;
+
     //--------------------------------------------
 
     //--------------Parents-----------------------

@@ -5,30 +5,24 @@ using UnityEngine;
 
 public class SingleLaserGun : LaserGunBase
 {
-    public event Action OnAttackFinishedEvent;
-
-    public enum Mode
-    {
-        None,
-        Probe,
-        Shoot
-    }
-    private Mode _currentMode = Mode.None;
-
     [SerializeField] Transform _spawnLocation;
     [SerializeField] int _damage = 1;
 
     [SerializeField, Header("Laser")] private LineRenderer _probingLineRenderer;
     [SerializeField] Laser _laser;
     [SerializeField] Gradient _probeBeamColor;
-
     [SerializeField] float _blinkTime = 1f;
     [SerializeField, Range(4, 18)] int _blinkCount = 4;
+    [SerializeField] Blink2Colors _blinkColor;
+
     public int Damage => _damage;
+    public float BlinkTime => _blinkTime;
 
     private bool _isShooting = false;
 
-    private void Start()
+    public override float GetDelayTime() => _blinkTime;
+
+    private void Awake()
     {
         InitProbingLine();
     }
@@ -43,6 +37,11 @@ public class SingleLaserGun : LaserGunBase
         Vector3 endPosition = startPosition + Vector3.up * beamLength;
         _probingLineRenderer.SetPositions(new Vector3[] { startPosition, endPosition });
         _probingLineRenderer.enabled = false;
+
+        if (_blinkColor != null)
+        {
+            _blinkColor.OnColorChanged += OnColorChanged;
+        }
     }
 
     public void SetProbingModeEnabled(bool enabled)
@@ -63,12 +62,11 @@ public class SingleLaserGun : LaserGunBase
     {
         yield return StartCoroutine(ProbingRoutine());
         _probingLineRenderer.enabled = false;
+        _laser.transform.localRotation = Quaternion.identity;
+        _laser.transform.localPosition = _spawnLocation.localPosition;
         _laser.Launch();
     }
-
-    public bool IsInMode(Mode mode) => _currentMode == mode;
-
-    public void SwitchMode(Mode mode)
+    public override void SwitchMode(Mode mode)
     {
         if (_currentMode == mode)
             return;
@@ -96,19 +94,12 @@ public class SingleLaserGun : LaserGunBase
 
     private void Update()
     {
-        switch (_currentMode)
-        {
-            case Mode.None:
-                break;
-            case Mode.Probe:
-                break;
-            case Mode.Shoot:
-                break;
-        }
     }
     private IEnumerator ProbingRoutine()
     {
-        yield return StartCoroutine(BlinkProbingLine(true));
+        //yield return StartCoroutine(BlinkProbingLine(true));
+        yield return StartCoroutine(BlinkProbingLine2());
+        _probingLineRenderer.colorGradient = _probeBeamColor;
         _probingLineRenderer.enabled = false;
     }
 
@@ -126,9 +117,28 @@ public class SingleLaserGun : LaserGunBase
         }
     }
 
-    public void OnLaserBeamDisappered()
+    IEnumerator BlinkProbingLine2()
+    {
+        if (_blinkColor == null)
+            yield break;
+        _probingLineRenderer.enabled = true;
+        _blinkColor.SetTimer(_blinkTime);
+        _blinkColor.interpolate = false;
+        _blinkColor.useCustomRenderer = true;
+        _blinkColor.changeBlinkSpeedOnCountDown = true;
+        _blinkColor.StartAnimationWithTimer();
+        yield return new WaitForSeconds(_blinkTime);
+    }
+
+    public void OnColorChanged(Color color)
+    {
+        _probingLineRenderer.startColor = color;
+        _probingLineRenderer.endColor = color;
+    }
+
+    public void OnLaserBeamDisappeared()
     {
         _isShooting = false;
-        OnAttackFinishedEvent?.Invoke();
+        TriggerOnAttackFinishedEvent();
     }
 }

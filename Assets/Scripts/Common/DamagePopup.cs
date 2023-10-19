@@ -4,7 +4,6 @@ using TMPro;
 public class DamagePopup : MonoBehaviour
 {
     private TextMeshPro _textMeshPro;
-    private Color _textColor;
     [SerializeField] float _lifeTime = 1f;
     [SerializeField] float _disappearSpeed = 1f;
     [SerializeField] Color _normalColor;
@@ -24,15 +23,12 @@ public class DamagePopup : MonoBehaviour
     private void Awake()
     {
         _textMeshPro = GetComponent<TextMeshPro>();
-        _textColor = _textMeshPro.color;
         minScale = transform.localScale * 0.5f;
-
         _halfLifeTimeThreshHold = _lifeTime * 0.7f;
     }
 
     private void Update()
     {
-
         if (_lifeTime > _halfLifeTimeThreshHold)
         {
             float scaleAmount = 1f;
@@ -51,14 +47,10 @@ public class DamagePopup : MonoBehaviour
 
         if (_lifeTime > 0f)
         {
-            //float moveUpSpeed = 1f;
-            //transform.Translate(transform.up * Time.deltaTime * moveUpSpeed);
-
-            _textColor.a -= _disappearSpeed * Time.deltaTime;
-            _textMeshPro.color = _textColor;
+            var textColor = _textMeshPro.color;
+            textColor.a -= _disappearSpeed * Time.deltaTime;
+            _textMeshPro.color = textColor;
             _lifeTime -= Time.deltaTime;
-
-         
         }
         else
         {
