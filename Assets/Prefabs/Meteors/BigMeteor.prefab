@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 468543395679126997}
   - component: {fileID: 5878349728280159028}
   - component: {fileID: 3682291699084365725}
-  m_Layer: 0
+  - component: {fileID: 586166000563684111}
+  m_Layer: 15
   m_Name: BigMeteor
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2149243115488739788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,7 +46,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -72,11 +73,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ea67c07eb0f8642a0a828e725e2523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _floatingSpeed: 1.5
-  _rotateSpeed: 30
+  _resetOnOffScreen: 0
+  _floatingSpeedMin: 1
+  _floatingSpeedMax: 2
+  _minScaleXY: 1
+  _maxScaleXY: 1.5
+  _minRotateSpeed: 30
+  _maxRotateSpeed: 60
   _offsetFromBounds: 2
   _meteorVisuals:
   - {fileID: 8852719723766608812, guid: dc9ce1afaa4ae584eb1bfd1102b3135a, type: 3}
   - {fileID: 1553182506122007483, guid: fbe3716d15ac5d648be264e18588132f, type: 3}
   - {fileID: 7848816352540899039, guid: efd51138dabe9054a9b55a91c18f1fe5, type: 3}
   - {fileID: 1406638478621947505, guid: 9e12a7d0581ac5f4697e957076a31cad, type: 3}
+  _explosionEffect: {fileID: 0}
+  _hitRate: 0.5
+  _damagePerHit: 50
+--- !u!114 &586166000563684111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2149243115488739788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a486fd3cfafe141a0dd3b424333dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnNewHealthSet:
+    m_PersistentCalls:
+      m_Calls: []
+  OnNewMaxHealthSet:
+    m_PersistentCalls:
+      m_Calls: []
+  _maxHealth: 400
+  _currentHealth: 0

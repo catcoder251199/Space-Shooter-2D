@@ -27,7 +27,7 @@ public class FallingMeteorsWarning : MonoBehaviour
         StartCoroutine(BlinkRoutine());
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (_meteors == null)
             return;

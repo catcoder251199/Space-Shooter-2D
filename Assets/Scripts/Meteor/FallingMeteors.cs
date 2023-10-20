@@ -12,15 +12,21 @@ public class FallingMeteors : MonoBehaviour
     [SerializeField] private float _offsetFromBounds = 2f;
     [SerializeField] private GameObject[] _meteorList;
 
-    [SerializeField] private GameObject _warningPrefab;
+    [SerializeField, Header("Warning Circle")] private GameObject _warningPrefab;
     private FallingMeteorsWarning _warning;
+
+    [SerializeField, Header("Hit")] float _hitRate = 1f;
+    private float _hitNextTime = -1f;
+    [SerializeField] private int _damagePerHit = 10;
 
     bool _isInsideScreen = false;
 
     public float GetOffsetFromBounds() => _offsetFromBounds;
+    private Rigidbody2D _rb;
 
     private void Awake()
     {
+        _rb = GetComponent<Rigidbody2D>();
         Initialize();
         StartToWarn();
     }
@@ -52,7 +58,7 @@ public class FallingMeteors : MonoBehaviour
 
     private void MoveForward()
     {
-        this.transform.Translate(Vector3.up * _speed * Time.fixedDeltaTime);
+        _rb.velocity = this.transform.up * _speed;
     }
 
     private void StartToWarn()
@@ -154,5 +160,18 @@ public class FallingMeteors : MonoBehaviour
     public bool IsOnScreen()
     {
         return Helper.Cam.IsPositionInWorldCamRect(this.transform.position, 0);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_Player))
+        {
+            if (Time.time >= _hitNextTime)
+            {
+                Player player = collision.attachedRigidbody.GetComponent<Player>();
+                player.TakeDamage(_damagePerHit, true);
+                _hitNextTime = Time.time + _hitRate;
+            }
+        }
     }
 }
