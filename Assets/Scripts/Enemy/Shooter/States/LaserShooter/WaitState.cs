@@ -1,7 +1,5 @@
 using Enemy;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Enemy
 {
@@ -23,26 +21,10 @@ namespace Enemy
 
                 // Rotate to target
                 var direction = _subject.Target.transform.position - _subject.transform.position; direction.z = 0f;
-                var targetRotation = Quaternion.LookRotation(Vector3.forward, direction);
-                _subject.transform.rotation = Quaternion.RotateTowards(_subject.transform.rotation, targetRotation, _subject.RotateSpeed * Time.deltaTime);
-               
-                _subject.LaserGun.SwitchMode(SingleLaserGun.Mode.Probe);
+                _subject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+                _subject.LaserGun.SetSightLineEnabled(true);
             }
-            public void UpdateExecute()
-            {
-                //if (_rotatedTime > 0)
-                //{
-                //    var direction = _subject.Target.transform.position - _subject.transform.position;
-                //    direction.z = 0f;
-                //    var targetRotation = Quaternion.LookRotation(Vector3.forward, direction);
-                //    _subject.transform.rotation = Quaternion.RotateTowards(_subject.transform.rotation, targetRotation, _subject.RotateSpeed * Time.deltaTime);
-                //    _rotatedTime -= Time.deltaTime;
-                //}
-                //else
-                //{
-                //    _subject.ChangeState(_subject.AttackState);
-                //}
-            }
+            public void UpdateExecute() { }
             public void FixedUpdateExecute() 
             {
                 if (!_subject.Target.IsAlive())
@@ -54,7 +36,6 @@ namespace Enemy
                     var targetRotation = Quaternion.LookRotation(Vector3.forward, directionToTarget);
                     var nextRotation = Quaternion.RotateTowards(_subject.transform.rotation, targetRotation, Time.fixedDeltaTime * _subject.RotateSpeed);
                     _subject.Rigidbody.MoveRotation(nextRotation);
-
                     _waitedTime -= Time.fixedDeltaTime;
                 }
                 else

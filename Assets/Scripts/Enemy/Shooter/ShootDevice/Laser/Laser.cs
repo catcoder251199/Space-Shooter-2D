@@ -15,7 +15,7 @@ public class Laser : MonoBehaviour
     private int _curStateIndex = 0;
     private State CurrentState => _orderedStateList[_curStateIndex];
 
-    [SerializeField] float _speed = 100f;
+    [SerializeField, Header("Basic")] float _speed = 100f;
     [SerializeField] float _maxLength = 20f;
     [SerializeField] float _width = 0.3f;
     [SerializeField] float _length = 0.01f;
@@ -23,14 +23,23 @@ public class Laser : MonoBehaviour
     [SerializeField] float _disappearTime = 1f;
     [SerializeField] float _scaleFitOneUnit = 1f; // Modify this to adjust the scale so that when scaleY == 1, it fit one unit
     [SerializeField] LayerMask _layerMask;
-    [SerializeField] ParticleSystem _hitVFX;
-    [SerializeField] float _hitRate = 1f;
+    [SerializeField] bool _enableOnAwake = false;
 
-    private float _hitNextTime = 0f;
+    [SerializeField, Header("Hit")] float _hitRate = 1f;
+    private float _hitNextTime = -1f;
+    [SerializeField] private int _damagePerHit = 10;
+    [SerializeField] ParticleSystem _hitVFX;
+
     private float _existedTime = 3f;
     private BoxCollider2D _boxCollider;
     private SpriteRenderer _spriteRenderer;
     private bool _isLaserEnabled = false;
+
+    public int DamagePerHit
+    {
+        set { _damagePerHit = value; }
+        get { return _damagePerHit; }
+    }
 
     private void Awake()
     {
@@ -38,13 +47,12 @@ public class Laser : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         transform.localScale = new Vector3(_width, _length, 1f);
         SetCurrentLength(0.01f);
-        _spriteRenderer.enabled = false; // Turn off on awake
+        _spriteRenderer.enabled = _enableOnAwake; // Turn off on awake
     }
     public void SetColliderEnabled(bool enabled)
     {
         _boxCollider.enabled = enabled;
     }
-
     public void SetMaxLength(float maxLength) 
     {
         _maxLength = maxLength;
@@ -67,11 +75,18 @@ public class Laser : MonoBehaviour
         transform.localScale = new Vector3(_width, _length * _scaleFitOneUnit, transform.localScale.z);
     }
 
+    public bool IsAvailableToShoot()
+    {
+        return !_isLaserEnabled && CurrentState == State.None;
+    }
+
     public void Launch()
     {
-        if (!_isLaserEnabled && CurrentState == State.None)
+        if (IsAvailableToShoot())
         {
             SetCurrentLength(0.01f);
+            SetCurrentLength(20f);
+
             _spriteRenderer.enabled = true;
             _isLaserEnabled = true;
             _existedTime = _lifeTime;
@@ -96,24 +111,15 @@ public class Laser : MonoBehaviour
             {
                 endPosition = hit.collider.transform.position;
                 SetCurrentLength((endPosition - startPosition).magnitude);
-
-                if (Time.time >= _hitNextTime)
-                {
-                    //_hitVFX.transform.position = new Vector3(endPosition.x, endPosition.y, 1f);
-                    //_hitVFX.Play();
-                    _hitNextTime = Time.time + _hitRate;
-                }
+                ProcessCollision(hit.collider);
             }
         }
-        else
-        {
-            //_length = 0.01f;
-        }
+       
         transform.localScale = new Vector3(_width, _length * _scaleFitOneUnit, transform.localScale.z);
+        
         if (_existedTime <= 0 && _isLaserEnabled) // When the beam is being active, then it begins disappearing
-        {
             MoveToNextState();
-        }
+        
     }
     private void DisappearStateUpdate()
     {
@@ -132,8 +138,8 @@ public class Laser : MonoBehaviour
             SetCurrentLength(0.01f);
             _spriteRenderer.enabled = false;
             _isLaserEnabled = false;
-            OnLaserBeamStop?.Invoke();
             MoveToNextState();
+            OnLaserBeamStop?.Invoke();
         }
     }
 
@@ -143,7 +149,7 @@ public class Laser : MonoBehaviour
         _curStateIndex = _curStateIndex % _orderedStateList.Length;
     }
 
-    public void Update()
+    private void Update()
     {
         switch (CurrentState)
         {
@@ -153,6 +159,20 @@ public class Laser : MonoBehaviour
             case State.Disappear:
                 DisappearStateUpdate();
                 break;
+        }
+    }
+
+    private void ProcessCollision(Collider2D collision)
+    {
+        if (Time.time >= _hitNextTime)
+        {
+            _hitNextTime = Time.time + _hitRate;
+            // Hit Player
+            if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_Player))
+            {
+                Player player = collision.attachedRigidbody.GetComponent<Player>();
+                player.TakeDamage(_damagePerHit, true);
+            }
         }
     }
 }

@@ -20,125 +20,128 @@ public class SingleLaserGun : LaserGunBase
 
     private bool _isShooting = false;
 
-    public override float GetDelayTime() => _blinkTime;
+    public override void ActivateLaserBeam(float delay, bool blinkOnDelay, Action onFinished) { }
+    public override void SetSightLineEnabled(bool enabled) { }
 
-    private void Awake()
-    {
-        InitProbingLine();
-    }
+    //public override float GetDelayTime() => _blinkTime;
 
-    private void InitProbingLine()
-    {
-        _probingLineRenderer.colorGradient = _probeBeamColor;
-        _probingLineRenderer.startWidth = 0.05f;
-        _probingLineRenderer.endWidth = 0.05f;
-        float beamLength = 20f; // Helper.Cam.DiagonalLength();
-        Vector3 startPosition = _spawnLocation.localPosition; startPosition.z = 0f;
-        Vector3 endPosition = startPosition + Vector3.up * beamLength;
-        _probingLineRenderer.SetPositions(new Vector3[] { startPosition, endPosition });
-        _probingLineRenderer.enabled = false;
+    //private void Awake()
+    //{
+    //    InitProbingLine();
+    //}
 
-        if (_blinkColor != null)
-        {
-            _blinkColor.OnColorChanged += OnColorChanged;
-        }
-    }
+    //private void InitProbingLine()
+    //{
+    //    _probingLineRenderer.colorGradient = _probeBeamColor;
+    //    _probingLineRenderer.startWidth = 0.05f;
+    //    _probingLineRenderer.endWidth = 0.05f;
+    //    float beamLength = 20f; // Helper.Cam.DiagonalLength();
+    //    Vector3 startPosition = _spawnLocation.localPosition; startPosition.z = 0f;
+    //    Vector3 endPosition = startPosition + Vector3.up * beamLength;
+    //    _probingLineRenderer.SetPositions(new Vector3[] { startPosition, endPosition });
+    //    _probingLineRenderer.enabled = false;
 
-    public void SetProbingModeEnabled(bool enabled)
-    {
-        _probingLineRenderer.enabled = enabled;
-        _probingLineRenderer.colorGradient = _probeBeamColor;
-    }
-    public override void Activate()
-    {
-        if (_currentMode == Mode.Shoot && !_isShooting)
-        {
-            _isShooting = true;
-            StartCoroutine(ShootLaserRoutine());
-        }
-    }
+    //    if (_blinkColor != null)
+    //    {
+    //        _blinkColor.OnColorChanged += OnColorChanged;
+    //    }
+    //}
 
-    private IEnumerator ShootLaserRoutine()
-    {
-        yield return StartCoroutine(ProbingRoutine());
-        _probingLineRenderer.enabled = false;
-        _laser.transform.localRotation = Quaternion.identity;
-        _laser.transform.localPosition = _spawnLocation.localPosition;
-        _laser.Launch();
-    }
-    public override void SwitchMode(Mode mode)
-    {
-        if (_currentMode == mode)
-            return;
+    //public void SetProbingModeEnabled(bool enabled)
+    //{
+    //    _probingLineRenderer.enabled = enabled;
+    //    _probingLineRenderer.colorGradient = _probeBeamColor;
+    //}
+    //public override void Activate()
+    //{
+    //    if (_currentMode == Mode.Shoot && !_isShooting)
+    //    {
+    //        _isShooting = true;
+    //        StartCoroutine(ShootLaserRoutine());
+    //    }
+    //}
 
-        switch (mode)
-        {
-            case Mode.None:
-                _probingLineRenderer.enabled = false;
-                _laser.gameObject.SetActive(false);
-                break;
-            case Mode.Probe:
-                _probingLineRenderer.enabled = true;
-                _laser.gameObject.SetActive(false);
-                break;
-            case Mode.Shoot:
-                _isShooting = false;
-                _probingLineRenderer.enabled = true;
-                _laser.gameObject.SetActive(true);
-                _laser.transform.localScale = new Vector3(0.1f, 0.01f, 1f);
-                break;
-        }
+    //private IEnumerator ShootLaserRoutine()
+    //{
+    //    yield return StartCoroutine(ProbingRoutine());
+    //    _probingLineRenderer.enabled = false;
+    //    _laser.transform.localRotation = Quaternion.identity;
+    //    _laser.transform.localPosition = _spawnLocation.localPosition;
+    //    _laser.Launch();
+    //}
+    //public override void SwitchMode(Mode mode)
+    //{
+    //    if (_currentMode == mode)
+    //        return;
 
-        _currentMode = mode;
-    }
+    //    switch (mode)
+    //    {
+    //        case Mode.None:
+    //            _probingLineRenderer.enabled = false;
+    //            _laser.gameObject.SetActive(false);
+    //            break;
+    //        case Mode.Probe:
+    //            _probingLineRenderer.enabled = true;
+    //            _laser.gameObject.SetActive(false);
+    //            break;
+    //        case Mode.Shoot:
+    //            _isShooting = false;
+    //            _probingLineRenderer.enabled = true;
+    //            _laser.gameObject.SetActive(true);
+    //            _laser.transform.localScale = new Vector3(0.1f, 0.01f, 1f);
+    //            break;
+    //    }
 
-    private void Update()
-    {
-    }
-    private IEnumerator ProbingRoutine()
-    {
-        //yield return StartCoroutine(BlinkProbingLine(true));
-        yield return StartCoroutine(BlinkProbingLine2());
-        _probingLineRenderer.colorGradient = _probeBeamColor;
-        _probingLineRenderer.enabled = false;
-    }
+    //    _currentMode = mode;
+    //}
 
-    IEnumerator BlinkProbingLine(bool firstEnabled)
-    {
-        //* blinedCount increases by 1 whenever it is switch off (from on) or on (from off)
-        _probingLineRenderer.enabled = firstEnabled;
-        int blinkedCount = 0;
-        float timeBetweenOnAndOff = _blinkTime / _blinkCount;
-        while (blinkedCount < _blinkCount)
-        {
-            yield return new WaitForSeconds(timeBetweenOnAndOff);
-            _probingLineRenderer.enabled = !_probingLineRenderer.enabled;
-            blinkedCount++;
-        }
-    }
+    //private void Update()
+    //{
+    //}
+    //private IEnumerator ProbingRoutine()
+    //{
+    //    //yield return StartCoroutine(BlinkProbingLine(true));
+    //    yield return StartCoroutine(BlinkProbingLine2());
+    //    _probingLineRenderer.colorGradient = _probeBeamColor;
+    //    _probingLineRenderer.enabled = false;
+    //}
 
-    IEnumerator BlinkProbingLine2()
-    {
-        if (_blinkColor == null)
-            yield break;
-        _probingLineRenderer.enabled = true;
-        _blinkColor.SetTimer(_blinkTime);
-        _blinkColor.interpolate = false;
-        _blinkColor.useCustomRenderer = true;
-        _blinkColor.changeBlinkSpeedOnCountDown = true;
-        _blinkColor.StartAnimationWithTimer();
-        yield return new WaitForSeconds(_blinkTime);
-    }
+    //IEnumerator BlinkProbingLine(bool firstEnabled)
+    //{
+    //    //* blinedCount increases by 1 whenever it is switch off (from on) or on (from off)
+    //    _probingLineRenderer.enabled = firstEnabled;
+    //    int blinkedCount = 0;
+    //    float timeBetweenOnAndOff = _blinkTime / _blinkCount;
+    //    while (blinkedCount < _blinkCount)
+    //    {
+    //        yield return new WaitForSeconds(timeBetweenOnAndOff);
+    //        _probingLineRenderer.enabled = !_probingLineRenderer.enabled;
+    //        blinkedCount++;
+    //    }
+    //}
 
-    public void OnColorChanged(Color color)
-    {
-        _probingLineRenderer.startColor = color;
-        _probingLineRenderer.endColor = color;
-    }
+    //IEnumerator BlinkProbingLine2()
+    //{
+    //    if (_blinkColor == null)
+    //        yield break;
+    //    _probingLineRenderer.enabled = true;
+    //    _blinkColor.SetTimer(_blinkTime);
+    //    _blinkColor.interpolate = false;
+    //    _blinkColor.useCustomRenderer = true;
+    //    _blinkColor.changeBlinkSpeedOnCountDown = true;
+    //    _blinkColor.StartAnimationWithTimer();
+    //    yield return new WaitForSeconds(_blinkTime);
+    //}
 
-    public void OnLaserBeamDisappeared()
-    {
-        _isShooting = false;
-        TriggerOnAttackFinishedEvent();
-    }
+    //public void OnColorChanged(Color color)
+    //{
+    //    _probingLineRenderer.startColor = color;
+    //    _probingLineRenderer.endColor = color;
+    //}
+
+    //public void OnLaserBeamDisappeared()
+    //{
+    //    _isShooting = false;
+    //    TriggerOnAttackFinishedEvent();
+    //}
 }

@@ -3,24 +3,13 @@ using UnityEngine;
 
 public abstract class LaserGunBase : MonoBehaviour
 {
-    public enum Mode
+    protected Action _onAttackFinished;
+    protected void TriggerOnAttackFinishedEvent()
     {
-        None,
-        Probe,
-        Shoot
-    }
-    protected Mode _currentMode = Mode.None;
-    public virtual bool IsInMode(Mode mode) => _currentMode == mode;
-
-    public event Action OnAttackFinishedEvent;
-    public void TriggerOnAttackFinishedEvent()
-    {
-        OnAttackFinishedEvent?.Invoke();
+        _onAttackFinished?.Invoke();
     }
 
-    public abstract float GetDelayTime();
-    public abstract void SwitchMode(Mode mode);
-
-    // * Shoot one laser beam per one activated time
-    public abstract void Activate();
+    //* OnFinished is one-called function
+    public abstract void ActivateLaserBeam(float delay, bool blinkOnDelay, Action onFinished);
+    public abstract void SetSightLineEnabled(bool enabled);
 }

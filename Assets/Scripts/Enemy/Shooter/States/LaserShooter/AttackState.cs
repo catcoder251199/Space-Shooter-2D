@@ -8,7 +8,7 @@ namespace Enemy
         {
             private LaserShooter _subject;
             private int _attackCount;
-            private float _waitTime = 0f;
+            private float _waitTime = 1f;
 
             public AttackState(LaserShooter subject)
             {
@@ -18,10 +18,10 @@ namespace Enemy
             public void OnStateEnter()
             {
                 _attackCount = _subject.AttackCount;
-                _waitTime = _subject.LaserGun.GetDelayTime();
-                _subject.LaserGun.OnAttackFinishedEvent += OnOneAttackFinished;
-                _subject.LaserGun.SwitchMode(LaserGunBase.Mode.Shoot);
-                _subject.LaserGun.Activate();
+                if(_subject.FollowTargetOnDelay)
+                    _waitTime = _subject.DelayBeforeAttack;
+                _subject.LaserGun.SetSightLineEnabled(true);
+                _subject.LaserGun.ActivateLaserBeam(_subject.DelayBeforeAttack, true, OnOneAttackFinished);
                 _attackCount--;
             }
             public void UpdateExecute() { }
@@ -42,18 +42,16 @@ namespace Enemy
 
             void OnOneAttackFinished()
             {
-
                 if (_attackCount > 0)
                 {
-                    _waitTime = _subject.LaserGun.GetDelayTime();
-                    _subject.LaserGun.Activate();
+                    if (_subject.FollowTargetOnDelay)
+                        _waitTime = _subject.DelayBeforeAttack;
+                    _subject.LaserGun.SetSightLineEnabled(true);
+                    _subject.LaserGun.ActivateLaserBeam(_subject.DelayBeforeAttack, true, OnOneAttackFinished);
                     _attackCount--;
                 }
                 else
-                {
-                    _subject.LaserGun.OnAttackFinishedEvent -= OnOneAttackFinished; //unsubscribe event once we've run out of number of attacks
                     _subject.ChangeState(_subject.MoveState);
-                }
             }
         }
     }
