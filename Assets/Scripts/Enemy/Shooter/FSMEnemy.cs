@@ -8,7 +8,7 @@ namespace Enemy
     {
         protected IState _currentState;
 
-        public void ChangeState(IState _nextState)
+        public virtual void ChangeState(IState _nextState)
         {
             if (_nextState == null)
                 return;

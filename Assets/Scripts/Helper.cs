@@ -14,7 +14,7 @@ namespace Helper
         public static float DiagonalLength() => Mathf.Sqrt(Mathf.Pow(HalfHeight() * 2, 2) + Mathf.Pow(HalfWidth() * 2, 2));
         public static Vector3 WorldPos() => Camera.main.transform.position;
         public static float WorldLeft() => WorldPos().x - HalfWidth();
-        public static float WorldRight() => WorldPos().x - HalfHeight();
+        public static float WorldRight() => WorldPos().x + HalfWidth();
         public static float WorldTop() => WorldPos().y + HalfHeight();
         public static float WorldBottom() => WorldPos().y - HalfHeight();
 
@@ -206,6 +206,26 @@ namespace Helper
             float absValue = Mathf.Lerp(-camHalfHeight, camHalfHeight, Mathf.Clamp01(pos01));
             offset = Mathf.Max(offset, 0);
             return new Vector3(-camHalfWidth - offset, camPos.y + absValue, inputZ);
+        }
+
+        public static Vector2 GetWorldPositionInViewSpace(float x01 ,float y01)
+        {
+            return new Vector2(GetHorizontalEdgeWorldPos(x01), GetVerticalEdgeWorldPos(y01));
+        }
+
+        public static float GetVerticalEdgeWorldPos(float y01)
+        {
+            Camera cam = Camera.main;
+            float camHalfHeight = cam.orthographicSize; // Height of camera rect
+            Vector3 camPos = cam.transform.position;
+            return Mathf.Lerp(camPos.y - camHalfHeight, camPos.y + camHalfHeight, y01);
+        }
+        public static float GetHorizontalEdgeWorldPos(float x01)
+        {
+            Camera cam = Camera.main;
+            float camHalfWidth = Screen.width / 2f; // Width of camera rect == Height * ratio and ratio == Height / Width
+            Vector3 camPos = cam.transform.position;
+            return Mathf.Lerp(camPos.x - camHalfWidth, camPos.x + camHalfWidth, x01);
         }
 
         public static float GetVerticalEdge01Pos(float wPosY)

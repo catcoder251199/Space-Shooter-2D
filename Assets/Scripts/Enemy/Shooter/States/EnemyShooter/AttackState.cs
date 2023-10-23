@@ -25,23 +25,7 @@ namespace Enemy
                 _subject.ShootDevice.Activate();
             }
             public void UpdateExecute()
-            {
-                //if (!_subject.Target.IsAlive())
-                //    return;
-
-                //if (_attackedTime > 0)
-                //{
-                //    var directionToTarget = _subject.Target.transform.position - _subject.transform.position;
-                //    directionToTarget.z = _subject.transform.position.z; // Keep the z coord of this object
-                //    var targetRotation = Quaternion.LookRotation(Vector3.forward, directionToTarget);
-                //    _subject.transform.rotation = Quaternion.RotateTowards(_subject.transform.rotation, targetRotation, Time.deltaTime * _subject.RotateSpeed);
-                //    _attackedTime -= Time.deltaTime;
-                //}
-                //else
-                //{
-                //    _subject.ChangeState(_subject.MoveState);
-                //}
-            }
+            {}
             public void FixedUpdateExecute() 
             {
                 if (!_subject.Target.IsAlive())
