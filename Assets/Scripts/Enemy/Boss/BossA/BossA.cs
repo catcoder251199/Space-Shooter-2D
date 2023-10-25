@@ -44,7 +44,6 @@ namespace Enemy
 
             void Awake()
             {
-                _target = GameManager.Instance.Player;
                 _rb = GetComponent<Rigidbody2D>();
                 _health = GetComponent<Health>();
 
@@ -60,12 +59,19 @@ namespace Enemy
                 _enrageState = GetComponent<EnrageState>();
             }
 
+            void Start()
+            {
+                _target = GameManager.Instance.Player;
+                if (_target == null)
+                    Debug.LogError("SelfDestructor.Start(): _target == null");
+
+                ChangeState(_startState);
+            }
+
             public int GetEnragedCount()
             {
                 return _currentEnrageThresholdIdx;
             }
-
-
 
             private int GetEnrageHpThreshHold()
             {
@@ -86,11 +92,6 @@ namespace Enemy
             public void MoveToNextEnrageThreshold()
             {
                 _currentEnrageThresholdIdx++;
-            }
-
-            private void Start()
-            {
-                ChangeState(_startState);
             }
 
             void Update()
@@ -174,6 +175,11 @@ namespace Enemy
                 {
                     var vfx = Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
                     vfx.transform.localScale = Vector3.zero * 5;
+                }
+
+                if (_explosionEffect != null)
+                {
+                    Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
                 }
                 Destroy(gameObject, 0.1f);
             }

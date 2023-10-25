@@ -40,10 +40,17 @@ namespace Enemy
             _attackState = new AttackState(this);
             _moveState = new MoveState(this);
 
-            ChangeState(_startState);
-            _target = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             _rb = GetComponent<Rigidbody2D>();
             _health = GetComponent<Health>();
+        }
+
+        void Start()
+        {
+            _target = GameManager.Instance.Player;
+            if (_target == null)
+                Debug.LogError("SelfDestructor.Start(): _target == null");
+
+            ChangeState(_startState);
         }
 
         private void Update()

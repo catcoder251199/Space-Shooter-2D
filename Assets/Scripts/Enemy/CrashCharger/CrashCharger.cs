@@ -36,15 +36,21 @@ namespace Enemy
 
         public Rigidbody2D Rigidbody => _rb;
 
-        private void Start()
+        private void Awake()
         {
-            _target = GameManager.Instance.Player;
-            _rb = GetComponent<Rigidbody2D>();
-            _health = GetComponent<Health>();
-
             _moveToScreenState = new MoveToScreenState(this);
             _waitAndLookState = new WaitAndLookState(this);
             _chargeState = new ChargeState(this);
+
+            _rb = GetComponent<Rigidbody2D>();
+            _health = GetComponent<Health>();
+        }
+
+        private void Start()
+        {
+            _target = GameManager.Instance.Player;
+            if (_target == null)
+                Debug.LogError("LaserShooter.Start(): _target == null");
 
             ChangeState(_moveToScreenState);
         }

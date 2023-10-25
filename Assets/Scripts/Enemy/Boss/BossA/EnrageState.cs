@@ -1,8 +1,5 @@
-using Enemy;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.XR;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Enemy
 {
@@ -15,6 +12,12 @@ namespace Enemy
             [SerializeField] private float _moveToScreenSpeed = 5f;
             [SerializeField] private float _delayOnRush = 1.5f;
             [SerializeField] private float _waitTime = 1.5f;
+
+            [SerializeField, Header("VFX")] private ParticleSystem _jumpEffect;
+            [SerializeField] Transform _jumpEffectLocation;
+            [SerializeField] string[] _enragedAnimationTriggerList;
+            [SerializeField] Animator _animator;
+
             private float _waitedTime = 0f;
             private Vector2 _moveToScreenPos;
             private bool _updateEnabled = false;
@@ -31,6 +34,7 @@ namespace Enemy
             public void OnStateEnter()
             {
                 Debug.Log("BossA.Enrage Enter");
+                TriggerAnimation();
                 _subject.SetShieldEnabled(true);
                 _subject.MoveToNextEnrageThreshold();
                 _subject.LookToTargetInstantly();
@@ -39,12 +43,11 @@ namespace Enemy
                 _state = State.Wait;
             }
 
-            //IEnumerator StartRoutine()
-            //{
-            //    yield return new WaitForSeconds(_delayOnRush);
-            //    _updateEnabled = true;
-            //    _state = State.Wait;
-            //}
+            private void TriggerAnimation()
+            {
+                int animationIndex = Mathf.Clamp(_subject.GetEnragedCount(), 0, _enragedAnimationTriggerList.Length - 1);
+                _animator.SetTrigger(_enragedAnimationTriggerList[animationIndex]);
+            }
 
             private void ChangeState(State newState)
             {
@@ -79,8 +82,9 @@ namespace Enemy
                 {
                     Vector2 nextPosition = Vector2.MoveTowards(_subject.RigidBody.position, _moveToScreenPos, _moveToScreenSpeed * Time.fixedDeltaTime);
                     _subject.RigidBody.MovePosition(nextPosition);
-                    if (_subject.Target.IsAlive())
-                        _subject.LookAtTarget();
+                    _subject.transform.rotation = Quaternion.Euler(0, 0, 180f);
+                    //if (_subject.Target.IsAlive())
+                    //    _subject.LookAtTarget();
                 }
                 else
                 {
@@ -117,6 +121,12 @@ namespace Enemy
             private IEnumerator RushToTarget()
             {
                 yield return new WaitForSeconds(_delayOnRush);
+                if (_jumpEffect != null)
+                {
+                    var vfx = Instantiate(_jumpEffect, PlaySceneGlobal.Instance.VFXParent);
+                    vfx.transform.position = _jumpEffectLocation.position;
+                    vfx.transform.rotation = _jumpEffectLocation.rotation;
+                }
                 _subject.RigidBody.velocity = _subject.transform.up * _rushSpeed;
             }
 
@@ -125,7 +135,6 @@ namespace Enemy
                 _subject.RigidBody.velocity = Vector2.zero;
                 _subject.SetShieldEnabled(false);
                 Debug.Log("BossA.Enrage Exit");
-
             }
         }
 
