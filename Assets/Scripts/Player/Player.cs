@@ -55,16 +55,15 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-        if (hitCollider != null)
-        {
-            if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_EnemyBullet))
-            {
-                Debug.Log("take " + hitCollider.GetDamage() + " damage");
-                TakeDamage(hitCollider.GetDamage());
-                Destroy(hitCollider.gameObject);
-            }
-        }
+        //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+        //if (hitCollider != null)
+        //{
+        //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_EnemyBullet))
+        //    {
+        //        TakeDamage(hitCollider.GetDamage());
+        //        Destroy(hitCollider.gameObject);
+        //    }
+        //}
     }
     public void TakeDamage(int damage, bool isCritical = false)
     {

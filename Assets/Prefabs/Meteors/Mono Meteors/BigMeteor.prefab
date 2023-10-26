@@ -86,7 +86,7 @@ MonoBehaviour:
   - {fileID: 1553182506122007483, guid: fbe3716d15ac5d648be264e18588132f, type: 3}
   - {fileID: 7848816352540899039, guid: efd51138dabe9054a9b55a91c18f1fe5, type: 3}
   - {fileID: 1406638478621947505, guid: 9e12a7d0581ac5f4697e957076a31cad, type: 3}
-  _explosionEffect: {fileID: 0}
+  _explosionEffect: {fileID: 555894976990334792, guid: a1b0658984725da4ebb0606bf826b271, type: 3}
   _hitRate: 0.5
   _damagePerHit: 50
 --- !u!114 &586166000563684111

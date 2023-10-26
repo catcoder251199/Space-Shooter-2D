@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 7169935248538771979}
   - component: {fileID: 2058181737317739420}
   - component: {fileID: 1939454426976275520}
-  - component: {fileID: 2194343756167590472}
-  - component: {fileID: 23812774058156558}
+  - component: {fileID: -6953039341838754741}
+  - component: {fileID: 7219305050643224997}
   m_Layer: 11
-  m_Name: EnemyNormalBullet_2
+  m_Name: ShooterBullet_0
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4273708318967418783}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 1.28, z: 0}
+  m_LocalPosition: {x: 0.01, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2119940839
-  m_SortingLayer: 2
+  m_SortingLayerID: 2044853051
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4b1df14ce1550f049aa5180240e32175, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -150,7 +150,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2194343756167590472
+--- !u!114 &-6953039341838754741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,14 +159,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4273708318967418783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a047db0b40762ad46bf88a9a5dba9187, type: 3}
+  m_Script: {fileID: 11500000, guid: ae0c9d462e2d97d4d929f74fb258f591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageColider: {fileID: 23812774058156558}
-  _hitVFX: {fileID: 0}
-  _speed: 10
-  _screenOffset: 200
---- !u!114 &23812774058156558
+  damage: 0
+  destroyOnHit: 1
+  IsCritical: 0
+--- !u!114 &7219305050643224997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,7 +174,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4273708318967418783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c60a867fcde34f4587294be3cab6170, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cf1db323144b6743a0a038ca6cddfc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
+  StraightSpeed: 5
+  LifeTime: 0
+  destroyedCondition: 1

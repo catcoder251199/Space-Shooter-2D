@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FanMultipleShotsShooter : AutoShootDevice
 {
-    [SerializeField] BulletBase _bulletPrefab;
+    [SerializeField] EnemyBulletBase _bulletPrefab;
     [SerializeField] Transform _spawnLocation;
 
     [SerializeField] float _fireRate = 1.0f;
@@ -13,13 +13,8 @@ public class FanMultipleShotsShooter : AutoShootDevice
     [SerializeField] float _delayStart = 0f;
     [SerializeField] bool _shootOnStart = false;
 
-    [SerializeField, Header("Bullet")] int _damage = 1;
-    [SerializeField] int _bulletSpeed = 1;
-
     private bool shooterEnabled = false;
     private Coroutine _shootRoutine;
-
-    public int Damage => _damage;
 
     private void Start()
     {
@@ -66,9 +61,7 @@ public class FanMultipleShotsShooter : AutoShootDevice
         {
             float angle = startAngle + i * angleStep;
             Quaternion bulletRotation = Quaternion.Euler(0, 0, angle);
-            BulletBase bullet = Instantiate(_bulletPrefab, _spawnLocation.position, bulletRotation, PlaySceneGlobal.Instance.BulletParent);
-            bullet.DamagableCollider.SetDamage(_damage);
-            bullet.Speed = _bulletSpeed;
+            Instantiate(_bulletPrefab, _spawnLocation.position, bulletRotation, PlaySceneGlobal.Instance.BulletParent);
         }
     }
 }

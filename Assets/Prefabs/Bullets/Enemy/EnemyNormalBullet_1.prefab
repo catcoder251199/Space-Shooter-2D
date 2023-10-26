@@ -172,8 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a047db0b40762ad46bf88a9a5dba9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageColider: {fileID: 23812774058156558}
+  _damageCollider: {fileID: 23812774058156558}
   _speed: 10
+  _hitVFX: {fileID: 0}
   _screenOffset: 200
 --- !u!114 &23812774058156558
 MonoBehaviour:
@@ -188,3 +189,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 0
+  _critDmgModifier: 0.1
+  _critRate: 0.1

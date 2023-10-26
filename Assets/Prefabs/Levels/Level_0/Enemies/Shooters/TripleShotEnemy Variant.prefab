@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5093397946191150817
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4341967461366916705, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 4920283112978017100, guid: 63a6010da9457bf4e97c6137583e735c, type: 3}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567067648038694217, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: m_Name
+      value: TripleShotEnemy Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4606061427477100838, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: _maxHealth
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165895190844819022, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: _speed
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}

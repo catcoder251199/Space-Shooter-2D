@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1939454426976275520}
   - component: {fileID: 4039336185552367464}
   - component: {fileID: 2194343756167590472}
+  - component: {fileID: 6161701498026121624}
   m_Layer: 0
   m_Name: EnemyNormalBullet_0
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2119940839
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 53e1abede3281dc4ca3c78e03a9636f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -171,5 +172,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a047db0b40762ad46bf88a9a5dba9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageCollider: {fileID: 0}
   _speed: 10
+  _hitVFX: {fileID: 0}
   _screenOffset: 200
+--- !u!114 &6161701498026121624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4273708318967418783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c60a867fcde34f4587294be3cab6170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 0
+  _critDmgModifier: 0.1
+  _critRate: 0.1

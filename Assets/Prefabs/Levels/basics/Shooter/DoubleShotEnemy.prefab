@@ -357,12 +357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12776c5c0db5fc24ca366f9d5b19d350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 2194343756167590472, guid: c9ade7da896a3694cb9249e7ba4b6389, type: 3}
+  _bulletPrefab: {fileID: 7219305050643224997, guid: c9ade7da896a3694cb9249e7ba4b6389, type: 3}
   _spawnLocation:
   - {fileID: 7362233900629448147}
   - {fileID: 1337779116671512001}
   _fireRate: 1
   _delayStart: 1
   _shootOnStart: 0
-  _damage: 40
-  _bulletSpeed: 10

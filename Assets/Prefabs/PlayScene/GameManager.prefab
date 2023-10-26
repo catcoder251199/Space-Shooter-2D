@@ -62,6 +62,7 @@ Transform:
   m_Children:
   - {fileID: 7839807644106654601}
   - {fileID: 981708039262805548}
+  - {fileID: 5152158570989907128}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -121,10 +122,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39db9b73cc6a998468ce1dd0dcd5aae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tag_player: Player
   _tag_EnemyBullet: EnemyBullet
   _tag_PlayerBullet: PlayerBullet
   _vfxParent: {fileID: 6668423537463206822}
   _bulletParent: {fileID: 383229857770124152}
+  _spawnedObjectParent: {fileID: 0}
+  _damagePopupPrefab: {fileID: 855891791457860408, guid: b926e72238b84ba4c8e7ee54a54d7beb, type: 3}
+--- !u!1 &4547904034193914925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5152158570989907128}
+  - component: {fileID: 2174063186749707727}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5152158570989907128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547904034193914925}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7279275732046027943}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2174063186749707727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547904034193914925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a751e3b905be5d34abcb15b7a8398723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waveSOList:
+  - {fileID: 11400000, guid: 576b01a9d70f25e4f8d7b7bc04cee36e, type: 2}
 --- !u!1 &4788664091820344257
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Enemy
@@ -7,30 +8,47 @@ namespace Enemy
     {
         public float StraightSpeed = 10f;
         public float LifeTime = 3f;
+        public enum DestroyedCondition
+        {
+            LifeTime,
+            OutOfScreen
+        }
+        public DestroyedCondition destroyedCondition;
 
         private Rigidbody2D _rb;
-        private DamagableCollider _damageableCollider;
         private float _existedTime = 0f;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _damageableCollider = GetComponent<DamagableCollider>();
         }
 
         private void Start() { }
 
         private void FixedUpdate()
         {
-            if (_existedTime < LifeTime)
+            if (destroyedCondition == DestroyedCondition.LifeTime)
             {
-                _rb.velocity = transform.up * StraightSpeed;
-                _existedTime += Time.fixedDeltaTime;
+                if (_existedTime < LifeTime)
+                {
+                    _existedTime += Time.fixedDeltaTime;
+                }
+
+                if (_existedTime >= LifeTime)
+                    Destroy(gameObject);
             }
-            else
+            else if (destroyedCondition == DestroyedCondition.OutOfScreen)
             {
-                Destroy(gameObject);
+                if (!IsInScreen())
+                    Destroy(gameObject);
             }
+
+            _rb.velocity = transform.up * StraightSpeed;
+        }
+
+        private bool IsInScreen()
+        {
+            return Helper.Cam.IsPositionInWorldCamRect(transform.position, 3f);
         }
     }
 }
