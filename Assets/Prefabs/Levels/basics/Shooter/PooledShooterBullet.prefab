@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 1939454426976275520}
   - component: {fileID: -6953039341838754741}
   - component: {fileID: 7219305050643224997}
+  - component: {fileID: 8801856713224041635}
   m_Layer: 11
-  m_Name: ShooterBullet_0
+  m_Name: PooledShooterBullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,9 +163,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae0c9d462e2d97d4d929f74fb258f591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  destroyOnHit: 1
-  IsCritical: 0
+  damageableTags:
+  - Player
+  damage: 44
+  isCritical: 0
+  OnTriggerEnteredEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7219305050643224997}
+        m_TargetAssemblyTypeName: Enemy.StraightBullet, Assembly-CSharp
+        m_MethodName: OnTriggerEnteredEventHappened
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7219305050643224997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +194,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf1db323144b6743a0a038ca6cddfc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StraightSpeed: 5
-  LifeTime: 0
+  straightSpeed: 10
+  lifeTime: 3
+  destroyOnHit: 1
   destroyedCondition: 1
+--- !u!114 &8801856713224041635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4273708318967418783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a79a45193182c54c92c1d2dbbe46cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pool: {fileID: 0}

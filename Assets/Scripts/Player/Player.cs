@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField ,Range(0, 1)] private float _critRate = 0.1f;
     [SerializeField, Range(0, 1)] private float _critModifier = 0.5f;
     [SerializeField] private int _maxHp = 100;
-    public int Damge => _damage;
+    public int Damage => _damage;
     public int MaxHp 
     {
         get { return _maxHp; }
@@ -53,21 +53,13 @@ public class Player : MonoBehaviour
 
     public bool IsAlive() => Health.GetHealth() > 0;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-        //if (hitCollider != null)
-        //{
-        //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_EnemyBullet))
-        //    {
-        //        TakeDamage(hitCollider.GetDamage());
-        //        Destroy(hitCollider.gameObject);
-        //    }
-        //}
-    }
     public void TakeDamage(int damage, bool isCritical = false)
     {
-        _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
+        _health.TakeDamage(damage);
+    }
+
+    public void OnDamageTaken(int damage, bool isCritical = false)
+    {
         DamagePopup.Create(damage, transform.position, isCritical);
         if (_health.GetHealth() <= 0)
         {

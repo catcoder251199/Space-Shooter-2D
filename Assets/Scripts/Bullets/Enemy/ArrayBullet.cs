@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Enemy
 {
+    // Array of STRAIGHT BULLETS
     public class ArrayBullet : EnemyBulletBase
     {
         [SerializeField] private StraightBullet _toCloneBullet;
@@ -27,8 +28,8 @@ namespace Enemy
                 var clone = Instantiate(_toCloneBullet, transform);
                 yPos -= Gap;
                 clone.transform.localPosition = new Vector3(0, yPos, 0);
-                clone.LifeTime = LifeTime;
-                clone.StraightSpeed = StraightSpeed;
+                clone.lifeTime = LifeTime;
+                clone.straightSpeed = StraightSpeed;
             }
         }
 

@@ -462,7 +462,7 @@ Transform:
   - {fileID: 8221846244585377593}
   - {fileID: 6064579990591211448}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9143712122380775402
 MonoBehaviour:
@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a486fd3cfafe141a0dd3b424333dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHealthChanged:
+  OnNewHealthSet:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 774929861632567774}
@@ -604,7 +604,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnMaxHealthChanged:
+  OnNewMaxHealthSet:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 774929861632567774}
@@ -619,12 +619,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnNewHealthSet:
+  OnHealthDamaged:
     m_PersistentCalls:
-      m_Calls: []
-  OnNewMaxHealthSet:
-    m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9143712122380775402}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnDamageTaken
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _maxHealth: 500
   _currentHealth: 0
 --- !u!1 &6148909497198832355

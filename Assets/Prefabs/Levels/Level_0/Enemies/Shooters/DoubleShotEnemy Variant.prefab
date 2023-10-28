@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: _speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8871106386466327469, guid: abbebe5a22405294da1ee3bcbbe8713d, type: 3}
+      propertyPath: _objectToPool
+      value: 
+      objectReference: {fileID: 1263587470905132369, guid: d4cff999ea8532249be8c1a53ff4b3e6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

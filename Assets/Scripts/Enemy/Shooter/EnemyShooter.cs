@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 using Enemy.EnemyShooterState;
 namespace Enemy
@@ -11,6 +12,8 @@ namespace Enemy
         [SerializeField] float _offsetFromBounds = 2f;
         [SerializeField] AutoShootDevice _shootDevice;
         [SerializeField] ParticleSystem _explosionEffect;
+
+        [SerializeField, Header("Pooled Object or Product")] private PooledSpawnableProduct _pooledProduct;
 
         private Rigidbody2D _rb;
         private Health _health;
@@ -29,7 +32,7 @@ namespace Enemy
 
         public Player Target => _target;
         public float Speed => _speed;
-        public float RotateSpeed=> _rotateSpeed;
+        public float RotateSpeed => _rotateSpeed;
         public float AttackTime => _attackTime;
         public float OffsetFromBounds => _offsetFromBounds;
         public Rigidbody2D Rigidbody => _rb;
@@ -68,7 +71,6 @@ namespace Enemy
             DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
             if (hitCollider != null)
             {
-                //Debug.Log("Enemy take damage " + hitCollider.GetDamage());
                 if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
                 {
                     var bullet = hitCollider.GetComponent<BulletBase>();
@@ -95,9 +97,31 @@ namespace Enemy
         {
             if (_explosionEffect != null)
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
-
-            Destroy(gameObject, 0.1f);
+            Deactivate();
         }
+
+        public void Initialize()
+        {
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = 0;
+            transform.position = Vector3.zero;
+            transform.rotation = Quaternion.identity;
+        }
+
+        public void Deactivate()
+        {
+            if (_pooledProduct != null)
+            {
+                _rb.velocity = Vector3.zero;
+                _rb.angularVelocity = 0;
+                transform.position = Vector3.zero;
+                transform.rotation = Quaternion.identity;
+                _pooledProduct.Release();
+            }
+            else
+                Destroy(gameObject);
+        }
+
     }
 }
 

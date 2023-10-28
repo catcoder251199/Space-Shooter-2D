@@ -35,7 +35,7 @@ public class PlaySceneGlobal : MonoBehaviour
     [SerializeField] Transform _spawnedObjectParent;
     public Transform VFXParent => _vfxParent;
     public Transform BulletParent => _bulletParent;
-    public Transform SpawnedObjectParent => _bulletParent;
+    public Transform SpawnedObjectParent => _spawnedObjectParent;
 
     //--------------------------------------------
 

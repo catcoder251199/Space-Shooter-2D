@@ -21,7 +21,7 @@ namespace Enemy
 
             public void OnStateEnter()
             {
-                _attackedTime = _subject.AttackTime;
+                _attackedTime = _subject.AttackTime + _subject.ShootDevice.GetDelayStart();
                 _subject.ShootDevice.Activate();
             }
             public void UpdateExecute()

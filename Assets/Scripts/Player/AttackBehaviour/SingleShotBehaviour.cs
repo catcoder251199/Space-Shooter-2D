@@ -46,7 +46,7 @@ public class SingleShotBehaviour : AttackBehaviour
         while (shooting)
         {
             BulletBase bullet = Instantiate(_bulletPrefab, _bulletSpawn.position, Quaternion.identity, PlaySceneGlobal.Instance.BulletParent);
-            bullet.DamagableCollider.SetDamage(_player.Damge);
+            bullet.DamagableCollider.SetDamage(_player.Damage);
             bullet.DamagableCollider.SetCritRate(_player.CritRate);
             bullet.DamagableCollider.SetCritModifier(_player.CritModifier);
             yield return new WaitForSeconds(_fireRate);

@@ -1,23 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class OneHitCollider : EnemyHitColliderBase 
+    public class OneHitCollider : DamageColliderBase 
     {
-        public bool destroyOnHit = false;
-        public bool IsCritical = false;
+        public Collider2D_Event OnTriggerEnteredEvent;
+        protected override void  Awake()
+        {
+            base.Awake();
+        }
 
         protected void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_Player))
+            if (CompareDamageableTag(collision.attachedRigidbody.tag))
             {
-                Player player = collision.attachedRigidbody.GetComponent<Player>();
-                player.TakeDamage(damage, IsCritical);
-                if (destroyOnHit)
-                {
-                    Destroy(gameObject);
-                }
+                Health health = collision.attachedRigidbody.GetComponent<Health>();
+                health.TakeDamage(damage, isCritical, true);
             }
+
+            OnTriggerEnteredEvent?.Invoke(collision);
         }
     }
 }

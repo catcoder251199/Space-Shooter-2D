@@ -8,6 +8,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Slider _slider;
     [SerializeField] private Image _fill;
     [SerializeField] private Gradient _gradient;
+
     public void SetHpMax(int max)
     {
         _slider.maxValue = max;
@@ -18,6 +19,12 @@ public class HealthBar : MonoBehaviour
         }
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
+    
+    public void SetHpMax(int oldValue, int newValue)
+    {
+        SetHpMax(newValue);
+    }
+
     public void SetHpValue(int value)
     {
         value = Mathf.Clamp(value, 0, (int)_slider.maxValue);
@@ -25,4 +32,11 @@ public class HealthBar : MonoBehaviour
         _hpText.text = ((int)_slider.value).ToString();
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
+
+    public void SetHpValue(int oldValue, int newValue)
+    {
+        SetHpValue(newValue);
+    }
+
+   
 }

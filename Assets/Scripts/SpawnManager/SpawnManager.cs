@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.Pool;
 using UnityEngine;
 using static WaveSO;
 
@@ -7,10 +7,16 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private WaveSO[] _waveSOList;
     [SerializeField] private int _currentWave;
-    private Coroutine _spawnCoroutine;
 
+    private Coroutine _spawnCoroutine;
     public int CurrentWave => _currentWave;
-    
+
+    [SerializeField] SpawnableFactory _factory;
+
+    private void Awake()
+    {
+    }
+
     public bool CanStartSpawn()
     {
         return _spawnCoroutine == null;
@@ -32,9 +38,12 @@ public class SpawnManager : MonoBehaviour
             int enemyCount = spawnedList[i].count;
             for (int j = 0; j < enemyCount; j++)
             {
-                Instantiate(spawnedList[i].prefab, PlaySceneGlobal.Instance.SpawnedObjectParent);
+                //Instantiate(spawnedList[i].prefab, PlaySceneGlobal.Instance.SpawnedObjectParent);
+                var spawnableObject = _factory.CreateSpawnableProduct(spawnedList[i].prefab.GetInstanceID());
+                spawnableObject.transform.parent = PlaySceneGlobal.Instance.SpawnedObjectParent;
+
+                yield return new WaitForSeconds(spawnedList[i].nextSpawnDelay);
             }
-            yield return new WaitForSeconds(spawnedList[i].nextSpawnDelay);
         }
     }
 

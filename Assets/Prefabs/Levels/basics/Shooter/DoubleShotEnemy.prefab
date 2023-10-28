@@ -128,16 +128,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a486fd3cfafe141a0dd3b424333dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMaxHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
   OnNewHealthSet:
     m_PersistentCalls:
       m_Calls: []
   OnNewMaxHealthSet:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthDamaged:
     m_PersistentCalls:
       m_Calls: []
   _maxHealth: 500
@@ -321,6 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2148857775854412103}
   - component: {fileID: 520934935852076602}
+  - component: {fileID: 8871106386466327469}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -357,10 +355,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12776c5c0db5fc24ca366f9d5b19d350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7219305050643224997, guid: c9ade7da896a3694cb9249e7ba4b6389, type: 3}
+  _bulletPrefab: {fileID: 7219305050643224997, guid: 19c38530f2207464791141fd662eda3e, type: 3}
   _spawnLocation:
   - {fileID: 7362233900629448147}
   - {fileID: 1337779116671512001}
   _fireRate: 1
   _delayStart: 1
   _shootOnStart: 0
+  _bulletPool: {fileID: 8871106386466327469}
+--- !u!114 &8871106386466327469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4971794046789240175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e354fb874ae65d44dbab68c1887fc832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initPoolSize: 2
+  _objectToPool: {fileID: 8801856713224041635, guid: 19c38530f2207464791141fd662eda3e, type: 3}

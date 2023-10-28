@@ -13,6 +13,8 @@ public class FanMultipleShotsShooter : AutoShootDevice
     [SerializeField] float _delayStart = 0f;
     [SerializeField] bool _shootOnStart = false;
 
+    [SerializeField] ObjectPool _bulletPool;
+
     private bool shooterEnabled = false;
     private Coroutine _shootRoutine;
 
@@ -42,6 +44,12 @@ public class FanMultipleShotsShooter : AutoShootDevice
         StopCoroutine(_shootRoutine);
         shooterEnabled = false;
     }
+
+    public override float GetDelayStart()
+    {
+        return _delayStart;
+    }
+
     private IEnumerator ShootCoroutine()
     {
         yield return new WaitForSeconds(_delayStart);
@@ -59,9 +67,16 @@ public class FanMultipleShotsShooter : AutoShootDevice
         float startAngle = transform.rotation.eulerAngles.z - _bulletSpreadAngle / 2;
         for (int i = 0; i < _bulletsPerShot; i++)
         {
+            GameObject bulletObject = _bulletPool.GetPooledObject().gameObject;
+
+            if (bulletObject == null)
+                continue;
+
             float angle = startAngle + i * angleStep;
             Quaternion bulletRotation = Quaternion.Euler(0, 0, angle);
-            Instantiate(_bulletPrefab, _spawnLocation.position, bulletRotation, PlaySceneGlobal.Instance.BulletParent);
+            bulletObject.transform.parent = PlaySceneGlobal.Instance.BulletParent;
+            bulletObject.transform.position = _spawnLocation.position;
+            bulletObject.transform.rotation = bulletRotation;
         }
     }
 }

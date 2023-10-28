@@ -8,6 +8,7 @@ public class AutoDoubleShotShooter : AutoShootDevice
     [SerializeField] float _fireRate = 1.0f;
     [SerializeField] float _delayStart = 0f;
     [SerializeField] bool _shootOnStart = false;
+    [SerializeField] ObjectPool _bulletPool;
 
     private bool shooterEnabled = false;
     private Coroutine _shootRoutine;
@@ -39,6 +40,11 @@ public class AutoDoubleShotShooter : AutoShootDevice
         shooterEnabled = false;
     }
 
+    public override float GetDelayStart()
+    {
+        return _delayStart;
+    }
+
     private IEnumerator ShootCoroutine()
     {
         yield return new WaitForSeconds(_delayStart);
@@ -46,8 +52,17 @@ public class AutoDoubleShotShooter : AutoShootDevice
         while (shooterEnabled)
         {
             for (int i = 0; i < 2; i++)
-                Instantiate(_bulletPrefab, _spawnLocation[i].position, gameObject.transform.rotation, PlaySceneGlobal.Instance.BulletParent);
-            
+            {
+                GameObject bulletObject = _bulletPool.GetPooledObject().gameObject;
+
+                if (bulletObject == null)
+                    continue;
+
+                bulletObject.transform.parent = PlaySceneGlobal.Instance.BulletParent;
+                bulletObject.transform.position = _spawnLocation[i].position;
+                bulletObject.transform.rotation = this.transform.rotation;
+            }
+
             yield return new WaitForSeconds(_fireRate);
         }
     }

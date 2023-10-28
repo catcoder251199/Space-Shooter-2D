@@ -10,7 +10,9 @@ public class AutoSingleShotShooter : AutoShootDevice
     [SerializeField] float _delayStart = 0f;
     [SerializeField] bool _shootOnStart = false;
 
-    private bool shooterEnabled = false;
+    [SerializeField] ObjectPool _bulletPool;
+
+    private bool _shooterEnabled = false;
     private Coroutine _shootRoutine;
 
     private void Start()
@@ -23,30 +25,42 @@ public class AutoSingleShotShooter : AutoShootDevice
 
     public override bool IsActivate()
     {
-        return shooterEnabled;
+        return _shooterEnabled;
     }
 
     public override void Activate()
     {
-        if (!shooterEnabled)
+        if (!_shooterEnabled)
         {
-            shooterEnabled = true;
+            _shooterEnabled = true;
             _shootRoutine = StartCoroutine(ShootCoroutine());
         }
     }
     public override void Deactivate()
     {
         StopCoroutine(_shootRoutine);
-        shooterEnabled = false;
+        _shooterEnabled = false;
+    }
+
+    public override float GetDelayStart()
+    {
+        return _delayStart;
     }
 
     private IEnumerator ShootCoroutine()
     {
         yield return new WaitForSeconds(_delayStart);
 
-        while (shooterEnabled)
+        while (_shooterEnabled)
         {
-            Instantiate(_bulletPrefab, _spawnLocation.position, gameObject.transform.rotation, PlaySceneGlobal.Instance.BulletParent);
+            GameObject bulletObject = _bulletPool.GetPooledObject().gameObject;
+
+            if (bulletObject == null)
+                continue;
+
+            bulletObject.transform.parent = PlaySceneGlobal.Instance.BulletParent;
+            bulletObject.transform.position = this.transform.position;
+            bulletObject.transform.rotation = this.transform.rotation;
             yield return new WaitForSeconds(_fireRate);
         }
     }

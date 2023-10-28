@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TripleShotEnemy Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4567856974928977924, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
+      propertyPath: _objectToPool
+      value: 
+      objectReference: {fileID: 1263587470905132369, guid: d4cff999ea8532249be8c1a53ff4b3e6, type: 3}
     - target: {fileID: 4606061427477100838, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
       propertyPath: _maxHealth
       value: 500
