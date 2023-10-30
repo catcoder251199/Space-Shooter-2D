@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 5878349728280159028}
   - component: {fileID: 3682291699084365725}
   - component: {fileID: 586166000563684111}
+  - component: {fileID: 2190417208718247175}
+  - component: {fileID: 215293253699745781}
   m_Layer: 15
-  m_Name: BigMeteor
+  m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -73,22 +75,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ea67c07eb0f8642a0a828e725e2523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resetOnOffScreen: 0
+  _playOnStart: 0
+  _offsetFromBounds: 2
   _floatingSpeedMin: 1
   _floatingSpeedMax: 2
   _minScaleXY: 1
   _maxScaleXY: 1.5
   _minRotateSpeed: 30
   _maxRotateSpeed: 60
-  _offsetFromBounds: 2
   _meteorVisuals:
   - {fileID: 8852719723766608812, guid: dc9ce1afaa4ae584eb1bfd1102b3135a, type: 3}
   - {fileID: 1553182506122007483, guid: fbe3716d15ac5d648be264e18588132f, type: 3}
   - {fileID: 7848816352540899039, guid: efd51138dabe9054a9b55a91c18f1fe5, type: 3}
   - {fileID: 1406638478621947505, guid: 9e12a7d0581ac5f4697e957076a31cad, type: 3}
   _explosionEffect: {fileID: 555894976990334792, guid: a1b0658984725da4ebb0606bf826b271, type: 3}
-  _hitRate: 0.5
-  _damagePerHit: 50
+  _pooledProduct: {fileID: 215293253699745781}
 --- !u!114 &586166000563684111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,17 +102,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a486fd3cfafe141a0dd3b424333dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMaxHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
   OnNewHealthSet:
     m_PersistentCalls:
       m_Calls: []
   OnNewMaxHealthSet:
     m_PersistentCalls:
       m_Calls: []
+  OnHealthDamaged:
+    m_PersistentCalls:
+      m_Calls: []
   _maxHealth: 400
   _currentHealth: 0
+--- !u!114 &2190417208718247175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2149243115488739788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4575c522379104099f8cc24a14d2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageableTags:
+  - Player
+  damage: 77
+  isCritical: 1
+  OnTriggerStayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  hitRate: 1
+--- !u!114 &215293253699745781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2149243115488739788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c228ceebac7af9429186d590ac26a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3682291699084365725}
+        m_TargetAssemblyTypeName: Asteroid, Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

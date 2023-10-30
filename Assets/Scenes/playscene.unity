@@ -128,6 +128,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 468543395679126997, guid: fedbf0cfeae9bc44882a4824e667d844, type: 3}
   m_PrefabInstance: {fileID: 512895407}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &136178974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
+  m_PrefabInstance: {fileID: 1375160927805875564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a751e3b905be5d34abcb15b7a8398723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &142088433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,59 +1333,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: _currentWave
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
-      propertyPath: _waveSOList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
-      propertyPath: _waveSOList.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 576b01a9d70f25e4f8d7b7bc04cee36e, type: 2}
-    - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
-      propertyPath: _waveSOList.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 22ab196ec02240245b1d8a60eac4d342, type: 2}
-    - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
-      propertyPath: _waveSOList.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1b7282b254c18c742b982c3e551951d8, type: 2}
-    - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
-      propertyPath: _waveSOList.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1f9316ab29c85b34b899870159aec36a, type: 2}
     - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: onCurrentWaveFinished.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: onCurrentWaveFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: onCurrentWaveFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 136178974}
     - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: onCurrentWaveFinished.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
-      propertyPath: onCurrentWaveFinished.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: onCurrentWaveFinished.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: SpawnNext
       objectReference: {fileID: 0}
     - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: onCurrentWaveFinished.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: 
+      value: SpawnManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6883650126299392337, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: onCurrentWaveFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7891144826011950162, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: m_RootOrder
@@ -1422,16 +1409,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8562909151078743026, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
       propertyPath: _prefabList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8562909151078743026, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
-      propertyPath: _prefabList.Array.data[1]
+      propertyPath: _prefabList.Array.data[3]
       value: 
-      objectReference: {fileID: 403657545951536556, guid: f679a4418f88bf040945ff6233785b75, type: 3}
-    - target: {fileID: 8562909151078743026, guid: ef98f50a8ea37934a90dc0bdabfe9ce5, type: 3}
-      propertyPath: _prefabList.Array.data[2]
-      value: 
-      objectReference: {fileID: 997777216690451189, guid: 0cccdad3c83986f46b39eb1eb843ef92, type: 3}
+      objectReference: {fileID: 1418472428428152574, guid: 7a3fe66719fcbe045939d0d53328184d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -118,7 +118,6 @@ namespace Enemy
         {
             if (_pooledProduct != null)
             {
-                Debug.Log("Deactivate: use Pool");
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = 0;
                 transform.position = Vector3.zero;
@@ -127,7 +126,6 @@ namespace Enemy
             }
             else
             {
-                Debug.Log("Deactivate: use Destroy");
                 Destroy(gameObject);
             }
         }

@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3500935578168903100}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6883650126299392337
 MonoBehaviour:
@@ -45,9 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a751e3b905be5d34abcb15b7a8398723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onCurrentWaveFinished:
+    m_PersistentCalls:
+      m_Calls: []
   _waveSOList:
+  - {fileID: 11400000, guid: 576b01a9d70f25e4f8d7b7bc04cee36e, type: 2}
+  - {fileID: 11400000, guid: 22ab196ec02240245b1d8a60eac4d342, type: 2}
+  - {fileID: 11400000, guid: 1b7282b254c18c742b982c3e551951d8, type: 2}
   - {fileID: 11400000, guid: 1f9316ab29c85b34b899870159aec36a, type: 2}
-  _currentWave: 0
+  _currentWave: 3
   _factory: {fileID: 8562909151078743026}
 --- !u!114 &8562909151078743026
 MonoBehaviour:
@@ -63,6 +69,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefabList:
   - {fileID: 6505274018899465644, guid: f6ff7ca86debebd458824431efe60129, type: 3}
+  - {fileID: 403657545951536556, guid: f679a4418f88bf040945ff6233785b75, type: 3}
+  - {fileID: 997777216690451189, guid: 0cccdad3c83986f46b39eb1eb843ef92, type: 3}
   _defaultCapacity: 3
   _maxSize: 50
   _checkExistenceInPool: 1

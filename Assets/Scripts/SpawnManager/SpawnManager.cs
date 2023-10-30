@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class SpawnManager : MonoBehaviour
 {
     public UnityEvent onCurrentWaveFinished;
+    public UnityEvent onAllWavesFinished;
 
     [SerializeField] private WaveSO[] _waveSOList;
     [SerializeField] private int _currentWave;
@@ -66,8 +67,16 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnNext()
     {
-        _currentWave++;
-        StartSpawn();
+        if (_currentWave + 1 < _waveSOList.Length)
+        {
+            _currentWave++;
+            StartSpawn();
+        }
+        else
+        {
+            onCurrentWaveFinished.RemoveListener(SpawnNext);
+            onAllWavesFinished?.Invoke(); // win the game
+        }
     }
 
     public void StopSpawn()

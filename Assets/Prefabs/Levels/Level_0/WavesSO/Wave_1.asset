@@ -15,7 +15,9 @@ MonoBehaviour:
   _spawnedObjectsList:
   - prefab: {fileID: 2498064621959067852, guid: f679a4418f88bf040945ff6233785b75, type: 3}
     count: 2
-    nextSpawnDelay: 1
-  - prefab: {fileID: 8898295919997024232, guid: f6ff7ca86debebd458824431efe60129, type: 3}
+    nextSpawnDelay: 0
+    spawnNextGroupDelay: 1
+  - prefab: {fileID: 900763921571641543, guid: 7a3fe66719fcbe045939d0d53328184d, type: 3}
     count: 3
     nextSpawnDelay: 0
+    spawnNextGroupDelay: 0
