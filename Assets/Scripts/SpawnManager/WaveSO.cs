@@ -12,6 +12,7 @@ public class WaveSO : ScriptableObject
         public GameObject prefab;
         public int count;
         public float nextSpawnDelay = 0f;
+        public float spawnNextGroupDelay = 0f;
     }
     [SerializeField] private SpawnedObject[] _spawnedObjectsList;
 

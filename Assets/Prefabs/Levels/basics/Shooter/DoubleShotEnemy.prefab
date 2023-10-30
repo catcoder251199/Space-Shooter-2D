@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 8165895190844819022}
   - component: {fileID: 4606061427477100838}
   - component: {fileID: 9069711927825996689}
+  - component: {fileID: 1752330421624483881}
   m_Layer: 0
   m_Name: DoubleShotEnemy
   m_TagString: Untagged
@@ -110,12 +111,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0ebaa71749d024db494fb2798c069d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playOnStart: 0
   _speed: 7
   _rotateSpeed: 360
   _attackTime: 4
   _offsetFromBounds: 2
   _shootDevice: {fileID: 520934935852076602}
   _explosionEffect: {fileID: 6389210361597389694, guid: 8e8234b2c5438ec4eb4eeb5749c35674, type: 3}
+  _pooledProduct: {fileID: 1752330421624483881}
 --- !u!114 &4606061427477100838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +169,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1752330421624483881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567067648038694217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c228ceebac7af9429186d590ac26a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8165895190844819022}
+        m_TargetAssemblyTypeName: Enemy.EnemyShooter, Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4671918426592093889
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +348,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2148857775854412103}
   - component: {fileID: 520934935852076602}
-  - component: {fileID: 8871106386466327469}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -355,25 +384,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12776c5c0db5fc24ca366f9d5b19d350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7219305050643224997, guid: 19c38530f2207464791141fd662eda3e, type: 3}
+  _bulletPrefab: {fileID: 2997330453954961705, guid: 19c38530f2207464791141fd662eda3e, type: 3}
   _spawnLocation:
   - {fileID: 7362233900629448147}
   - {fileID: 1337779116671512001}
   _fireRate: 1
   _delayStart: 1
   _shootOnStart: 0
-  _bulletPool: {fileID: 8871106386466327469}
---- !u!114 &8871106386466327469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4971794046789240175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e354fb874ae65d44dbab68c1887fc832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initPoolSize: 2
-  _objectToPool: {fileID: 8801856713224041635, guid: 19c38530f2207464791141fd662eda3e, type: 3}
+  _bulletPool: {fileID: 0}

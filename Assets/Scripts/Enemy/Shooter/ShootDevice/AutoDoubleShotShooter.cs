@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class AutoDoubleShotShooter : AutoShootDevice
 {
-    [SerializeField] EnemyBulletBase _bulletPrefab;
+    [SerializeField] PooledBulletProduct _bulletPrefab;
     [SerializeField] Transform[] _spawnLocation;
     [SerializeField] float _fireRate = 1.0f;
     [SerializeField] float _delayStart = 0f;
     [SerializeField] bool _shootOnStart = false;
-    [SerializeField] ObjectPool _bulletPool;
 
     private bool shooterEnabled = false;
     private Coroutine _shootRoutine;
@@ -49,21 +48,28 @@ public class AutoDoubleShotShooter : AutoShootDevice
     {
         yield return new WaitForSeconds(_delayStart);
 
-        while (shooterEnabled)
+        BulletFactory bulletFactory = BulletFactory.Instance;
+        if (bulletFactory != null)
         {
-            for (int i = 0; i < 2; i++)
+            while (shooterEnabled)
             {
-                GameObject bulletObject = _bulletPool.GetPooledObject().gameObject;
+                for (int i = 0; i < 2; i++)
+                {
+                    PooledBulletProduct bulletObject = bulletFactory.CreateBulletProduct(_bulletPrefab.InstanceId);
 
-                if (bulletObject == null)
-                    continue;
+                    if (bulletObject == null)
+                    {
+                        Debug.LogError("AutoSingleShotShooter: created bullet is null");
+                        break;
+                    }
 
-                bulletObject.transform.parent = PlaySceneGlobal.Instance.BulletParent;
-                bulletObject.transform.position = _spawnLocation[i].position;
-                bulletObject.transform.rotation = this.transform.rotation;
+                    bulletObject.transform.parent = PlaySceneGlobal.Instance.BulletParent;
+                    bulletObject.transform.position = _spawnLocation[i].position;
+                    bulletObject.transform.rotation = this.transform.rotation;
+                }
+
+                yield return new WaitForSeconds(_fireRate);
             }
-
-            yield return new WaitForSeconds(_fireRate);
         }
     }
 }

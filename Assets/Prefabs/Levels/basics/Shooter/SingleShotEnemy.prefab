@@ -49,12 +49,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0ebaa71749d024db494fb2798c069d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playOnStart: 0
   _speed: 7
   _rotateSpeed: 360
   _attackTime: 4
   _offsetFromBounds: 2
   _shootDevice: {fileID: 6658501734576346658}
   _explosionEffect: {fileID: 6389210361597389694, guid: 8e8234b2c5438ec4eb4eeb5749c35674, type: 3}
+  _pooledProduct: {fileID: 4191234975449610106}
 --- !u!114 &3200294597755233777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +121,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onInitializeInvoked:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2692753901723521450}
+        m_TargetAssemblyTypeName: Enemy.EnemyShooter, Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5638176494233208200
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +144,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8930927380680980540}
   - component: {fileID: 6658501734576346658}
-  - component: {fileID: 6339285950973595929}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -165,26 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebc725669b3a8fe48b4621b0338122fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7219305050643224997, guid: c9ade7da896a3694cb9249e7ba4b6389, type: 3}
+  _bulletPrefab: {fileID: 2997330453954961705, guid: 19c38530f2207464791141fd662eda3e, type: 3}
   _spawnLocation: {fileID: 8930927380680980540}
   _fireRate: 0.8
   _delayStart: 1
   _shootOnStart: 0
-  _bulletPool: {fileID: 6339285950973595929}
---- !u!114 &6339285950973595929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5638176494233208200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e354fb874ae65d44dbab68c1887fc832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initPoolSize: 1
-  _objectToPool: {fileID: 8801856713224041635, guid: 19c38530f2207464791141fd662eda3e, type: 3}
 --- !u!1 &5814567871403391253
 GameObject:
   m_ObjectHideFlags: 0

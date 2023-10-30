@@ -20,12 +20,13 @@ public class PlaySceneGlobal : MonoBehaviour
         }
     }
     //--------------Tags-------------------------
-    [SerializeField] string _tag_player = "Player";
-    [SerializeField] string _tag_EnemyBullet;
-    [SerializeField] string _tag_PlayerBullet;
-    public string Tag_EnemyBullet => _tag_EnemyBullet;
-    public string Tag_PlayerBullet => _tag_PlayerBullet;
-    public string Tag_Player => _tag_player;
+    [SerializeField] string _tagPlayer = "Player";
+    [SerializeField] string _tagEnemyBullet = "EnemyBullet";
+    [SerializeField] string _tagPlayerBullet = "PlayerBullet";
+    public string Tag_EnemyBullet => _tagEnemyBullet;
+    public string Tag_PlayerBullet => _tagPlayerBullet;
+    public string Tag_Player => _tagPlayer;
+
 
     //--------------------------------------------
 
@@ -33,6 +34,7 @@ public class PlaySceneGlobal : MonoBehaviour
     [SerializeField] Transform _vfxParent;
     [SerializeField] Transform _bulletParent;
     [SerializeField] Transform _spawnedObjectParent;
+
     public Transform VFXParent => _vfxParent;
     public Transform BulletParent => _bulletParent;
     public Transform SpawnedObjectParent => _spawnedObjectParent;

@@ -4,8 +4,11 @@ using UnityEngine.Pool;
 using Enemy.EnemyShooterState;
 namespace Enemy
 {
-    public partial class EnemyShooter : FSMEnemy
+    public class EnemyShooter : FSMEnemy
     {
+        [SerializeField, Tooltip("if true, the shooter start to play on the first active frame. If false, the shooter don't do anything. Set it false when this shooter should be spawned/enabled by something else")] 
+        bool _playOnStart = false;
+
         [SerializeField] float _speed = 1f;
         [SerializeField] float _rotateSpeed = 1f;
         [SerializeField] float _attackTime = 1f;
@@ -13,7 +16,7 @@ namespace Enemy
         [SerializeField] AutoShootDevice _shootDevice;
         [SerializeField] ParticleSystem _explosionEffect;
 
-        [SerializeField, Header("Pooled Object or Product")] private PooledSpawnableProduct _pooledProduct;
+        [SerializeField, Header("Pooled Spawnable Object/Product")] private PooledSpawnableProduct _pooledProduct;
 
         private Rigidbody2D _rb;
         private Health _health;
@@ -49,21 +52,22 @@ namespace Enemy
 
         void Start()
         {
-            _target = GameManager.Instance.Player;
-            if (_target == null)
-                Debug.LogError("SelfDestructor.Start(): _target == null");
-
-            ChangeState(_startState);
+            if (_playOnStart)
+            {
+                Initialize();
+            }
         }
 
         private void Update()
         {
-            _currentState.UpdateExecute();
+            if(_currentState != null)
+                _currentState.UpdateExecute();
         }
 
         private void FixedUpdate()
         {
-            _currentState.FixedUpdateExecute();
+            if (_currentState != null)
+                _currentState.FixedUpdateExecute();
         }
 
         public void OnTriggerEnter2D(Collider2D collision)
@@ -102,16 +106,19 @@ namespace Enemy
 
         public void Initialize()
         {
-            _rb.velocity = Vector3.zero;
-            _rb.angularVelocity = 0;
-            transform.position = Vector3.zero;
-            transform.rotation = Quaternion.identity;
+            _target = GameManager.Instance.Player;
+            if (_target == null)
+                Debug.LogError("SelfDestructor.Start(): _target == null");
+
+            _health.SetHealth(_health.GetMaxHealth());
+            ChangeState(_startState);
         }
 
         public void Deactivate()
         {
             if (_pooledProduct != null)
             {
+                Debug.Log("Deactivate: use Pool");
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = 0;
                 transform.position = Vector3.zero;
@@ -119,7 +126,10 @@ namespace Enemy
                 _pooledProduct.Release();
             }
             else
+            {
+                Debug.Log("Deactivate: use Destroy");
                 Destroy(gameObject);
+            }
         }
 
     }

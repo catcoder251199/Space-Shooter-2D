@@ -21,7 +21,7 @@ public class ObjectPool : MonoBehaviour
         PooledObject pooledInstance = null;
         for (int i = 0; i < _initPoolSize; i++)
         {
-            pooledInstance = Instantiate(_objectToPool);
+            pooledInstance = Instantiate(_objectToPool, transform);
             pooledInstance.Pool = this;
             pooledInstance.gameObject.SetActive(false);
             _stack.Push(pooledInstance);
@@ -49,4 +49,13 @@ public class ObjectPool : MonoBehaviour
         _stack.Push(pooledObject);
         pooledObject.gameObject.SetActive(false);
     }
+
+    //public void OnDestroy()
+    //{
+    //    foreach (PooledObject pooledObject in _stack)
+    //    {
+    //        Destroy(pooledObject.gameObject);
+    //    }
+    //    _stack.Clear();
+    //}
 }

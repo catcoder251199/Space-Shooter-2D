@@ -12,7 +12,7 @@ namespace Enemy
         [Tooltip("whether the bullet should be deactivated in object pool when hitting something")]
         public bool destroyOnHit = true;
 
-        private PooledObject _pooledObject;
+        private PooledBulletProduct _pooledProduct;
         public enum DestroyedCondition
         {
             LifeTime,
@@ -26,7 +26,15 @@ namespace Enemy
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _pooledObject = GetComponent<PooledObject>();
+            _pooledProduct = GetComponent<PooledBulletProduct>();
+        }
+
+        public void Initialized()
+        {
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = 0;
+            _existedTime = 0f;
+            transform.position = Vector3.zero;
         }
 
         private void Start() { }
@@ -57,10 +65,10 @@ namespace Enemy
 
         public void Deactivate()
         {
-            if (_pooledObject != null)
+            if (_pooledProduct != null)
             {
                 _rb.velocity = Vector3.zero;
-                _pooledObject.Release();
+                _pooledProduct.Release();
             }
             else
                 Destroy(gameObject);

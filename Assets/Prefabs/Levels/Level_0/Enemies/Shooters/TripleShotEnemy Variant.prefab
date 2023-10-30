@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 4341967461366916705, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
       propertyPath: _bulletPrefab
       value: 
-      objectReference: {fileID: 4920283112978017100, guid: 63a6010da9457bf4e97c6137583e735c, type: 3}
+      objectReference: {fileID: 4771555271569199323, guid: d4cff999ea8532249be8c1a53ff4b3e6, type: 3}
     - target: {fileID: 4347063413169397416, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
       propertyPath: m_RootOrder
       value: 0

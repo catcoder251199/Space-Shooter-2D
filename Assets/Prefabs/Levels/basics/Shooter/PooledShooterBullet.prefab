@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1939454426976275520}
   - component: {fileID: -6953039341838754741}
   - component: {fileID: 7219305050643224997}
-  - component: {fileID: 8801856713224041635}
+  - component: {fileID: 2997330453954961705}
   m_Layer: 11
   m_Name: PooledShooterBullet
   m_TagString: EnemyBullet
@@ -198,7 +198,7 @@ MonoBehaviour:
   lifeTime: 3
   destroyOnHit: 1
   destroyedCondition: 1
---- !u!114 &8801856713224041635
+--- !u!114 &2997330453954961705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,7 +207,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 4273708318967418783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a79a45193182c54c92c1d2dbbe46cd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5864e8082bc9cce4cb477dfbddde9d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pool: {fileID: 0}
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7219305050643224997}
+        m_TargetAssemblyTypeName: Enemy.StraightBullet, Assembly-CSharp
+        m_MethodName: Initialized
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

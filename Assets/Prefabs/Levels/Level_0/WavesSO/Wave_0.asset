@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnedObjectsList:
   - prefab: {fileID: 8898295919997024232, guid: f6ff7ca86debebd458824431efe60129, type: 3}
-    count: 4
+    count: 2
     nextSpawnDelay: 1
   - prefab: {fileID: 9037288250866873878, guid: 3131ad90849955d42be7767e05b06fc3, type: 3}
     count: 5

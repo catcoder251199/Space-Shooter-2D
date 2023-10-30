@@ -3,14 +3,11 @@ using UnityEngine;
 
 public class AutoSingleShotShooter : AutoShootDevice
 {
-    [SerializeField] EnemyBulletBase _bulletPrefab;
+    [SerializeField] PooledBulletProduct _bulletPrefab;
     [SerializeField] Transform _spawnLocation;
-
     [SerializeField] float _fireRate = 1.0f;
     [SerializeField] float _delayStart = 0f;
     [SerializeField] bool _shootOnStart = false;
-
-    [SerializeField] ObjectPool _bulletPool;
 
     private bool _shooterEnabled = false;
     private Coroutine _shootRoutine;
@@ -51,17 +48,25 @@ public class AutoSingleShotShooter : AutoShootDevice
     {
         yield return new WaitForSeconds(_delayStart);
 
-        while (_shooterEnabled)
+        BulletFactory bulletFactory = BulletFactory.Instance;
+        if (bulletFactory != null)
         {
-            GameObject bulletObject = _bulletPool.GetPooledObject().gameObject;
+            while (_shooterEnabled)
+            {
+                PooledBulletProduct bulletObject = bulletFactory.CreateBulletProduct(_bulletPrefab.InstanceId);
 
-            if (bulletObject == null)
-                continue;
+                if (bulletObject == null)
+                {
+                    Debug.LogError("AutoSingleShotShooter: created bullet is null");
+                    break;
+                }
 
-            bulletObject.transform.parent = PlaySceneGlobal.Instance.BulletParent;
-            bulletObject.transform.position = this.transform.position;
-            bulletObject.transform.rotation = this.transform.rotation;
-            yield return new WaitForSeconds(_fireRate);
+                bulletObject.transform.parent = PlaySceneGlobal.Instance.BulletParent;
+                bulletObject.transform.position = this.transform.position;
+                bulletObject.transform.rotation = this.transform.rotation;
+                yield return new WaitForSeconds(_fireRate);
+            }
+
         }
     }
 }

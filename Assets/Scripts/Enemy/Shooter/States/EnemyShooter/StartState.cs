@@ -35,25 +35,20 @@ namespace Enemy
             }
             public void OnStateEnter()
             {
-                _subject.transform.position = GetRandOffScreenPosition();
-                _startPosition = Helper.Cam.GetRandomPositionInRect(0.1f, 0.9f, 0.9f, 0.5f);
+                // Reset to initial state
+                _subject.transform.position = Vector3.zero;
+                _subject.transform.rotation = Quaternion.identity;
+                _subject.Rigidbody.velocity = Vector3.zero;
+                _subject.Rigidbody.angularVelocity = 0;
+
+                // Setup before starting to move
+                _subject.transform.position = GetRandOffScreenPosition(); // start position
+                _startPosition = Helper.Cam.GetRandomPositionInRect(0.1f, 0.9f, 0.9f, 0.5f); // destination
                 var direction = (_startPosition - _subject.transform.position).normalized;
                 _subject.transform.rotation = Quaternion.LookRotation(_subject.transform.forward, direction);
             }
             public void UpdateExecute()
-            {
-                //if (Vector2.Distance(_subject.transform.position, _startPosition) > Mathf.Epsilon)
-                //{
-                //    _subject.transform.position = Vector2.MoveTowards(
-                //        _subject.transform.position,
-                //        _startPosition,
-                //        Time.deltaTime * _subject.Speed);
-                //}
-                //else
-                //{
-                //    _subject.ChangeState(_subject.AttackState);
-                //}
-            }
+            {}
 
             public void FixedUpdateExecute() 
             {

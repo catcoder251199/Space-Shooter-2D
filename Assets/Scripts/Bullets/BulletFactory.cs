@@ -1,30 +1,41 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class SpawnableFactory : MonoBehaviour
+// Singleton Class
+public class BulletFactory : MonoBehaviour
 {
-    [SerializeField, Tooltip("* Add anything/any enemy can be spawned in this level to this list")] 
-    PooledSpawnableProduct[] _prefabList; // list of pre-stored prefabs 
-    [SerializeField, Header("Spawnable Object Pools")] private int _defaultCapacity; // initial size of pool
-    [SerializeField] private int _maxSize = 50;
+    public static BulletFactory Instance;
+
+    [SerializeField, Tooltip("* Add any bullet can be spawned in this level to this list")]
+    PooledBulletProduct[] _prefabList; // list of pre-stored prefabs 
+
+    [SerializeField, Header("Bullet Object Pools")] private int _defaultCapacity; // initial size of pool
+    [SerializeField] private int _maxSize = 100;
     [SerializeField] private bool _checkExistenceInPool = true; // throw an exception if we try to return an existing item, already in the pool
-    
-    private Dictionary<int, PooledSpawnableProduct> _prefabDict; // dictionary of pre-stored prefabs 
-    private Dictionary<int, IObjectPool<PooledSpawnableProduct>> _poolDict; // dictionary of different pools each contains corresponding prefabs 
+
+    private Dictionary<int, PooledBulletProduct> _prefabDict; // dictionary of pre-stored prefabs 
+    private Dictionary<int, IObjectPool<PooledBulletProduct>> _poolDict; // dictionary of different pools each contains corresponding prefabs 
 
     private void Awake()
     {
-        SetupFactory();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            SetupFactory();
+        }
     }
 
     private void SetupFactory()
     {
-        _prefabDict = new Dictionary<int, PooledSpawnableProduct>();
-        _poolDict = new Dictionary<int, IObjectPool<PooledSpawnableProduct>>();
+        _prefabDict = new Dictionary<int, PooledBulletProduct>();
+        _poolDict = new Dictionary<int, IObjectPool<PooledBulletProduct>>();
 
-        foreach (PooledSpawnableProduct prefab in _prefabList)
+        foreach (PooledBulletProduct prefab in _prefabList)
         {
             int prefabId = prefab.InstanceId;
 
@@ -33,7 +44,7 @@ public class SpawnableFactory : MonoBehaviour
                 _prefabDict.Add(prefabId, prefab);
 
                 var addedPool =
-                    new ObjectPool<PooledSpawnableProduct>(
+                    new ObjectPool<PooledBulletProduct>(
                     () => CreateSpawnableObject(prefabId),
                     OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject,
                     _checkExistenceInPool, _defaultCapacity, _maxSize);
@@ -45,10 +56,10 @@ public class SpawnableFactory : MonoBehaviour
         }
     }
 
-    public PooledSpawnableProduct CreateSpawnableProduct(int instanceId)
+    public PooledBulletProduct CreateBulletProduct(int instanceId)
     {
-        PooledSpawnableProduct retInstance = null;
-        IObjectPool<PooledSpawnableProduct> pool = GetPool(instanceId);
+        PooledBulletProduct retInstance = null;
+        IObjectPool<PooledBulletProduct> pool = GetPool(instanceId);
         if (pool != null)
         {
             retInstance = pool.Get();
@@ -62,17 +73,17 @@ public class SpawnableFactory : MonoBehaviour
         return retInstance;
     }
 
-    private PooledSpawnableProduct GetPrefab(int prefabId)
+    private PooledBulletProduct GetPrefab(int prefabId)
     {
-        PooledSpawnableProduct ret = null;
+        PooledBulletProduct ret = null;
         if (_prefabDict.ContainsKey(prefabId))
             ret = _prefabDict[prefabId];
         return ret;
     }
-    
-    private IObjectPool<PooledSpawnableProduct> GetPool(int instanceId)
+
+    private IObjectPool<PooledBulletProduct> GetPool(int instanceId)
     {
-        IObjectPool<PooledSpawnableProduct> pool = null;
+        IObjectPool<PooledBulletProduct> pool = null;
         if (_poolDict.ContainsKey(instanceId))
             pool = _poolDict[instanceId];
         return pool;
@@ -81,28 +92,28 @@ public class SpawnableFactory : MonoBehaviour
 
     //---Object Pool---
     // invoked when creating an item to populate the object pool
-    private PooledSpawnableProduct CreateSpawnableObject(int prefabId)
+    private PooledBulletProduct CreateSpawnableObject(int prefabId)
     {
-        PooledSpawnableProduct prefab = GetPrefab(prefabId);
-        PooledSpawnableProduct prefabInstance = Instantiate(prefab);
+        PooledBulletProduct prefab = GetPrefab(prefabId);
+        PooledBulletProduct prefabInstance = Instantiate(prefab);
         prefabInstance.SpawnPool = GetPool(prefabId);
         return prefabInstance;
     }
 
     // invoked when returning an item to the object pool
-    private void OnReleaseToPool(PooledSpawnableProduct pooledObject)
+    private void OnReleaseToPool(PooledBulletProduct pooledObject)
     {
         pooledObject.gameObject.SetActive(false);
     }
 
     // invoked when retrieving the next item from the object pool
-    private void OnGetFromPool(PooledSpawnableProduct pooledObject)
+    private void OnGetFromPool(PooledBulletProduct pooledObject)
     {
         pooledObject.gameObject.SetActive(true);
     }
 
     // invoked when we exceed the maximum number of pooled items (i.e. destroy the pooled object)
-    private void OnDestroyPooledObject(PooledSpawnableProduct pooledObject)
+    private void OnDestroyPooledObject(PooledBulletProduct pooledObject)
     {
         Destroy(pooledObject.gameObject);
     }
