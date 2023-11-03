@@ -1,33 +1,33 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.EventSystems;
-using static UnityEngine.GraphicsBuffer;
+using Enemy;
 
 public class SelfDestructor : MonoBehaviour
 {
+    [SerializeField] private bool _playOnStart = false;
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _rotateSpeed = 90f;
     [SerializeField] private float _offsetFromBounds = 2f;
     [SerializeField] private int _damage = 200;
 
     [SerializeField, Header("Count down")] private float _countDownTime = 5f;
-    [SerializeField] private float _countDownDelay = 0f;
+    [SerializeField] private float _countDownDelay = 0f; // A time to wait before starting count down
     private bool _isCountDownTriggered = false;
+    private float _countedDownTime = 0f;
 
-    //[SerializeField, Header("Attached")] GameObject _explosionVFX;
-    [SerializeField, Header("Attached")] private DamagableExplosion _explosionPrefab;
+    [SerializeField, Header("Attached")] private ConstantHitCollider _explosionPrefab;
+    [SerializeField] private int _explosionDamage = 10; // * override the damage value on ConstantHitCollider
     [SerializeField] private Blink2Colors _blinkAnimator;
     [SerializeField] private RectTransform _canvasUI;
     private Quaternion _canvasUIOriginalRotation;
     [SerializeField] private TextMeshProUGUI _countDownText;
+    [SerializeField] private PooledSpawnableProduct _spawnableProduct;
+
 
     private Player _target;
     private Rigidbody2D _rb;
     private Health _health;
-
-    private Vector3 _moveDirection;
     private bool _following = false;
 
     private void Awake()
@@ -39,14 +39,23 @@ public class SelfDestructor : MonoBehaviour
 
     void Start()
     {
+        if (_playOnStart)
+            Initialize();
+    }
+
+    public void Initialize()
+    {
         _target = GameManager.Instance.Player;
         if (_target == null)
             Debug.LogError("SelfDestructor.Start(): _target == null");
+        _health.SetHealth(_health.GetMaxHealth());
         StartCoroutine(StartRoutine());
     }
+
     private IEnumerator StartRoutine()
     {
-        this.transform.position = GetStartPosition(); // set up first position
+        _countedDownTime = _countDownTime; // reset the timer
+        transform.position = GetStartPosition(); // set up first position
         if (_blinkAnimator != null)
             _blinkAnimator.StartAnimationWithTimer(); // make object blink
         _canvasUIOriginalRotation = _canvasUI.rotation; 
@@ -56,17 +65,11 @@ public class SelfDestructor : MonoBehaviour
     }
     private void Update()
     {
-        if (_countDownTime <= 0)
-        {
+        if (_countedDownTime <= 0)
             OnDied();
-        }
-        else
-        {
-            if (_isCountDownTriggered)
-                _countDownTime -= Time.deltaTime;
-        }
+        else if (_isCountDownTriggered)
+            _countedDownTime -= Time.deltaTime;
 
-        _moveDirection = (_target.transform.position - transform.position).normalized;
         _canvasUI.rotation = _canvasUIOriginalRotation;
     }
 
@@ -74,10 +77,11 @@ public class SelfDestructor : MonoBehaviour
     {
         if (_following && _target.IsAlive())
         {
-            _rb.velocity = _moveDirection * _speed;
             
-            Vector2 direction = _target.transform.position - transform.position;
-            direction.Normalize();
+            Vector2 direction = (_target.transform.position - transform.position).normalized;
+            Vector2 nextPosition = Vector2.MoveTowards(_rb.position, _target.transform.position, _speed * Time.fixedDeltaTime);
+            _rb.MovePosition(nextPosition);
+
             float step = Time.fixedDeltaTime * _rotateSpeed;
             float toTargetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
             float nextAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, toTargetAngle, step);
@@ -88,7 +92,7 @@ public class SelfDestructor : MonoBehaviour
     private void LateUpdate()
     {
         _canvasUI.position = (Vector2) this.transform.position + new Vector2(0.5f, -0.5f);
-        _countDownText.text = ((int) _countDownTime).ToString();
+        _countDownText.text = ((int)_countedDownTime).ToString();
     }
 
     private Vector2 GetStartPosition()
@@ -113,38 +117,48 @@ public class SelfDestructor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-        if (hitCollider != null)
-        {
-            if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-            {
-                var bullet = hitCollider.GetComponent<BulletBase>();
-                if (bullet != null)
-                    bullet.TriggerHitVFX();
-                bool isCritical = false;
-                int damage = hitCollider.GetCalculatedDamage(out isCritical);
-                TakeDamage(damage, isCritical);
-                Destroy(hitCollider.gameObject);
-            }
-        }
+        //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+        //if (hitCollider != null)
+        //{
+        //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
+        //    {
+        //        var bullet = hitCollider.GetComponent<BulletBase>();
+        //        if (bullet != null)
+        //            bullet.TriggerHitVFX();
+        //        bool isCritical = false;
+        //        int damage = hitCollider.GetCalculatedDamage(out isCritical);
+        //        TakeDamage(damage, isCritical);
+        //        Destroy(hitCollider.gameObject);
+        //    }
+        //}
     }
-
-    private void TakeDamage(int damage, bool isCritical = false)
+    public void OnTakeDamage(int damage, bool isCritical = false)
     {
-        _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
         DamagePopup.Create(damage, transform.position, isCritical);
         if (_health.GetHealth() <= 0)
-        {
             OnDied();
-        }
     }
+
     private void OnDied()
     {
-        Destroy(gameObject);
         if (_explosionPrefab != null)
         {
-            DamagableExplosion explosion = Instantiate(_explosionPrefab, this.transform.position, Quaternion.identity);
-            explosion.SetDamage(_damage);
+            var explosion = Instantiate(_explosionPrefab, this.transform.position, Quaternion.identity);
+            explosion.damage = _explosionDamage;
         }
+        Deactivate();
+    }
+
+    private void Deactivate()
+    {
+        if (_spawnableProduct != null)
+        {
+            _following = false;
+            _isCountDownTriggered = false;
+            _blinkAnimator.StopAnimation();
+            _spawnableProduct.Release();
+        }
+        else
+            Destroy(gameObject);
     }
 }

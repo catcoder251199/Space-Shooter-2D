@@ -68,14 +68,15 @@ public class Blink2Colors : SimpleAnimationBase
     public override void StartAnimationForever()
     {
         _isTriggered = true;
-        _oldColor = _spriteRenderer.color;
+        if (!useCustomRenderer)
+            _oldColor = _spriteRenderer.color;
         _runForever = true;
     }
     public override void StartAnimationWithTimer()
     {
         _isTriggered = true;
         if (!useCustomRenderer)
-            _spriteRenderer.color = _oldColor;
+            _oldColor = _spriteRenderer.color;
         _runForever = false;
         _countDownTime = _timer;
         _t = 0f;

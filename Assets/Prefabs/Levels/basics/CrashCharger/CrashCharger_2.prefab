@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7802798153460367629}
   - component: {fileID: 7485372641910135786}
   - component: {fileID: 3544164652768935770}
+  - component: {fileID: 2511460660202681715}
+  - component: {fileID: 8364422263215888324}
   m_Layer: 10
   m_Name: CrashCharger_2
   m_TagString: Enemy
@@ -74,15 +76,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3400dcbe648ea04fac7868687a76078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playOnStart: 0
   _damage: 180
   _speed: 4
   _chargeSpeed: 12
   _chargeTime: 1.5
   _rotateSpeed: 260
-  _waitTime: 2
+  _waitTime: 1.25
   _offsetFromBounds: 2
   _rectSize: {x: 0, y: 0}
   _explosionEffect: {fileID: 6389210361597389694, guid: 8e8234b2c5438ec4eb4eeb5749c35674, type: 3}
+  _spawnableProduct: {fileID: 0}
 --- !u!114 &3544164652768935770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,20 +99,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a486fd3cfafe141a0dd3b424333dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMaxHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
   OnNewHealthSet:
     m_PersistentCalls:
       m_Calls: []
   OnNewMaxHealthSet:
     m_PersistentCalls:
       m_Calls: []
-  _maxHealth: 1400
+  OnHealthDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  _maxHealth: 300
   _currentHealth: 0
+--- !u!114 &2511460660202681715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743096776724983967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c228ceebac7af9429186d590ac26a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7485372641910135786}
+        m_TargetAssemblyTypeName: Enemy.CrashCharger, Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8364422263215888324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743096776724983967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4575c522379104099f8cc24a14d2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageableTags:
+  - Player
+  damage: 111
+  isCritical: 1
+  OnTriggerStayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  hitRate: 1
 --- !u!1 &8700330168411713365
 GameObject:
   m_ObjectHideFlags: 0

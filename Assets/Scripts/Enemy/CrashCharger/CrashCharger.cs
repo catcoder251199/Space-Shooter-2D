@@ -7,6 +7,7 @@ namespace Enemy
     {
         private Player _target;
 
+        [SerializeField] private bool _playOnStart = false;
         [SerializeField] private int _damage = 10;
         [SerializeField] private float _speed = 3.0f;
         [SerializeField] private float _chargeSpeed = 5.0f;
@@ -16,6 +17,7 @@ namespace Enemy
         [SerializeField] float _offsetFromBounds = 4f; // in pixels
         [SerializeField] Vector2 _rectSize;
         [SerializeField] ParticleSystem _explosionEffect;
+        [SerializeField] private PooledSpawnableProduct _spawnableProduct;
 
         private MoveToScreenState _moveToScreenState;
         private WaitAndLookState _waitAndLookState;
@@ -48,19 +50,29 @@ namespace Enemy
 
         private void Start()
         {
+            if (_playOnStart)
+            {
+                Initialize();
+            }
+        }
+
+        public void Initialize()
+        {
             _target = GameManager.Instance.Player;
             if (_target == null)
                 Debug.LogError("LaserShooter.Start(): _target == null");
 
+            _health.SetHealth(_health.GetMaxHealth());
             ChangeState(_moveToScreenState);
         }
+
         private void Update()
         {
-            _currentState.UpdateExecute();
+            _currentState?.UpdateExecute();
         }
         private void FixedUpdate()
         {
-            _currentState.FixedUpdateExecute();
+            _currentState?.FixedUpdateExecute();
         }
 
         public Vector3 GetRandomOffScreenPosition()
@@ -90,7 +102,7 @@ namespace Enemy
         public bool IsOutOfScreen()
         {
             // Transform this object's position from world space to screen space
-            // Then attach tranformed position with a defined rect
+            // Then attach transformed position with a defined rect
             // This object is out of screen if the obtained rect is outside of screen
             Camera cam = Camera.main;
             var screenPosition = cam.WorldToScreenPoint(this.transform.position);
@@ -111,37 +123,22 @@ namespace Enemy
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            //if (!collision.isTrigger)
+            //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+            //if (hitCollider != null)
             //{
-            //    ChargeState chargeState = _currentState as ChargeState;
-            //    if (chargeState != null)
+            //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
             //    {
-            //        Debug.Log("Stop Charge: Hit something");
-            //        ChangeState(_waitAndLookState);
+            //        var bullet = hitCollider.GetComponent<BulletBase>();
+            //        if (bullet != null)
+            //            bullet.TriggerHitVFX();
+            //        bool isCritical = false;
+            //        int damage = hitCollider.GetCalculatedDamage(out isCritical);
+            //        TakeDamage(damage, isCritical);
+            //        Destroy(hitCollider.gameObject);
             //    }
             //}
-
-            DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-            if (hitCollider != null)
-            {
-                if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-                {
-                    var bullet = hitCollider.GetComponent<BulletBase>();
-                    if (bullet != null)
-                        bullet.TriggerHitVFX();
-                    bool isCritical = false;
-                    int damage = hitCollider.GetCalculatedDamage(out isCritical);
-                    TakeDamage(damage, isCritical);
-                    Destroy(hitCollider.gameObject);
-                }
-            }
-
-            if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_Player))
-            {
-                Player player = collision.attachedRigidbody.GetComponent<Player>();
-                player.TakeDamage(_damage, true);
-            }
         }
+
         private void TakeDamage(int damage, bool isCritical = false)
         {
             _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
@@ -157,7 +154,23 @@ namespace Enemy
             if (_explosionEffect != null)
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
 
-            Destroy(gameObject, 0.1f);
+            Deactivate();
+        }
+
+        private void Deactivate()
+        {
+            if (_spawnableProduct != null)
+            {
+                _rb.angularVelocity = 0f;
+                _rb.velocity = Vector3.zero;
+                transform.position = Vector3.zero;
+                transform.rotation = Quaternion.identity;
+                _spawnableProduct.Release();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

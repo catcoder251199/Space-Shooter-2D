@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2149243115488739788, guid: fedbf0cfeae9bc44882a4824e667d844, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 2190417208718247175, guid: fedbf0cfeae9bc44882a4824e667d844, type: 3}
       propertyPath: damage
       value: 66

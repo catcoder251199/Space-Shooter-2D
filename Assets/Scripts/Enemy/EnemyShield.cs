@@ -39,12 +39,12 @@ public class EnemyShield : MonoBehaviour
 
     void ProcessCollision(Collider2D collision)
     {
-        if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-        {
-            var bullet = collision.attachedRigidbody.GetComponent<BulletBase>();
-            if (bullet != null)
-                bullet.TriggerHitVFX();
-            Destroy(bullet.gameObject);
-        }
+        //if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
+        //{
+        //    var bullet = collision.attachedRigidbody.GetComponent<BulletBase>();
+        //    if (bullet != null)
+        //        bullet.TriggerHitVFX();
+        //    Destroy(bullet.gameObject);
+        //}
     }
 }

@@ -17,13 +17,13 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerController _controller;
     [SerializeField] private List<AttackBehaviourSO> _attackBehaviourData;
     [SerializeField] private AttackBehaviour _attackBehaviour;
-    [SerializeField] private Health _health;
-
-    [SerializeField, Header("Player Base Stats")] private int _damage = 100;
-    [SerializeField ,Range(0, 1)] private float _critRate = 0.1f;
-    [SerializeField, Range(0, 1)] private float _critModifier = 0.5f;
     [SerializeField] private int _maxHp = 100;
-    public int Damage => _damage;
+
+    private Health _health;
+    private PlayerDamageHandler _damageHandler;
+    private PlayerBulletPool _bulletPool;
+
+    public int Damage => 0;
     public int MaxHp 
     {
         get { return _maxHp; }
@@ -33,17 +33,18 @@ public class Player : MonoBehaviour
             _health.SetMaxHealth(_maxHp);
         }
     }
-
-    public float CritRate => Mathf.Clamp01(_critRate);
-    public float CritModifier => Mathf.Max(_critModifier, 0);
     public Health Health => _health;
+    public PlayerDamageHandler DamageHandler => _damageHandler;
+    public PlayerBulletPool BulletPool => _bulletPool;
 
     private void Awake()
     {
+        _health = GetComponent<Health>();
         MaxHp = _maxHp;
-    }
 
-    public void SetCritRate(float critRate) =>_critRate = critRate;
+        _damageHandler = GetComponent<PlayerDamageHandler>();
+        _bulletPool = GetComponent<PlayerBulletPool>();
+    }
 
     private void Start()
     {

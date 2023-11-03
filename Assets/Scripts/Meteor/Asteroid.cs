@@ -117,30 +117,20 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        //if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_Player))
+        //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+        //if (hitCollider != null)
         //{
-        //    if (Time.time >= _hitNextTime)
+        //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
         //    {
-        //        Player player = collision.attachedRigidbody.GetComponent<Player>();
-        //        player.TakeDamage(_damagePerHit, true);
-        //        _hitNextTime = Time.time + _hitRate;
+        //        var bullet = hitCollider.GetComponent<BulletBase>();
+        //        if (bullet != null)
+        //            bullet.TriggerHitVFX();
+        //        bool isCritical = false;
+        //        int damage = hitCollider.GetCalculatedDamage(out isCritical);
+        //        TakeDamage(damage, isCritical);
+        //        Destroy(hitCollider.gameObject);
         //    }
         //}
-
-        DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-        if (hitCollider != null)
-        {
-            if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-            {
-                var bullet = hitCollider.GetComponent<BulletBase>();
-                if (bullet != null)
-                    bullet.TriggerHitVFX();
-                bool isCritical = false;
-                int damage = hitCollider.GetCalculatedDamage(out isCritical);
-                TakeDamage(damage, isCritical);
-                Destroy(hitCollider.gameObject);
-            }
-        }
     }
 
     public void TakeDamage(int damage, bool isCritical = false)

@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 1752330421624483881}
   m_Layer: 0
   m_Name: DoubleShotEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -391,4 +391,3 @@ MonoBehaviour:
   _fireRate: 1
   _delayStart: 1
   _shootOnStart: 0
-  _bulletPool: {fileID: 0}

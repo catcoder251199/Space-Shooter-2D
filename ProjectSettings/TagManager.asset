@@ -5,10 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - World UI
-  - EnemyBullet
-  - Bullet
   - Global
-  - PlayerBullet
   - Enemy
   layers:
   - Default
@@ -29,9 +26,9 @@ TagManager:
   - Meteor
   - Falling Meteor
   - EnemyShield
-  - 
-  - 
-  - 
+  - CrashCharger
+  - SelfDestructor
+  - Shooter
   - 
   - 
   - 

@@ -141,18 +141,18 @@ namespace Enemy
             }
             public void OnTriggerEnter2D(Collider2D collision)
             {
-                if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-                {
-                    var bullet = collision.GetComponent<BulletBase>();
-                    if (bullet != null)
-                        bullet.TriggerHitVFX();
+                //if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
+                //{
+                //    var bullet = collision.GetComponent<BulletBase>();
+                //    if (bullet != null)
+                //        bullet.TriggerHitVFX();
 
-                    DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-                    bool isCritical = false;
-                    int damage = hitCollider.GetCalculatedDamage(out isCritical);
-                    TakeDamage(damage, isCritical);
-                    Destroy(hitCollider.gameObject);
-                }
+                //    DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+                //    bool isCritical = false;
+                //    int damage = hitCollider.GetCalculatedDamage(out isCritical);
+                //    TakeDamage(damage, isCritical);
+                //    Destroy(hitCollider.gameObject);
+                //}
             }
             private void TakeDamage(int damage, bool isCritical)
             {

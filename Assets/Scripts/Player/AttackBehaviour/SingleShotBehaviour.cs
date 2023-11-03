@@ -5,7 +5,6 @@ using UnityEngine.Analytics;
 public class SingleShotBehaviour : AttackBehaviour
 {
     [SerializeField] private float _fireRate = 1f;
-    [SerializeField] private BulletBase _bulletPrefab;
     [SerializeField] private Transform _bulletSpawn;
 
     private bool shooting = false;
@@ -45,10 +44,21 @@ public class SingleShotBehaviour : AttackBehaviour
     {
         while (shooting)
         {
-            BulletBase bullet = Instantiate(_bulletPrefab, _bulletSpawn.position, Quaternion.identity, PlaySceneGlobal.Instance.BulletParent);
-            bullet.DamagableCollider.SetDamage(_player.Damage);
-            bullet.DamagableCollider.SetCritRate(_player.CritRate);
-            bullet.DamagableCollider.SetCritModifier(_player.CritModifier);
+            PlayerBullet bullet = _player?.BulletPool?.Pool.Get();
+            if (bullet != null)
+            {
+                bool isCritical = false;
+                bullet.Damage = _player.DamageHandler.GetCalculatedDamage(out isCritical);
+                bullet.IsCritical = isCritical;
+                bullet.transform.position = _bulletSpawn.position;
+                bullet.transform.rotation = Quaternion.identity;
+                bullet.transform.parent = PlaySceneGlobal.Instance.BulletParent;
+            }
+            else
+            {
+                Debug.LogError("SingleShotBehaviour: Pooled Bullet is null !");
+            }
+            Debug.Log("Fire bullet");
             yield return new WaitForSeconds(_fireRate);
         }
     }

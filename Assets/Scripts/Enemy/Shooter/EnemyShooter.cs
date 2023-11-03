@@ -53,9 +53,7 @@ namespace Enemy
         void Start()
         {
             if (_playOnStart)
-            {
                 Initialize();
-            }
         }
 
         private void Update()
@@ -72,20 +70,20 @@ namespace Enemy
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-            if (hitCollider != null)
-            {
-                if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-                {
-                    var bullet = hitCollider.GetComponent<BulletBase>();
-                    if (bullet != null)
-                        bullet.TriggerHitVFX();
-                    bool isCritical = false; 
-                    int damage = hitCollider.GetCalculatedDamage(out isCritical);
-                    TakeDamage(damage, isCritical);
-                    Destroy(hitCollider.gameObject);
-                }
-            }
+            //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+            //if (hitCollider != null)
+            //{
+            //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
+            //    {
+            //        var bullet = hitCollider.GetComponent<BulletBase>();
+            //        if (bullet != null)
+            //            bullet.TriggerHitVFX();
+            //        bool isCritical = false; 
+            //        int damage = hitCollider.GetCalculatedDamage(out isCritical);
+            //        TakeDamage(damage, isCritical);
+            //        Destroy(hitCollider.gameObject);
+            //    }
+            //}
         }
         private void TakeDamage(int damage, bool isCritical)
         {

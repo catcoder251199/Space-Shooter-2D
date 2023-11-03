@@ -4,6 +4,9 @@ namespace Enemy
 {
     public partial class LaserShooter : FSMEnemy
     {
+        [SerializeField, Tooltip("if true, the shooter start to play on the first active frame. If false, the shooter don't do anything. Set it false when this shooter should be spawned/enabled by something else")]
+        bool _playOnStart = false;
+
         [SerializeField, Header("Move State")] float _speed = 1f;
 
         [SerializeField, Header("Wait State")] float _waitTime = 3f;
@@ -16,6 +19,9 @@ namespace Enemy
         [SerializeField, Header("Other")] ParticleSystem _explosionEffect;
         [SerializeField] float _offsetFromBounds = 2f;
         [SerializeField] LaserGunBase _laserGun;
+
+        //[SerializeField, Header("Pooled Spawnable Object/Product")] PooledSpawnableProduct _pooledProduct;
+
         private StartState _startState;
         private WaitState _waitState;
         private MoveState _moveState;
@@ -54,11 +60,8 @@ namespace Enemy
 
         private void Start()
         {
-            _target = GameManager.Instance.Player;
-            if (_target == null)
-                Debug.LogError("LaserShooter.Start(): _target == null");
-
-            ChangeState(_startState);
+            if (_playOnStart)
+                Initialize();
         }
         private void Update()
         {
@@ -71,29 +74,27 @@ namespace Enemy
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-            if (hitCollider != null)
-            {
-                if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-                {
-                    var bullet = hitCollider.GetComponent<BulletBase>();
-                    if (bullet != null)
-                        bullet.TriggerHitVFX();
-                    bool isCritical = false;
-                    int damage = hitCollider.GetCalculatedDamage(out isCritical);
-                    TakeDamage(damage, isCritical);
-                    Destroy(hitCollider.gameObject);
-                }
-            }
+            //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
+            //if (hitCollider != null)
+            //{
+            //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
+            //    {
+            //        var bullet = hitCollider.GetComponent<BulletBase>();
+            //        if (bullet != null)
+            //            bullet.TriggerHitVFX();
+            //        bool isCritical = false;
+            //        int damage = hitCollider.GetCalculatedDamage(out isCritical);
+            //        TakeDamage(damage, isCritical);
+            //        Destroy(hitCollider.gameObject);
+            //    }
+            //}
         }
         private void TakeDamage(int damage, bool isCritical = false)
         {
             _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
             DamagePopup.Create(damage, transform.position, isCritical);
             if (_health.GetHealth() <= 0)
-            {
                 OnDied();
-            }
         }
 
         private void OnDied()
@@ -103,6 +104,33 @@ namespace Enemy
 
             Destroy(gameObject, 0.1f);
         }
+
+        public void Initialize()
+        {
+            _target = GameManager.Instance.Player;
+            if (_target == null)
+                Debug.LogError("SelfDestructor.Start(): _target == null");
+
+            _health.SetHealth(_health.GetMaxHealth());
+            ChangeState(_startState);
+        }
+
+        //public void Deactivate()
+        //{
+        //    if (_pooledProduct != null)
+        //    {
+        //        _rb.velocity = Vector3.zero;
+        //        _rb.angularVelocity = 0;
+        //        transform.position = Vector3.zero;
+        //        transform.rotation = Quaternion.identity;
+        //        _laserGun.SetSightLineEnabled(false);
+        //        _pooledProduct.Release();
+        //    }
+        //    else
+        //    {
+        //        Destroy(gameObject);
+        //    }
+        //}
     }
 }
 

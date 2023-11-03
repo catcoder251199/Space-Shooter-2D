@@ -18,7 +18,7 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] SpawnableFactory _factory;
     private HashSet<PooledSpawnableProduct> _activeObjects = new HashSet<PooledSpawnableProduct>();
-
+    private bool _canSpawnMoreInCurrentWave = false;
     private void Awake()
     {
     }
@@ -39,6 +39,7 @@ public class SpawnManager : MonoBehaviour
         WaveSO waveSO = _waveSOList[_currentWave];
         SpawnedObject[] spawnedList = waveSO.SpawnedObjectsList;
         int spawnedCount = spawnedList.Length;
+        _canSpawnMoreInCurrentWave = true;
         for (int i = 0; i < spawnedCount; i++)
         {
             int enemyCount = spawnedList[i].count;
@@ -61,6 +62,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(spawnedList[i].spawnNextGroupDelay);
         }
+        _canSpawnMoreInCurrentWave = false;
         StopSpawn();
         Debug.Log("On Wave finished");
     }
@@ -95,7 +97,7 @@ public class SpawnManager : MonoBehaviour
         _activeObjects.Remove(spawnedObject);
         Debug.Log($"SpawnManager.ActiveObject.Terminated: {prevSize} to {_activeObjects.Count}");
 
-        if (_activeObjects.Count <= 0)
+        if (!_canSpawnMoreInCurrentWave && _activeObjects.Count <= 0)
         {
             Debug.Log($"SpawnManager: Wave is finished!");
             onCurrentWaveFinished?.Invoke();

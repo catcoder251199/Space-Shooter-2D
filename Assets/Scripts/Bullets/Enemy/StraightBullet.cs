@@ -39,7 +39,7 @@ namespace Enemy
 
         private void Start() { }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (destroyedCondition == DestroyedCondition.LifeTime)
             {
@@ -54,7 +54,10 @@ namespace Enemy
                 if (!IsInScreen())
                     Deactivate();
             }
+        }
 
+        private void FixedUpdate()
+        {
             _rb.velocity = transform.up * straightSpeed;
         }
 
