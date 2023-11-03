@@ -1,27 +1,19 @@
-using System;
-using System.Collections.Generic;
-using TMPro;
+using PlayerNS;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
     public UnityEvent OnPlayerDiedEvent;
-    public enum AttackBehaviourType
-    {
-        Single = 0,
-        Double,
-        Splitter
-    };
 
     [SerializeField] private PlayerController _controller;
-    [SerializeField] private List<AttackBehaviourSO> _attackBehaviourData;
-    [SerializeField] private AttackBehaviour _attackBehaviour;
-    [SerializeField] private int _maxHp = 100;
+    [SerializeField, Header("Basic stats")] private int _maxHp = 100;
+    [SerializeField] private float _fireRate = 0.5f;
 
     private Health _health;
     private PlayerDamageHandler _damageHandler;
     private PlayerBulletPool _bulletPool;
+    private WeaponHandler _weaponHandler;
 
     public int Damage => 0;
     public int MaxHp 
@@ -34,6 +26,7 @@ public class Player : MonoBehaviour
         }
     }
     public Health Health => _health;
+    public float FireRate { get => _fireRate; set => _fireRate = value; } // time between 2 sequential bullets
     public PlayerDamageHandler DamageHandler => _damageHandler;
     public PlayerBulletPool BulletPool => _bulletPool;
 
@@ -44,13 +37,15 @@ public class Player : MonoBehaviour
 
         _damageHandler = GetComponent<PlayerDamageHandler>();
         _bulletPool = GetComponent<PlayerBulletPool>();
+
+        _weaponHandler = GetComponent<WeaponHandler>();
+        _weaponHandler.ChangeShootPattern(new GatlingPattern(_weaponHandler));
     }
 
     private void Start()
     {
-        _attackBehaviour.StartDoing();
+        _weaponHandler?.Activate();
     }
-    public AttackBehaviourSO GetAttackBehaviourData(AttackBehaviourType type) => _attackBehaviourData[(int)type];
 
     public bool IsAlive() => Health.GetHealth() > 0;
 
@@ -63,15 +58,13 @@ public class Player : MonoBehaviour
     {
         DamagePopup.Create(damage, transform.position, isCritical);
         if (_health.GetHealth() <= 0)
-        {
             OnPlayerDied();
-        }
     }
 
     private void OnPlayerDied()
     {
         Debug.Log("Player destroyed -> Game Over !");
-        _attackBehaviour.StopDoing();
+        _weaponHandler.Deactivate();
         OnPlayerDiedEvent?.Invoke();
     }
 }

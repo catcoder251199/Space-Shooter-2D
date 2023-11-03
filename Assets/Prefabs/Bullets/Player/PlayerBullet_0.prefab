@@ -176,7 +176,7 @@ MonoBehaviour:
   _lifeTime: 0
   _screenOffset: 3
   _hitVFX: {fileID: 617113067751822425, guid: 83bcb95a31943234db02b0bcb6d5cf66, type: 3}
-  _speed: 8
+  _speed: 12
   _damage: 1
   _isCritical: 0
 --- !u!114 &6225976279139251964

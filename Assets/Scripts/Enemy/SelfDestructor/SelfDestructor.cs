@@ -9,7 +9,6 @@ public class SelfDestructor : MonoBehaviour
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _rotateSpeed = 90f;
     [SerializeField] private float _offsetFromBounds = 2f;
-    [SerializeField] private int _damage = 200;
 
     [SerializeField, Header("Count down")] private float _countDownTime = 5f;
     [SerializeField] private float _countDownDelay = 0f; // A time to wait before starting count down

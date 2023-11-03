@@ -8,7 +8,6 @@ namespace Enemy
         private Player _target;
 
         [SerializeField] private bool _playOnStart = false;
-        [SerializeField] private int _damage = 10;
         [SerializeField] private float _speed = 3.0f;
         [SerializeField] private float _chargeSpeed = 5.0f;
         [SerializeField] private float _chargeTime = 5.0f;

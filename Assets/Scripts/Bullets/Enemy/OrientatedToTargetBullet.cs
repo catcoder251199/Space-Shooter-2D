@@ -18,8 +18,6 @@ namespace Enemy
 
         private Vector2 _originalDirection;
 
-        private float _time = 0f;
-
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();

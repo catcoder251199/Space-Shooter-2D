@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class EnemyShield : MonoBehaviour
 {
-    [SerializeField] private bool _isRotated = true;
+    //[SerializeField] private bool _isRotated = true;
     [SerializeField] private float _rotateSpeed = 30f;
-    [SerializeField] private bool _clockwiseRotate = true;
+    //[SerializeField] private bool _clockwiseRotate = true;
 
 
     private Rigidbody2D _rb;

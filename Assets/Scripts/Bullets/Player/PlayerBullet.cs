@@ -64,7 +64,7 @@ public class PlayerBullet : BulletBase
         if (_destroyedCondition == DestroyedCondition.LifeTime)
         {
             if (_existedTime < _lifeTime)
-                _existedTime += Time.fixedDeltaTime;
+                _existedTime += Time.deltaTime;
 
             if (_existedTime >= _lifeTime)
                 Deactivate();
@@ -84,9 +84,6 @@ public class PlayerBullet : BulletBase
     private void FixedUpdate()
     {
         _rb.velocity = transform.up * _speed;
-
-        if (IsOutOfScreen())
-            Deactivate();
     }
 
     bool IsOutOfScreen()
@@ -103,7 +100,9 @@ public class PlayerBullet : BulletBase
     public void Deactivate()
     {
         if (bulletPool != null)
+        {
             bulletPool.Release(this);
+        }
         else
             Destroy(gameObject);
     }

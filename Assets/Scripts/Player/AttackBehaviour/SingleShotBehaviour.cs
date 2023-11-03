@@ -15,7 +15,7 @@ public class SingleShotBehaviour : AttackBehaviour
     private void Awake()
     {
         _player = gameObject.GetComponent<Player>();
-        _behaviourData = _player.GetAttackBehaviourData(Player.AttackBehaviourType.Single) as SingleShotBehaviourSO;
+        //_behaviourData = _player.GetAttackBehaviourData(Player.AttackBehaviourType.Single) as SingleShotBehaviourSO;
         Init();
     }
 
