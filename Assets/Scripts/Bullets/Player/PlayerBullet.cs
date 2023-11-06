@@ -86,11 +86,6 @@ public class PlayerBullet : BulletBase
         _rb.velocity = transform.up * _speed;
     }
 
-    bool IsOutOfScreen()
-    {
-        return Helper.Cam.IsPositionOutWorldCamRect(_rb.position, _screenOffset);
-    }
-
     public void TriggerHitVFX()
     {
         if (_hitVFX != null ) 
@@ -100,9 +95,7 @@ public class PlayerBullet : BulletBase
     public void Deactivate()
     {
         if (bulletPool != null)
-        {
             bulletPool.Release(this);
-        }
         else
             Destroy(gameObject);
     }

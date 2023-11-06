@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8562909151078743026}
   m_Layer: 0
   m_Name: SpawnManager
-  m_TagString: Untagged
+  m_TagString: SpawnManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,6 +47,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCurrentWaveFinished:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6883650126299392337}
+        m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
+        m_MethodName: SpawnNext
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAllWavesFinished:
+    m_PersistentCalls:
       m_Calls: []
   _waveSOList:
   - {fileID: 11400000, guid: 576b01a9d70f25e4f8d7b7bc04cee36e, type: 2}
@@ -71,6 +86,17 @@ MonoBehaviour:
   - {fileID: 6505274018899465644, guid: f6ff7ca86debebd458824431efe60129, type: 3}
   - {fileID: 403657545951536556, guid: f679a4418f88bf040945ff6233785b75, type: 3}
   - {fileID: 997777216690451189, guid: 0cccdad3c83986f46b39eb1eb843ef92, type: 3}
+  - {fileID: 1418472428428152574, guid: 7a3fe66719fcbe045939d0d53328184d, type: 3}
+  - {fileID: 2554239662692757728, guid: 3620a25335e78ce4e91d344520d5ee40, type: 3}
+  - {fileID: 1563437686281316362, guid: fdc07af3677096a40bf59bf1213d3263, type: 3}
+  - {fileID: 6326918858973629849, guid: 8752941f75032ed40b3bd991faf6fcfa, type: 3}
+  - {fileID: 4003876879221341159, guid: b101a55cc660c804f98a42d14389fd13, type: 3}
+  - {fileID: 16565730803278396, guid: e36a7a63fd496664abff742b115f2146, type: 3}
+  - {fileID: 2554102109029449636, guid: 723472176f6623e4596304f0f7443a00, type: 3}
+  - {fileID: 7131557029399456062, guid: c61c45ec6e968994599c4ccf1bbf4259, type: 3}
+  - {fileID: 1284603839221256363, guid: 707b6f7ea7bbf9741afce189a20995fd, type: 3}
+  - {fileID: 1284603839221256363, guid: 46f519115e59ee5439bed1ab4084efd6, type: 3}
+  - {fileID: 1284603839221256363, guid: cc0bb82ed9c268545bbb15c8a55b9f97, type: 3}
   _defaultCapacity: 3
   _maxSize: 50
   _checkExistenceInPool: 1

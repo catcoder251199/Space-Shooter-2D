@@ -1,19 +1,25 @@
 using PlayerNS;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.XR;
 
 public class Player : MonoBehaviour
 {
     public UnityEvent OnPlayerDiedEvent;
 
-    [SerializeField] private PlayerController _controller;
     [SerializeField, Header("Basic stats")] private int _maxHp = 100;
     [SerializeField] private float _fireRate = 0.5f;
+    [SerializeField] private ParticleSystem _explosionEffect;
 
     private Health _health;
     private PlayerDamageHandler _damageHandler;
     private PlayerBulletPool _bulletPool;
     private WeaponHandler _weaponHandler;
+    private PlayerController _controller;
+
+    public PlayerController Controller => _controller;
+    public WeaponHandler WeaponHandler => _weaponHandler;
+
 
     public int Damage => 0;
     public int MaxHp 
@@ -37,14 +43,23 @@ public class Player : MonoBehaviour
 
         _damageHandler = GetComponent<PlayerDamageHandler>();
         _bulletPool = GetComponent<PlayerBulletPool>();
-
+        _controller = GetComponent<PlayerController>();
         _weaponHandler = GetComponent<WeaponHandler>();
         _weaponHandler.ChangeShootPattern(new GatlingPattern(_weaponHandler));
     }
 
     private void Start()
     {
-        _weaponHandler?.Activate();
+        var spawnManager = GameManager.Instance.SpawnManager;
+        if (spawnManager != null )
+            spawnManager.onDamageableSpawnableCountChanged += onDamageableEnemyCountChanged;
+    }
+
+    private void OnDisable()
+    {
+        var spawnManager = GameManager.Instance.SpawnManager;
+        if (spawnManager != null)
+            spawnManager.onDamageableSpawnableCountChanged -= onDamageableEnemyCountChanged;
     }
 
     public bool IsAlive() => Health.GetHealth() > 0;
@@ -63,8 +78,19 @@ public class Player : MonoBehaviour
 
     private void OnPlayerDied()
     {
-        Debug.Log("Player destroyed -> Game Over !");
+        Debug.Log("Player destroyed !!!");
         _weaponHandler.Deactivate();
+        _controller.enabled = false;
+        Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
         OnPlayerDiedEvent?.Invoke();
+        gameObject.SetActive(false);
+    }
+
+    private void onDamageableEnemyCountChanged(int prevCount, int newCount)
+    {
+        if (prevCount <= 0 && newCount > 0)
+            _weaponHandler.Activate();
+        else if (prevCount > 0 && newCount <= 0)
+            _weaponHandler.Deactivate();
     }
 }

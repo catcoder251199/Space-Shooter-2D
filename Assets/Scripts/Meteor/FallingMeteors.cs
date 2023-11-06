@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 public class FallingMeteors : MonoBehaviour
@@ -13,13 +14,14 @@ public class FallingMeteors : MonoBehaviour
     [SerializeField] private GameObject[] _meteorList;
 
     [SerializeField, Header("Warning Circle")] private GameObject _warningPrefab;
+    [SerializeField] private PooledSpawnableProduct _pooledProduct;
+    [SerializeField] private bool _initOnAwake = false;
+
+    private List<GameObject> _attachedMeteors = new List<GameObject>();
     private FallingMeteorsWarning _warning;
-
-    [SerializeField, Header("Hit")] float _hitRate = 1f;
-    private float _hitNextTime = -1f;
-    [SerializeField] private int _damagePerHit = 10;
-
     bool _isInsideScreen = false;
+    private float _currentSpeed = 0f;
+
 
     public float GetOffsetFromBounds() => _offsetFromBounds;
     private Rigidbody2D _rb;
@@ -27,8 +29,8 @@ public class FallingMeteors : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        Initialize();
-        StartToWarn();
+        if (_initOnAwake)
+            Initialize();
     }
 
     private void FixedUpdate()
@@ -47,18 +49,20 @@ public class FallingMeteors : MonoBehaviour
         MoveForward();
     }
 
+
+
     void OnEnterScreen()
     {
 
     }
     void OnExitScreen()
     {
-        Destroy(gameObject, 2f);
+        Invoke("Deactivate", 2f);
     }
 
     private void MoveForward()
     {
-        _rb.velocity = this.transform.up * _speed;
+        _rb.velocity = this.transform.up * _currentSpeed;
     }
 
     private void StartToWarn()
@@ -66,8 +70,7 @@ public class FallingMeteors : MonoBehaviour
         _warning = Instantiate(_warningPrefab).GetComponent<FallingMeteorsWarning>();
         _warning.FallingMeteors = this;
     }
-
-    private void Initialize()
+    public void Initialize()
     {
         _size = Mathf.Max(1, _size); //* Must have at least 3 meteors
 
@@ -81,11 +84,14 @@ public class FallingMeteors : MonoBehaviour
         {
             float positionX = GetBasePosX(startX, i) - delta / 2;
             float positionY = -Random.Range(0f, 1f);
-            Instantiate(_meteorList[Random.Range(0, _meteorList.Length - 1)], 
+            var meteor = Instantiate(_meteorList[Random.Range(0, _meteorList.Length - 1)], 
                 new Vector3(positionX, positionY, 0f), Quaternion.identity, this.transform);
+            _attachedMeteors.Add(meteor);
         }
+        _currentSpeed = _speed;
         //----------------
         InitializeBeginPosition();
+        StartToWarn();
     }
 
     private void InitializeBeginPosition()
@@ -162,16 +168,21 @@ public class FallingMeteors : MonoBehaviour
         return Helper.Cam.IsPositionInWorldCamRect(this.transform.position, 0);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void Deactivate()
     {
-        if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_Player))
+        if (_pooledProduct != null)
         {
-            if (Time.time >= _hitNextTime)
-            {
-                Player player = collision.attachedRigidbody.GetComponent<Player>();
-                player.TakeDamage(_damagePerHit, true);
-                _hitNextTime = Time.time + _hitRate;
-            }
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = 0;
+            transform.position = Vector3.zero;
+            transform.rotation = Quaternion.identity;
+            _currentSpeed = 0f;
+            foreach (var meteor in _attachedMeteors)
+                Destroy(meteor);
+            _attachedMeteors.Clear();
+            _pooledProduct.Release();
         }
+        else
+            Destroy(gameObject);
     }
 }

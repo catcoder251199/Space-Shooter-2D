@@ -8,7 +8,6 @@ public class PooledSpawnableProduct : MonoBehaviour, ISpawnableProduct // or IPr
 {
     public UnityEvent onInitializeInvoked;
     public event Action<PooledSpawnableProduct> onSpawnableObjectDestroyed;
-    public event Action<PooledSpawnableProduct> onSpawnableObjectReleased;
 
     public IObjectPool<PooledSpawnableProduct> SpawnPool { get; set; }
     public int InstanceId { get => gameObject.GetInstanceID(); }
@@ -20,15 +19,12 @@ public class PooledSpawnableProduct : MonoBehaviour, ISpawnableProduct // or IPr
     public void Release()
     {
         if (SpawnPool != null)
-        {
             SpawnPool.Release(this);
-            onSpawnableObjectReleased?.Invoke(this);
-        }
         else 
             Destroy(gameObject);
     }
 
-    public void OnDestroy()
+    public void OnDisable()
     {
         onSpawnableObjectDestroyed?.Invoke(this);
     }

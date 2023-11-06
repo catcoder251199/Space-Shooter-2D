@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: Wave_0
   m_EditorClassIdentifier: 
   _spawnedObjectsList:
-  - prefab: {fileID: 8898295919997024232, guid: f6ff7ca86debebd458824431efe60129, type: 3}
-    count: 2
-    nextSpawnDelay: 0
-    spawnNextGroupDelay: 0
-  - prefab: {fileID: 900763921571641543, guid: 7a3fe66719fcbe045939d0d53328184d, type: 3}
-    count: 3
-    nextSpawnDelay: 0
+  - prefab: {fileID: 477842262040436746, guid: 820ec077e1afd5e4da952b664b56e547, type: 3}
+    count: 5
+    nextSpawnDelay: 4
     spawnNextGroupDelay: 0

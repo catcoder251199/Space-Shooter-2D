@@ -7,6 +7,10 @@ TagManager:
   - World UI
   - Global
   - Enemy
+  - EnemyBullet
+  - PlayerBullet
+  - SpawnManager
+  - GameManager
   layers:
   - Default
   - TransparentFX

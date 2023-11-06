@@ -77,7 +77,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playOnStart: 0
-  _damage: 150
   _speed: 5
   _chargeSpeed: 14
   _chargeTime: 1.5
@@ -107,7 +106,19 @@ MonoBehaviour:
       m_Calls: []
   OnHealthDamaged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7485372641910135786}
+        m_TargetAssemblyTypeName: Enemy.CrashCharger, Assembly-CSharp
+        m_MethodName: OnTakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _maxHealth: 350
   _currentHealth: 0
 --- !u!114 &-3959834773555104403

@@ -34,7 +34,10 @@ namespace PlayerNS
         public void Stop()
         {
             if (IsShooting())
+            {
                 _weaponHandler.StopCoroutine(_shootRoutine);
+                _shootRoutine = null;
+            }
         }
 
         public void OnRemoved() { Stop(); }

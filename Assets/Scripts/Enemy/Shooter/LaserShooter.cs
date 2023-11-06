@@ -72,26 +72,8 @@ namespace Enemy
             _currentState?.FixedUpdateExecute();
         }
 
-        public void OnTriggerEnter2D(Collider2D collision)
+        public void OnTakeDamage(int damage, bool isCritical = false)
         {
-            //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-            //if (hitCollider != null)
-            //{
-            //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-            //    {
-            //        var bullet = hitCollider.GetComponent<BulletBase>();
-            //        if (bullet != null)
-            //            bullet.TriggerHitVFX();
-            //        bool isCritical = false;
-            //        int damage = hitCollider.GetCalculatedDamage(out isCritical);
-            //        TakeDamage(damage, isCritical);
-            //        Destroy(hitCollider.gameObject);
-            //    }
-            //}
-        }
-        private void TakeDamage(int damage, bool isCritical = false)
-        {
-            _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
             DamagePopup.Create(damage, transform.position, isCritical);
             if (_health.GetHealth() <= 0)
                 OnDied();

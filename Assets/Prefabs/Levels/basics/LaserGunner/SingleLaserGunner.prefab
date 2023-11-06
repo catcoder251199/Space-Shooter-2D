@@ -248,7 +248,19 @@ MonoBehaviour:
       m_Calls: []
   OnHealthDamaged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6405377495624729131}
+        m_TargetAssemblyTypeName: Enemy.LaserShooter, Assembly-CSharp
+        m_MethodName: OnTakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _maxHealth: 500
   _currentHealth: 0
 --- !u!114 &3879356375974917563

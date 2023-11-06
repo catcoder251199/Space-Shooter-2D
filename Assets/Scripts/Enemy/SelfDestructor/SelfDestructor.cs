@@ -114,23 +114,6 @@ public class SelfDestructor : MonoBehaviour
         return retPos;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-        //if (hitCollider != null)
-        //{
-        //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-        //    {
-        //        var bullet = hitCollider.GetComponent<BulletBase>();
-        //        if (bullet != null)
-        //            bullet.TriggerHitVFX();
-        //        bool isCritical = false;
-        //        int damage = hitCollider.GetCalculatedDamage(out isCritical);
-        //        TakeDamage(damage, isCritical);
-        //        Destroy(hitCollider.gameObject);
-        //    }
-        //}
-    }
     public void OnTakeDamage(int damage, bool isCritical = false)
     {
         DamagePopup.Create(damage, transform.position, isCritical);

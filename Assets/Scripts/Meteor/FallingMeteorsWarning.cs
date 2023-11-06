@@ -16,6 +16,8 @@ public class FallingMeteorsWarning : MonoBehaviour
     [SerializeField] private GameObject _circle;
     [SerializeField] private float _blinkDelay = 0.1f;
 
+    private Coroutine _blinkRoutine;
+
     public FallingMeteors FallingMeteors
     {
         private get { return _meteors; }
@@ -24,7 +26,7 @@ public class FallingMeteorsWarning : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(BlinkRoutine());
+        _blinkRoutine = StartCoroutine(BlinkRoutine());
     }
 
     void Update()
@@ -75,5 +77,10 @@ public class FallingMeteorsWarning : MonoBehaviour
             triangleRenderer.color = triangleColor2;
             circleRenderer.color = circleColor2;
         }
+    }
+
+    private void Deactivate()
+    {
+
     }
 }

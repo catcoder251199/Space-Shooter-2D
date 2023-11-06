@@ -95,16 +95,6 @@ public class Asteroid : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //_floatingTime += Time.fixedDeltaTime;
-        //var distance = Vector2.Distance(_rb.position, _targetPosition);
-        //if (Mathf.Approximately(distance, 0) || (_floatingTime >= _estimatedFlyToTime))
-        //{
-        //    if (_resetOnOffScreen)
-        //        Initialize();
-        //    else
-        //        Destroy(gameObject, 0.5f);
-        //}
-
         bool IsOnScreenBefore = Helper.Cam.IsPositionInWorldCamRect(_prePosition, _offsetFromBounds);
         bool IsOffScreenNow = !Helper.Cam.IsPositionInWorldCamRect(_rb.position, _offsetFromBounds);
         if (IsOnScreenBefore && IsOffScreenNow)
@@ -115,32 +105,11 @@ public class Asteroid : MonoBehaviour
         _prePosition = _rb.position;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public void OnTakeDamage(int damage, bool isCritical = false)
     {
-        //DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-        //if (hitCollider != null)
-        //{
-        //    if (hitCollider.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-        //    {
-        //        var bullet = hitCollider.GetComponent<BulletBase>();
-        //        if (bullet != null)
-        //            bullet.TriggerHitVFX();
-        //        bool isCritical = false;
-        //        int damage = hitCollider.GetCalculatedDamage(out isCritical);
-        //        TakeDamage(damage, isCritical);
-        //        Destroy(hitCollider.gameObject);
-        //    }
-        //}
-    }
-
-    public void TakeDamage(int damage, bool isCritical = false)
-    {
-        _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
         DamagePopup.Create(damage, transform.position, isCritical);
         if (_health.GetHealth() <= 0)
-        {
             OnDied();
-        }
     }
     private void OnDied()
     {
@@ -161,8 +130,6 @@ public class Asteroid : MonoBehaviour
             _pooledProduct.Release();
         }
         else
-        {
             Destroy(gameObject);
-        }
     }
 }
