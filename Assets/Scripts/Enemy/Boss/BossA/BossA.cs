@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Enemy.BossA;
 using Helper;
+using TMPro;
 
 namespace Enemy
 {
@@ -13,7 +14,6 @@ namespace Enemy
             [SerializeField] private EnemyShield _shield;
             [SerializeField] float _rotateSpeed = 30f;
             [SerializeField] ParticleSystem _explosionEffect;
-            
             [SerializeField] int[] _enrageHpThreshHold;
             private int _currentEnrageThresholdIdx;
 
@@ -36,6 +36,7 @@ namespace Enemy
             public Rigidbody2D RigidBody => _rb;
             public Player Target => _target;
             public EnemyShield Shield => _shield;
+            public bool Damageable { get; set; }
 
             private IState[] _attackStates;
             private int _currenAttackState;
@@ -57,6 +58,8 @@ namespace Enemy
                 _decideState = GetComponent<DecideState>();
                 _moveState = GetComponent<MoveState>();
                 _enrageState = GetComponent<EnrageState>();
+
+                Damageable = true;
             }
 
             void Start()
@@ -134,29 +137,16 @@ namespace Enemy
             public void SetShieldEnabled(bool enabled)
             {
                 _shield.gameObject.SetActive(enabled);
+                Damageable = enabled;
             }
             public override void ChangeState(IState _nextState)
             {
                 base.ChangeState(_nextState);
             }
-            public void OnTriggerEnter2D(Collider2D collision)
+           
+            public void OnTakeDamage(int damage, bool isCritical)
             {
-                //if (collision.CompareTag(PlaySceneGlobal.Instance.Tag_PlayerBullet))
-                //{
-                //    var bullet = collision.GetComponent<BulletBase>();
-                //    if (bullet != null)
-                //        bullet.TriggerHitVFX();
-
-                //    DamagableCollider hitCollider = collision.GetComponent<DamagableCollider>();
-                //    bool isCritical = false;
-                //    int damage = hitCollider.GetCalculatedDamage(out isCritical);
-                //    TakeDamage(damage, isCritical);
-                //    Destroy(hitCollider.gameObject);
-                //}
-            }
-            private void TakeDamage(int damage, bool isCritical)
-            {
-                _health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
+                //_health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
                 DamagePopup.Create(damage, transform.position, isCritical);
                 if (_health.GetHealth() <= 0)
                 {

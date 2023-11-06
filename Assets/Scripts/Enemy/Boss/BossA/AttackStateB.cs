@@ -11,10 +11,10 @@ namespace Enemy
         {
             public UnityEvent OnAttackFinishedEvent;
 
-            [SerializeField] private ArrayBullet _bulletPrefab;
+            [SerializeField] private StraightBullet _bulletPrefab;
             [SerializeField] private int _attackCount = 2;
             [SerializeField] private int _bulletsPerShot = 3;
-            //[SerializeField] private float _bulletSpreadAngle = 45;
+            [SerializeField] private float _bulletGap = 1f;
             [SerializeField] private Transform _barrelTransform;
             [SerializeField] private float _firingRate = 1.5f; // seconds per bullet
             [SerializeField] private BossA_StateMachine _subject;
@@ -107,12 +107,24 @@ namespace Enemy
 
                 float angleStep = bulletSpreadAngle / (bulletPerShot - 1);
                 float startAngle = transform.rotation.eulerAngles.z - bulletSpreadAngle / 2;
+                Vector3 startPosition = _barrelTransform.position;
                 for (int i = 0; i < bulletPerShot; i++)
                 {
                     float angle = startAngle + i * angleStep;
                     Quaternion bulletRotation = Quaternion.Euler(0, 0, angle);
-                    var bullet = Instantiate(_bulletPrefab, _barrelTransform.position, bulletRotation, PlaySceneGlobal.Instance.BulletParent);
-                    bullet.Count = bulletCountInArray;
+                    for (int j = 0; j < bulletCountInArray; j++)
+                    {
+                        //var bullet = Instantiate(_bulletPrefab, _barrelTransform.position, bulletRotation, PlaySceneGlobal.Instance.BulletParent);
+                        var bullet = BulletFactory.Instance.CreateBulletProduct(_bulletPrefab.gameObject.GetInstanceID())?.GetComponent<StraightBullet>();
+                        if (bullet == null)
+                        {
+                            Debug.LogError("AttackStateB: created bullet is null");
+                            break;
+                        }
+                        bullet.transform.rotation = bulletRotation;
+                        bullet.transform.position = _barrelTransform.position + bullet.transform.up * j * _bulletGap;
+                        bullet.transform.parent = PlaySceneGlobal.Instance.BulletParent;
+                    }
                 }
             }
             public void OnStateEnter()

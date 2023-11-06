@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4328076059559507188}
   - component: {fileID: 3403098554882067538}
   - component: {fileID: 5671235674102948024}
+  - component: {fileID: -6696525075113892324}
   m_Layer: 11
   m_Name: StraightSharpBullet
   m_TagString: Untagged
@@ -176,8 +177,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf1db323144b6743a0a038ca6cddfc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StraightSpeed: 10
-  LifeTime: 3
+  straightSpeed: 10
+  lifeTime: 5
+  destroyOnHit: 0
+  destroyedCondition: 2
 --- !u!114 &5671235674102948024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,5 +193,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae0c9d462e2d97d4d929f74fb258f591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageableTags:
+  - Player
   damage: 120
-  destroyOnHit: 0
+  isCritical: 0
+  OnTriggerEnteredEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-6696525075113892324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7925640821305515405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5864e8082bc9cce4cb477dfbddde9d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3403098554882067538}
+        m_TargetAssemblyTypeName: Enemy.StraightBullet, Assembly-CSharp
+        m_MethodName: Initialized
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

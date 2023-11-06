@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c70ca4764f8244cada8a6d352e534e, type: 3}
-  m_Name: Wave Test
+  m_Name: Wave_Boss
   m_EditorClassIdentifier: 
   _spawnedObjectsList:
-  - prefab: {fileID: 6267608955833986118, guid: 707b6f7ea7bbf9741afce189a20995fd, type: 3}
-    count: 5
-    nextSpawnDelay: 5
-    spawnNextGroupDelay: 5
+  - prefab: {fileID: 1845911570058381165, guid: d0ed68fbe3f06164581f93376f02a43e, type: 3}
+    count: 1
+    nextSpawnDelay: 0
+    spawnNextGroupDelay: 0

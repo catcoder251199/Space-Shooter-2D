@@ -15,6 +15,7 @@ namespace Enemy
         private PooledBulletProduct _pooledProduct;
         public enum DestroyedCondition
         {
+            None,
             LifeTime,
             OutOfScreen
         }

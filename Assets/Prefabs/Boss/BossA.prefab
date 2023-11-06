@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 4725477705707821702}
   m_Layer: 10
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,9 +255,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4575c522379104099f8cc24a14d2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageableTags: []
   damage: 99
-  hitRate: 0.5
   isCritical: 0
+  OnTriggerStayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  hitRate: 0.5
 --- !u!114 &4725477705707821702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,9 +303,10 @@ GameObject:
   - component: {fileID: 684148763066689830}
   - component: {fileID: 6689265780007990823}
   - component: {fileID: 2318616992776871925}
+  - component: {fileID: 6334070841100873225}
   m_Layer: 10
   m_Name: BossA
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -324,7 +329,7 @@ Transform:
   - {fileID: 4973220195908207258}
   - {fileID: 699858405066394294}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &616559651948486301
 MonoBehaviour:
@@ -421,9 +426,10 @@ MonoBehaviour:
   OnAttackFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
-  _bulletPrefab: {fileID: 2348021970148118191, guid: 0c053a1be3725a2438043421e7421946, type: 3}
-  _attackCount: 2
+  _bulletPrefab: {fileID: 8334191255261417920, guid: 68a2fafed103a9e448dad1b5c7b243a1, type: 3}
+  _attackCount: 10
   _bulletsPerShot: 3
+  _bulletGap: 1
   _barrelTransform: {fileID: 5481148168590537508}
   _firingRate: 1.5
   _subject: {fileID: 616559651948486301}
@@ -490,7 +496,7 @@ MonoBehaviour:
   _rushSpeed: 30
   _moveToScreenSpeed: 5
   _delayOnRush: 1
-  _waitTime: 1.5
+  _waitTime: 10
   _jumpEffect: {fileID: 8735069670151666818, guid: 79bf915db8b107046b292a38f582caba, type: 3}
   _jumpEffectLocation: {fileID: 4973220195908207258}
   _enragedAnimationTriggerList:
@@ -510,19 +516,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a486fd3cfafe141a0dd3b424333dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMaxHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
   OnNewHealthSet:
     m_PersistentCalls:
       m_Calls: []
   OnNewMaxHealthSet:
     m_PersistentCalls:
       m_Calls: []
-  _maxHealth: 3000
+  OnHealthDamaged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 616559651948486301}
+        m_TargetAssemblyTypeName: Enemy.BossA.BossA_StateMachine, Assembly-CSharp
+        m_MethodName: OnTakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _maxHealth: 10000
   _currentHealth: 0
 --- !u!95 &2318616992776871925
 Animator:
@@ -545,6 +560,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6334070841100873225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845911570058381165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c228ceebac7af9429186d590ac26a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2924030360780370466
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,9 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5883f7345a285f4ab3b65fdb3e41fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isRotated: 1
   _rotateSpeed: 30
-  _clockwiseRotate: 1
 --- !u!50 &3927760431933006690
 Rigidbody2D:
   serializedVersion: 4

@@ -148,6 +148,9 @@ public class SpawnManager : MonoBehaviour
 
     public void OnDestroy()
     {
+        foreach (var spawnedObject in _activeObjects)
+            spawnedObject.onSpawnableObjectDestroyed -= OnOneSpanwableTerminated;
+        _activeObjects.Clear();
         onCurrentWaveFinished.RemoveAllListeners();
         onDamageableSpawnableCountChanged = null;
     }

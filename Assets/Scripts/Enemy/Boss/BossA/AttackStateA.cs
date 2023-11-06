@@ -33,7 +33,17 @@ namespace Enemy
                 int attackCount = GetAttackCount();
                 for (int i = 0; i < attackCount; i++)
                 {
-                    Instantiate(_bulletPrefab, _barrelTransform.position, _barrelTransform.rotation, PlaySceneGlobal.Instance.BulletParent);
+                    //Instantiate(_bulletPrefab, _barrelTransform.position, _barrelTransform.rotation, PlaySceneGlobal.Instance.BulletParent);
+                    var bullet = BulletFactory.Instance.CreateBulletProduct(_bulletPrefab.gameObject.GetInstanceID());
+                    if (bullet == null)
+                    {
+                        Debug.LogError("AttackStateA: created bullet is null");
+                        break;
+                    }
+                    bullet.transform.position = _barrelTransform.position;
+                    bullet.transform.rotation = _barrelTransform.rotation;
+                    bullet.transform.parent = PlaySceneGlobal.Instance.BulletParent;
+
                     yield return new WaitForSeconds(_delayAttack);
                 }
                 yield return new WaitForSeconds(_exitDelay);

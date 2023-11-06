@@ -13,10 +13,20 @@ namespace Enemy
         private Rigidbody2D _rb;
         private float _existedTime = 0f;
         private Vector2 _originalDirection;
+        private PooledBulletProduct _pooledProduct;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _pooledProduct = GetComponent<PooledBulletProduct>();
+            _originalDirection = _rb.transform.up;
+        }
+
+        public void Initialized()
+        {
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = 0;
+            _existedTime = 0f;
             _originalDirection = _rb.transform.up;
         }
 
@@ -31,9 +41,19 @@ namespace Enemy
                 _existedTime += Time.fixedDeltaTime;
             }
             else
+                Deactivate();
+        }
+
+        public void Deactivate()
+        {
+            if (_pooledProduct != null)
             {
-                Destroy(gameObject);
+                _rb.velocity = Vector3.zero;
+                _existedTime = 0f;
+                _pooledProduct.Release();
             }
+            else
+                Destroy(gameObject);
         }
     }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3468008387642430782}
   - component: {fileID: 8675999275560782778}
   - component: {fileID: -8540116055774884544}
+  - component: {fileID: 7370636820380779849}
   m_Layer: 11
   m_Name: SwirlingBullet
   m_TagString: Untagged
@@ -178,6 +179,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4575c522379104099f8cc24a14d2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageableTags:
+  - Player
   damage: 80
-  hitRate: 0.5
   isCritical: 0
+  OnTriggerStayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  hitRate: 0.5
+--- !u!114 &7370636820380779849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052817398228905948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5864e8082bc9cce4cb477dfbddde9d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls: []
