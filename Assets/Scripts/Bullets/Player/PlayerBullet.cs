@@ -95,7 +95,10 @@ public class PlayerBullet : BulletBase
     public void Deactivate()
     {
         if (bulletPool != null)
+        {
+            transform.localScale = Vector2.one;
             bulletPool.Release(this);
+        }
         else
             Destroy(gameObject);
     }

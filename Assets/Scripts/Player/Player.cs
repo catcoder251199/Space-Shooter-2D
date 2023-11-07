@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     [SerializeField, Header("Basic stats")] private int _maxHp = 100;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private ParticleSystem _explosionEffect;
+    [SerializeField] private ParticleSystem _poweredUpEffect;
+    [SerializeField] private ParticleSystem _depoweredUpEffect;
+
+
 
     private Health _health;
     private PlayerDamageHandler _damageHandler;
@@ -20,8 +24,6 @@ public class Player : MonoBehaviour
     public PlayerController Controller => _controller;
     public WeaponHandler WeaponHandler => _weaponHandler;
 
-
-    public int Damage => 0;
     public int MaxHp 
     {
         get { return _maxHp; }
@@ -92,5 +94,48 @@ public class Player : MonoBehaviour
             _weaponHandler.Activate();
         else if (prevCount > 0 && newCount <= 0)
             _weaponHandler.Deactivate();
+    }
+
+    // Power up
+    public void SetAttackUpWith(int amount)
+    {
+        _damageHandler.SetDamage(_damageHandler.GetDamage() + amount);
+    }
+
+    public void SetCritRateWith(float amount)
+    {
+        _damageHandler.SetCritRate(_damageHandler.GetCritRate() + amount);
+    }
+
+    public void SetCritDamageModifierWith(float amount)
+    {
+        _damageHandler.SetCritModifier(_damageHandler.GetCritModifier() + amount);
+    }
+
+    public void SetFiringRateStackWith(int amountStack)
+    {
+        _weaponHandler.FireRateStack += amountStack;
+    }
+
+    public void SetBonusBulletScaleWith(float amount)
+    {
+        _weaponHandler.BonusScale += amount;
+    }
+
+    public void SetBulletSpeedWith(int amount)
+    {
+        _weaponHandler.SpeedStack += amount;
+    }
+
+    public void TriggerPoweredUpEffect()
+    {
+        //if (_poweredUpEffect != null && !_poweredUpEffect.isPlaying)
+            _poweredUpEffect.Play();
+    }
+
+    public void TriggerDePoweredUpEffect()
+    {
+        //if (_depoweredUpEffect != null && !_depoweredUpEffect.isPlaying)
+            _depoweredUpEffect.Play();
     }
 }

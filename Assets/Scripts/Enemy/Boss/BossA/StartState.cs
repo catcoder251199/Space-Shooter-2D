@@ -28,8 +28,8 @@ namespace Enemy
                 updateEnabled = true;
 
                 var gm = GameManager.Instance;
-                gm.UpdateBossHealth(_subject.Health.GetHealth(), _subject.Health.GetMaxHealth());
-                gm.ShowBossHealth();
+                gm.UIManager.UpdateBossHealth(_subject.Health.GetHealth(), _subject.Health.GetMaxHealth());
+                gm.UIManager.ShowBossHealth();
             }
             public void UpdateExecute()
             {}

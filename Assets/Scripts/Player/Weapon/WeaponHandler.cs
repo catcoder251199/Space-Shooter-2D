@@ -11,6 +11,8 @@ namespace PlayerNS
         [SerializeField] private Transform _bulletLeftSpawn;
         [SerializeField] private Transform _bulletRightSpawn;
         public int FireRateStack = 0;
+        public float BonusScale = 0;
+        public int SpeedStack = 0;
         public Player Player => _player;
         public Transform BulletCenterSpawn => _bulletCenterSpawn;
         public Transform BulletLeftSpawn => _bulletLeftSpawn;

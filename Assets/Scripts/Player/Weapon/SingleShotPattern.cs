@@ -7,16 +7,17 @@ namespace PlayerNS
     {
         private WeaponHandler _weaponHandler;
         private Coroutine _shootRoutine;
-        private float _baseFireRate = 1f;
+        private float _baseFireRate = 0.8f;
         private float _baseBulletSpeed = 15f;
+
 
         public float GetFireRate()
         {
-            return Mathf.Max(_baseFireRate - 0.2f * _weaponHandler.FireRateStack, 0.1f);
+            return Mathf.Max(_baseFireRate - 0.08f * _weaponHandler.FireRateStack, 0.1f);
         }
         public float GetBulletSpeed()
         {
-            return _baseBulletSpeed;
+            return _baseBulletSpeed + 2f * _weaponHandler.SpeedStack;
         }
 
         public SingleShotPattern(WeaponHandler weaponHandler)
@@ -64,6 +65,7 @@ namespace PlayerNS
                     bullet.IsCritical = isCritical;
                     bullet.transform.position = centerBulletSpawn.position;
                     bullet.transform.rotation = Quaternion.identity;
+                    bullet.transform.localScale = Vector2.one * (1 + _weaponHandler.BonusScale);
                     bullet.transform.parent = PlaySceneGlobal.Instance.BulletParent;
                     bullet.Speed = GetBulletSpeed();
                 }

@@ -22,7 +22,7 @@ namespace PlayerNS
         }
         public float GetBulletSpeed()
         {
-            return _baseBulletSpeed;
+            return _baseBulletSpeed + 2f * _weaponHandler.SpeedStack;
         }
 
         public GatlingPattern(WeaponHandler weaponHandler)
@@ -77,6 +77,7 @@ namespace PlayerNS
                     bullet.transform.position = centerSpawn.position;
                     bullet.transform.parent = PlaySceneGlobal.Instance.BulletParent;
                     bullet.Speed = GetBulletSpeed();
+                    bullet.transform.localScale = Vector2.one * (1 + _weaponHandler.BonusScale);
                 }
                 else
                     Debug.LogError("GatlingPattern: Pooled Bullet is null !");

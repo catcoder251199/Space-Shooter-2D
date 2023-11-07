@@ -145,7 +145,7 @@ MonoBehaviour:
   OnTriggerStayEvent:
     m_PersistentCalls:
       m_Calls: []
-  hitRate: 1
+  hitRate: 0.5
 --- !u!114 &215293253699745781
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -146,7 +146,7 @@ namespace Enemy
            
             public void OnTakeDamage(int damage, bool isCritical)
             {
-                GameManager.Instance.UpdateBossHealth(_health.GetHealth(), _health.GetMaxHealth());
+                GameManager.Instance.UIManager.UpdateBossHealth(_health.GetHealth(), _health.GetMaxHealth());
                 DamagePopup.Create(damage, transform.position, isCritical);
                 if (_health.GetHealth() <= 0)
                     OnDied();
@@ -164,7 +164,7 @@ namespace Enemy
                     var vfx = Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
                     //vfx.transform.localScale = Vector3.zero * 5;
                 }
-                GameManager.Instance.HideBossHealth();
+                GameManager.Instance.UIManager.HideBossHealth();
                 Destroy(gameObject, 0.1f);
             }
 

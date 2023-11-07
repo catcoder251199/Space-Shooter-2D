@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerDamageHandler : MonoBehaviour
 {
     [SerializeField] int _damage;
-    [SerializeField, Range(0, 3)] float _critDmgModifier = 0.1f;
-    [SerializeField, Range(0, 1)] float _critRate = 0.1f;
+    [SerializeField] float _critDmgModifier = 0.1f;
+    [SerializeField] float _critRate = 0.1f;
     public void SetCritRate(float critRate) => _critRate = Mathf.Max(critRate, 0f);
     public void SetCritModifier(float critModifier) => _critDmgModifier = critModifier;
+    public float GetCritModifier() => _critDmgModifier;
     public float GetCritRate() => _critRate;
     public bool IsCritMaximized() => GetCritRate() >= 1f;
     public int GetDamage() => _damage;
