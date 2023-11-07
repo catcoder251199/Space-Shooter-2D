@@ -9,14 +9,18 @@ public class Health : MonoBehaviour
     public IntIntEvent OnNewMaxHealthSet; // (int oldMaxHealth, int newMaxHealth)
     public IntBoolEvent OnHealthDamaged; // (int damage, bool isCritical)
 
-    [SerializeField] int _maxHealth;
-    [SerializeField] int _currentHealth;
+    [SerializeField]private int _maxHealth;
+    [SerializeField]private int _currentHealth;
+    [SerializeField]private bool _damageable = true;
 
     private void Awake()
     {
         SetMaxHealth(_maxHealth);
         SetHealth(_maxHealth);
     }
+
+    public void SetDamageable(bool damageable) {  _damageable = damageable; }
+    public bool IsDamageable() { return _damageable;}
 
     public void SetHealth(int newHealth)
     {
@@ -51,6 +55,9 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage, bool isCritical = false, bool notifyZeroDamage = false)
     {
+        if (!_damageable)
+            return;
+
         damage = Mathf.Max(0, damage); // passed damage argument must be positive
         if (damage > 0 || notifyZeroDamage)
         {

@@ -36,7 +36,7 @@ namespace Enemy
             public Rigidbody2D RigidBody => _rb;
             public Player Target => _target;
             public EnemyShield Shield => _shield;
-            public bool Damageable { get; set; }
+            public Health Health => _health;
 
             private IState[] _attackStates;
             private int _currenAttackState;
@@ -47,6 +47,7 @@ namespace Enemy
             {
                 _rb = GetComponent<Rigidbody2D>();
                 _health = GetComponent<Health>();
+                _health.SetDamageable(true);
 
                 _startState = GetComponent<StartState>();
                 _attackStateA = GetComponent<AttackStateA>();
@@ -58,16 +59,15 @@ namespace Enemy
                 _decideState = GetComponent<DecideState>();
                 _moveState = GetComponent<MoveState>();
                 _enrageState = GetComponent<EnrageState>();
-
-                Damageable = true;
             }
 
             void Start()
             {
                 _target = GameManager.Instance.Player;
                 if (_target == null)
-                    Debug.LogError("SelfDestructor.Start(): _target == null");
+                    Debug.LogError("BossA_StateMachine.Start(): _target == null");
 
+                _health.SetHealth(_health.GetMaxHealth());
                 ChangeState(_startState);
             }
 
@@ -137,7 +137,7 @@ namespace Enemy
             public void SetShieldEnabled(bool enabled)
             {
                 _shield.gameObject.SetActive(enabled);
-                Damageable = enabled;
+                _health.SetDamageable(!enabled);
             }
             public override void ChangeState(IState _nextState)
             {
@@ -146,12 +146,10 @@ namespace Enemy
            
             public void OnTakeDamage(int damage, bool isCritical)
             {
-                //_health.SetHealth(_health.GetHealth() - Mathf.Max(0, damage));
+                GameManager.Instance.UpdateBossHealth(_health.GetHealth(), _health.GetMaxHealth());
                 DamagePopup.Create(damage, transform.position, isCritical);
                 if (_health.GetHealth() <= 0)
-                {
                     OnDied();
-                }
                 else if (IsEnraged())
                 {
                     Debug.Log("Is Enraged after taken damage");
@@ -164,13 +162,9 @@ namespace Enemy
                 if (_explosionEffect != null) 
                 {
                     var vfx = Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
-                    vfx.transform.localScale = Vector3.zero * 5;
+                    //vfx.transform.localScale = Vector3.zero * 5;
                 }
-
-                if (_explosionEffect != null)
-                {
-                    Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
-                }
+                GameManager.Instance.HideBossHealth();
                 Destroy(gameObject, 0.1f);
             }
 

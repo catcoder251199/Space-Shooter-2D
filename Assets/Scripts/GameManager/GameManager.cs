@@ -1,9 +1,12 @@
 using UnityEngine;
 using GameState;
-using Helper;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] RectTransform _bossHealthBar;
+    private HealthBar _bossHpBar;
+
     public static GameManager Instance;
 
     private SpawnManager _spawnManager;
@@ -22,8 +25,6 @@ public class GameManager : MonoBehaviour
     public PlayState PlayState => _playState;
     public EndWaveState EndWaveState => _endWaveState;
     public EndState EndState => _endState;
-
-
     public SpawnManager SpawnManager => _spawnManager;
 
     private void Awake()
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
 
         _spawnManager = FindSpawnManager();
         _cam = Camera.main;
+        _bossHpBar = _bossHealthBar.GetComponent<HealthBar>();
+
         _startState = GetComponent<StartState>();
         _playState = GetComponent<PlayState>();
         _endWaveState = GetComponent<EndWaveState>();
@@ -111,5 +114,24 @@ public class GameManager : MonoBehaviour
         PlayerController controller = Player?.GetComponent<PlayerController>();
         if (controller != null)
             controller.enabled = enabled;
+    }
+
+    public void ShowBossHealth()
+    {
+        _bossHealthBar.gameObject.SetActive(true);
+        _bossHealthBar.anchoredPosition = new Vector2(0, 60);
+        _bossHealthBar.DOAnchorPosY(-30, 1f);
+    }
+
+    public void UpdateBossHealth(int value, int max)
+    {
+        _bossHpBar.SetHpMax(max);
+        _bossHpBar.SetHpValue(value);
+    }
+
+    public void HideBossHealth()
+    {
+        _bossHealthBar.DOAnchorPosY(60, 1f)
+            .OnComplete(() => { _bossHealthBar.gameObject.SetActive(false); });
     }
 }

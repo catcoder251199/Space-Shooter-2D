@@ -121,6 +121,7 @@ MonoBehaviour:
         m_CallState: 2
   _maxHealth: 300
   _currentHealth: 0
+  _damageable: 1
 --- !u!114 &2511460660202681715
 MonoBehaviour:
   m_ObjectHideFlags: 0

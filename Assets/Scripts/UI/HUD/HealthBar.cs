@@ -15,7 +15,8 @@ public class HealthBar : MonoBehaviour
         if (_slider.value > _slider.maxValue)
         {
             _slider.value = _slider.maxValue;
-            _hpText.text = ((int)_slider.maxValue).ToString();
+            if (_hpText != null)
+                _hpText.text = ((int)_slider.maxValue).ToString();
         }
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
@@ -29,7 +30,8 @@ public class HealthBar : MonoBehaviour
     {
         value = Mathf.Clamp(value, 0, (int)_slider.maxValue);
         _slider.value = value;
-        _hpText.text = ((int)_slider.value).ToString();
+        if (_hpText != null)
+            _hpText.text = ((int)_slider.value).ToString();
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
 

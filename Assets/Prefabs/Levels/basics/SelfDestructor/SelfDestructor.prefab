@@ -107,7 +107,6 @@ MonoBehaviour:
   _speed: 4
   _rotateSpeed: 200
   _offsetFromBounds: 2
-  _damage: 200
   _countDownTime: 4
   _countDownDelay: 2
   _explosionPrefab: {fileID: 0}
@@ -234,6 +233,7 @@ MonoBehaviour:
         m_CallState: 2
   _maxHealth: 160
   _currentHealth: 0
+  _damageable: 1
 --- !u!114 &5000223807591014601
 MonoBehaviour:
   m_ObjectHideFlags: 0

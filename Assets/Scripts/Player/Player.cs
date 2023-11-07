@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         _bulletPool = GetComponent<PlayerBulletPool>();
         _controller = GetComponent<PlayerController>();
         _weaponHandler = GetComponent<WeaponHandler>();
-        _weaponHandler.ChangeShootPattern(new GatlingPattern(_weaponHandler));
+        _weaponHandler.ChangeShootPattern(new SingleShotPattern(_weaponHandler));
     }
 
     private void Start()

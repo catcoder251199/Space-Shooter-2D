@@ -27,7 +27,9 @@ namespace Enemy
                 _subject.SetShieldEnabled(true);
                 updateEnabled = true;
 
-                Debug.Log("BossA.StartState Enter");
+                var gm = GameManager.Instance;
+                gm.UpdateBossHealth(_subject.Health.GetHealth(), _subject.Health.GetMaxHealth());
+                gm.ShowBossHealth();
             }
             public void UpdateExecute()
             {}
@@ -58,7 +60,7 @@ namespace Enemy
 
             public void OnStateExit()
             {
-                Debug.Log("BossA.StartState Exit");
+            
             }
         }
 

@@ -5338,9 +5338,9 @@ MonoBehaviour:
   OnPlayerDiedEvent:
     m_PersistentCalls:
       m_Calls: []
-  _controller: {fileID: 493004860517365993}
-  _maxHp: 500
+  _maxHp: 50000
   _fireRate: 0.3
+  _explosionEffect: {fileID: 2446008765483102715, guid: 344512d273b6fc043b1c12f78eaf417f, type: 3}
 --- !u!114 &493004860517365993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5447,6 +5447,7 @@ MonoBehaviour:
         m_CallState: 2
   _maxHealth: 50000
   _currentHealth: 0
+  _damageable: 1
 --- !u!114 &129101306584063098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5459,7 +5460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2ac15a45102f749865b95fa23f408a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 70
+  _damage: 77
   _critDmgModifier: 3
   _critRate: 0
 --- !u!114 &7385058515839180709
@@ -5475,7 +5476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 943666803536826567, guid: 675479d94c4f1024196b27f9277c02d9, type: 3}
-  _collectionCheck: 1
+  _collectionCheck: 0
   _maxPoolSize: 30
   _defaultPoolSize: 10
 --- !u!114 &7651135799905192836
