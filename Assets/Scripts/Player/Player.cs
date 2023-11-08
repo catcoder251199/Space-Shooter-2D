@@ -13,8 +13,6 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem _poweredUpEffect;
     [SerializeField] private ParticleSystem _depoweredUpEffect;
 
-
-
     private Health _health;
     private PlayerDamageHandler _damageHandler;
     private PlayerBulletPool _bulletPool;
@@ -37,6 +35,7 @@ public class Player : MonoBehaviour
     public float FireRate { get => _fireRate; set => _fireRate = value; } // time between 2 sequential bullets
     public PlayerDamageHandler DamageHandler => _damageHandler;
     public PlayerBulletPool BulletPool => _bulletPool;
+    public IShootPattern DefaultShootPattern => new SingleShotPattern(_weaponHandler);
 
     private void Awake()
     {
@@ -47,7 +46,7 @@ public class Player : MonoBehaviour
         _bulletPool = GetComponent<PlayerBulletPool>();
         _controller = GetComponent<PlayerController>();
         _weaponHandler = GetComponent<WeaponHandler>();
-        _weaponHandler.ChangeShootPattern(new SingleShotPattern(_weaponHandler));
+        _weaponHandler.ChangeShootPattern(DefaultShootPattern);
     }
 
     private void Start()
@@ -96,7 +95,7 @@ public class Player : MonoBehaviour
             _weaponHandler.Deactivate();
     }
 
-    // Power up
+    // ---Power ups---
     public void SetAttackUpWith(int amount)
     {
         _damageHandler.SetDamage(_damageHandler.GetDamage() + amount);
@@ -125,6 +124,24 @@ public class Player : MonoBehaviour
     public void SetBulletSpeedWith(int amount)
     {
         _weaponHandler.SpeedStack += amount;
+    }
+
+    public void ChangeShootPattern(IShootPattern pattern)
+    {
+        _weaponHandler.ChangeShootPattern(pattern);
+        _weaponHandler.Activate();
+    }
+
+    public void SetHpMaxWith(int amount)
+    {
+        _health.SetMaxHealth(_health.GetMaxHealth() + amount);
+        if (amount > 0)
+            _health.SetHealth(_health.GetHealth() + amount);
+    }
+
+    public void SetHealUpWith(int amount)
+    {
+        _health.SetHealth(_health.GetHealth() + amount);
     }
 
     public void TriggerPoweredUpEffect()

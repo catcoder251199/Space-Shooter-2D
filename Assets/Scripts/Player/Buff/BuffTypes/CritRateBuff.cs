@@ -10,14 +10,18 @@ namespace Buff
             _player = obj.GetComponent<Player>();
         }
 
+        protected override void OnActivated()
+        {
+            _player.TriggerPoweredUpEffect();
+            var uiManager = GameManager.Instance?.UIManager;
+            if (uiManager != null)
+                uiManager.ShowBuffDescriptionPanel(Buff);
+        }
+
         protected override void ApplyEffect()
         {
             CritRateSO buff = Buff as CritRateSO;
             _player.SetCritRateWith(buff.critRateIncrease);
-            _player.TriggerPoweredUpEffect();
-            var uiManager = GameManager.Instance?.UIManager;
-            if (uiManager != null)
-                uiManager.ShowBuffDescriptionPanel(buff);
         }
 
         public override void OnFinished()
@@ -28,9 +32,9 @@ namespace Buff
                 while (_effectStacks > 0)
                 {
                     _player.SetCritRateWith(-buff.critRateIncrease);
-                    _player.TriggerDePoweredUpEffect();
                     _effectStacks--;
                 }
+                _player.TriggerDePoweredUpEffect();
             }
         }
     }

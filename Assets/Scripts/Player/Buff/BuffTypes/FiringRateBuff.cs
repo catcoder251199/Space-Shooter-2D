@@ -10,14 +10,17 @@ namespace Buff
             _player = obj.GetComponent<Player>();
         }
 
+        protected override void OnActivated()
+        {
+            _player.TriggerPoweredUpEffect();
+            var uiManager = GameManager.Instance?.UIManager;
+            if (uiManager != null)
+                uiManager.ShowBuffDescriptionPanel(Buff);
+        }
         protected override void ApplyEffect()
         {
             FiringRateSO buff = Buff as FiringRateSO;
             _player.SetFiringRateStackWith(buff.firingStackInc);
-            _player.TriggerPoweredUpEffect();
-            var uiManager = GameManager.Instance?.UIManager;
-            if (uiManager != null)
-                uiManager.ShowBuffDescriptionPanel(buff);
         }
 
         public override void OnFinished()
@@ -28,9 +31,9 @@ namespace Buff
                 while (_effectStacks > 0)
                 {
                     _player.SetFiringRateStackWith(-buff.firingStackInc);
-                    _player.TriggerDePoweredUpEffect();
                     _effectStacks--;
                 }
+                _player.TriggerDePoweredUpEffect();
             }
         }
     }

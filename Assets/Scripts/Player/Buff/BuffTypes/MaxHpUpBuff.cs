@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Buff
 {
-    public class AttackUpBuff : TimedBuff
+    public class MaxHpUpBuff : TimedBuff
     {
         private Player _player;
-        public AttackUpBuff(BuffSO buff, GameObject obj) : base(buff, obj)
+        public MaxHpUpBuff(BuffSO buff, GameObject obj) : base(buff, obj)
         {
             _player = obj.GetComponent<Player>();
         }
@@ -20,18 +20,18 @@ namespace Buff
 
         protected override void ApplyEffect()
         {
-            AttackUpSO attackUpBuff = Buff as AttackUpSO;
-            _player.SetAttackUpWith(attackUpBuff.attackIncrease);
+            MaxHpUpSO buff = Buff as MaxHpUpSO;
+            _player.SetHpMaxWith(buff.incAmount);
         }
 
         public override void OnFinished()
         {
             if (!Buff.isForever)
             {
-                AttackUpSO attackUpBuff = Buff as AttackUpSO;
+                MaxHpUpSO buff = Buff as MaxHpUpSO;
                 while (_effectStacks > 0)
                 {
-                    _player.SetAttackUpWith(-attackUpBuff.attackIncrease);
+                    _player.SetHpMaxWith(-buff.incAmount);
                     _effectStacks--;
                 }
                 _player.TriggerDePoweredUpEffect();

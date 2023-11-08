@@ -34,7 +34,6 @@ public class UIManager : MonoBehaviour
         _buffDescrText.text = "";
         while (_buffs.Count > 0)
         {
-            Debug.Log("Start Buff Des");
             var buff = _buffs.Dequeue();
             _buffDescrText.text = buff.description;
             _buffDescrPanel.localScale = Vector3.one * 0.8f;
@@ -42,9 +41,7 @@ public class UIManager : MonoBehaviour
             tween.Append(_buffDescrPanel.DOScale(1f, 0.5f).SetEase(Ease.OutQuad));
             tween.Append(_buffDescrPanel.DOScale(0.5f, 0.5f).SetDelay(1f).SetEase(Ease.InQuad));
             yield return tween.WaitForCompletion();
-            Debug.Log("Tween completed!");
         }
-        Debug.Log("Stop Buff Des");
         _buffDescrPanel.gameObject.SetActive(false);
         _showBuffRoutine = null;
     }

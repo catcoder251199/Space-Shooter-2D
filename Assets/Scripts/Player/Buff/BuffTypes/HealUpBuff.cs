@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Buff
 {
-    public class AttackUpBuff : TimedBuff
+    public class HealUpBuff : TimedBuff
     {
         private Player _player;
-        public AttackUpBuff(BuffSO buff, GameObject obj) : base(buff, obj)
+        public HealUpBuff(BuffSO buff, GameObject obj) : base(buff, obj)
         {
             _player = obj.GetComponent<Player>();
         }
@@ -20,18 +20,18 @@ namespace Buff
 
         protected override void ApplyEffect()
         {
-            AttackUpSO attackUpBuff = Buff as AttackUpSO;
-            _player.SetAttackUpWith(attackUpBuff.attackIncrease);
+            HealUpSO buff = Buff as HealUpSO;
+            _player.SetHealUpWith(buff.incAmount);
         }
 
         public override void OnFinished()
         {
             if (!Buff.isForever)
             {
-                AttackUpSO attackUpBuff = Buff as AttackUpSO;
+                HealUpSO buff = Buff as HealUpSO;
                 while (_effectStacks > 0)
                 {
-                    _player.SetAttackUpWith(-attackUpBuff.attackIncrease);
+                    _player.SetHealUpWith(-buff.incAmount);
                     _effectStacks--;
                 }
                 _player.TriggerDePoweredUpEffect();

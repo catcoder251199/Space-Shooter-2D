@@ -17,7 +17,7 @@ namespace PlayerNS
         public Transform BulletCenterSpawn => _bulletCenterSpawn;
         public Transform BulletLeftSpawn => _bulletLeftSpawn;
         public Transform BulletRightSpawn => _bulletRightSpawn;
-
+        public IShootPattern CurrentPattern => _shootPattern;
         private void Awake()
         {
             _player = GetComponent<Player>();

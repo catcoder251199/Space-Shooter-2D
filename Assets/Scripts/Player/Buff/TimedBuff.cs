@@ -30,6 +30,7 @@ public abstract class TimedBuff
 
     public void Activate()
     {
+        OnActivated();
         if (Buff.isForever)
         {
             if (Buff.isEffectStacked || (!Buff.isEffectStacked && _effectStacks <= 0))
@@ -68,6 +69,7 @@ public abstract class TimedBuff
 
     // Should call once whenever the actor get a buff.
     // Only call this through Activate() method
-    protected abstract void ApplyEffect(); 
+    protected abstract void ApplyEffect();
+    protected virtual void OnActivated() { } // whenever the buff is granted (but it might have no effect)
     
 }
