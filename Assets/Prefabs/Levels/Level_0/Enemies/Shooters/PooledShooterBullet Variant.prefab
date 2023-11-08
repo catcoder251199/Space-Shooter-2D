@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PooledShooterBullet Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7219305050643224997, guid: 19c38530f2207464791141fd662eda3e, type: 3}
+      propertyPath: destroyedCondition
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

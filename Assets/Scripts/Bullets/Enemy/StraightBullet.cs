@@ -11,6 +11,7 @@ namespace Enemy
 
         [Tooltip("whether the bullet should be deactivated in object pool when hitting something")]
         public bool destroyOnHit = true;
+        [SerializeField] private ParticleSystem _hitEffect;
 
         private PooledBulletProduct _pooledProduct;
         public enum DestroyedCondition
@@ -45,7 +46,7 @@ namespace Enemy
             if (destroyedCondition == DestroyedCondition.LifeTime)
             {
                 if (_existedTime < lifeTime)
-                    _existedTime += Time.fixedDeltaTime;
+                    _existedTime += Time.deltaTime;
 
                 if (_existedTime >= lifeTime)
                     Deactivate();
@@ -72,6 +73,7 @@ namespace Enemy
             if (_pooledProduct != null)
             {
                 _rb.velocity = Vector3.zero;
+                _existedTime = 0f;
                 _pooledProduct.Release();
             }
             else
@@ -82,7 +84,10 @@ namespace Enemy
         {
             // If the bullet hit something, then deactivate it
             if (destroyOnHit)
+            {
+                Instantiate(_hitEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
                 Deactivate();
+            }
         }
     }
 }

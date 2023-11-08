@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17b246e7e1822942a4d3def0e496278, type: 3}
-  m_Name: SOMaxHpUp
+  m_Script: {fileID: 11500000, guid: 9f608ee747010064991b6617dfbbaa93, type: 3}
+  m_Name: SOHealUp
   m_EditorClassIdentifier: 
   duration: 0
   isDurationStacked: 0
   isEffectStacked: 1
-  description: Increase Max Hp
-  isForever: 1
-  incAmount: 100
+  description: You are healed
+  isForever: 0
+  incAmount: 200

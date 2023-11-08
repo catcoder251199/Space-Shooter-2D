@@ -13,11 +13,19 @@ MonoBehaviour:
   m_Name: Wave_0
   m_EditorClassIdentifier: 
   _spawnedObjectsList:
-  - prefab: {fileID: 900763921571641543, guid: 7a3fe66719fcbe045939d0d53328184d, type: 3}
-    count: 3
-    nextSpawnDelay: 0.5
-    spawnNextGroupDelay: 0
-  - prefab: {fileID: 900763921571641543, guid: f2789868c24c2354197942098b9cfe6e, type: 3}
-    count: 3
-    nextSpawnDelay: 0.5
-    spawnNextGroupDelay: 0
+  - prefab: {fileID: 7067244137598035668, guid: 3620a25335e78ce4e91d344520d5ee40, type: 3}
+    count: 1
+    nextSpawnDelay: 5
+    spawnNextGroupDelay: 5
+  - prefab: {fileID: 397061726653556263, guid: fdc07af3677096a40bf59bf1213d3263, type: 3}
+    count: 1
+    nextSpawnDelay: 5
+    spawnNextGroupDelay: 5
+  - prefab: {fileID: 3841086569866393381, guid: b101a55cc660c804f98a42d14389fd13, type: 3}
+    count: 1
+    nextSpawnDelay: 5
+    spawnNextGroupDelay: 5
+  - prefab: {fileID: 8315946614176398095, guid: 8752941f75032ed40b3bd991faf6fcfa, type: 3}
+    count: 1
+    nextSpawnDelay: 5
+    spawnNextGroupDelay: 5

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 185350935729299379}
   - component: {fileID: 5020548042832459299}
-  - component: {fileID: 8007352442255514331}
+  - component: {fileID: 4629934889323880602}
   m_Layer: 10
   m_Name: Ship
   m_TagString: Untagged
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8007352442255514331
-PolygonCollider2D:
+--- !u!58 &4629934889323880602
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,30 +118,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.91, y: 0.91}
-    newSize: {x: 1.13, y: 1.13}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.0000000037252903, y: 0.7141228}
-      - {x: -0.59455293, y: 0.11166674}
-      - {x: -0.3422083, y: -0.12862056}
-      - {x: -0.35440284, y: -0.44404364}
-      - {x: -0.13777754, y: -0.65076613}
-      - {x: -0.11005902, y: -0.38346136}
-      - {x: 0.005012974, y: -0.48393518}
-      - {x: 0.09084442, y: -0.3684095}
-      - {x: 0.13994057, y: -0.6400718}
-      - {x: 0.34548542, y: -0.43178147}
-      - {x: 0.34134436, y: -0.1434926}
-      - {x: 0.60284144, y: 0.123437956}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Radius: 0.455
 --- !u!1 &4369340476968084570
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +227,7 @@ MonoBehaviour:
   OnHealthDamaged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6405377495624729131, guid: 95eeedb041dbecc4fab20a563c49f2fc, type: 3}
+      - m_Target: {fileID: 986362291886887541}
         m_TargetAssemblyTypeName: Enemy.LaserShooter, Assembly-CSharp
         m_MethodName: OnTakeDamage
         m_Mode: 0

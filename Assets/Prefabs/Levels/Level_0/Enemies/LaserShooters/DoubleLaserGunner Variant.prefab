@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3122551048562374004, guid: 791a29d9d9493d04988974ee2ac806c3, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3122551048562374004, guid: 791a29d9d9493d04988974ee2ac806c3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55,6 +55,14 @@ PrefabInstance:
     - target: {fileID: 4369340476968084570, guid: 791a29d9d9493d04988974ee2ac806c3, type: 3}
       propertyPath: m_Name
       value: DoubleLaserGunner Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432574671137662307, guid: 791a29d9d9493d04988974ee2ac806c3, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 4352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433629334257774092, guid: 791a29d9d9493d04988974ee2ac806c3, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 4352
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

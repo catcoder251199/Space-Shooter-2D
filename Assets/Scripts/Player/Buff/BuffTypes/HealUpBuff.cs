@@ -12,10 +12,10 @@ namespace Buff
 
         protected override void OnActivated()
         {
-            _player.TriggerPoweredUpEffect();
-            var uiManager = GameManager.Instance?.UIManager;
-            if (uiManager != null)
-                uiManager.ShowBuffDescriptionPanel(Buff);
+            _player.TriggerHealEffect();
+            //var uiManager = GameManager.Instance?.UIManager;
+            //if (uiManager != null)
+            //    uiManager.ShowBuffDescriptionPanel(Buff);
         }
 
         protected override void ApplyEffect()
@@ -26,16 +26,6 @@ namespace Buff
 
         public override void OnFinished()
         {
-            if (!Buff.isForever)
-            {
-                HealUpSO buff = Buff as HealUpSO;
-                while (_effectStacks > 0)
-                {
-                    _player.SetHealUpWith(-buff.incAmount);
-                    _effectStacks--;
-                }
-                _player.TriggerDePoweredUpEffect();
-            }
         }
     }
 }

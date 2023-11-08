@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace Buff
 {
-    public class MaxHpUpBuff : TimedBuff
+    public class ShieldUpBuff : TimedBuff
     {
         private Player _player;
-        public MaxHpUpBuff(BuffSO buff, GameObject obj) : base(buff, obj)
+        public ShieldUpBuff(BuffSO buff, GameObject obj) : base(buff, obj)
         {
             _player = obj.GetComponent<Player>();
         }
 
         protected override void OnActivated()
         {
-            _player.TriggerHealEffect();
+            _player.TriggerPoweredUpEffect();
             var uiManager = GameManager.Instance?.UIManager;
             if (uiManager != null)
                 uiManager.ShowBuffDescriptionPanel(Buff);
@@ -20,8 +20,8 @@ namespace Buff
 
         protected override void ApplyEffect()
         {
-            MaxHpUpSO buff = Buff as MaxHpUpSO;
-            _player.SetHpMaxWith(buff.incAmount);
+            ShieldUpSO buff = Buff as ShieldUpSO;
+            _player.SetShieldEnabled(true);
         }
 
         public override void OnFinished()
@@ -29,9 +29,9 @@ namespace Buff
             if (!Buff.isForever)
             {
                 MaxHpUpSO buff = Buff as MaxHpUpSO;
+                _player.SetShieldEnabled(false);
                 while (_effectStacks > 0)
                 {
-                    _player.SetHpMaxWith(-buff.incAmount);
                     _effectStacks--;
                 }
                 _player.TriggerDePoweredUpEffect();

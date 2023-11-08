@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3122551048562374004, guid: 51da035eb209a9d4b88da34d754cab77, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3122551048562374004, guid: 51da035eb209a9d4b88da34d754cab77, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,9 +52,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3565869089321793491, guid: 51da035eb209a9d4b88da34d754cab77, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 4352
+      objectReference: {fileID: 0}
     - target: {fileID: 4369340476968084570, guid: 51da035eb209a9d4b88da34d754cab77, type: 3}
       propertyPath: m_Name
       value: TripleLaserGunner Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432574671137662307, guid: 51da035eb209a9d4b88da34d754cab77, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 4352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433629334257774092, guid: 51da035eb209a9d4b88da34d754cab77, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 4352
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

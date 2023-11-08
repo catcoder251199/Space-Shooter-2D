@@ -11,13 +11,13 @@ namespace Enemy
 
         protected void OnTriggerStay2D(Collider2D collision)
         {
-            if (CompareDamageableTag(collision.attachedRigidbody.tag))
+            if (collision.attachedRigidbody != null && CompareDamageableTag(collision.attachedRigidbody.tag))
             {
                 if (Time.time >= _hitNextTime)
                 {
                     _hitNextTime = Time.time + hitRate;
                     Health health = collision.attachedRigidbody.GetComponent<Health>();
-                    health.TakeDamage(damage, isCritical, true);
+                    health?.TakeDamage(damage, isCritical, true);
                 }
             }
 

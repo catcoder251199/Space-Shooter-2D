@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
 
     [SerializeField, Header("Basic stats")] private int _maxHp = 100;
     [SerializeField] private float _fireRate = 0.5f;
-    [SerializeField] private ParticleSystem _explosionEffect;
+    [SerializeField, Header("Effects")] private ParticleSystem _explosionEffect;
     [SerializeField] private ParticleSystem _poweredUpEffect;
     [SerializeField] private ParticleSystem _depoweredUpEffect;
+    [SerializeField] private ParticleSystem _healEffect;
+    [SerializeField] private GameObject _shield;
 
     private Health _health;
     private PlayerDamageHandler _damageHandler;
@@ -144,15 +146,24 @@ public class Player : MonoBehaviour
         _health.SetHealth(_health.GetHealth() + amount);
     }
 
+    public void SetShieldEnabled(bool enabled)
+    {
+        _shield.SetActive(enabled);
+        _health.SetDamageable(!enabled);
+    }
+
     public void TriggerPoweredUpEffect()
     {
-        //if (_poweredUpEffect != null && !_poweredUpEffect.isPlaying)
-            _poweredUpEffect.Play();
+        _poweredUpEffect.Play();
     }
 
     public void TriggerDePoweredUpEffect()
     {
-        //if (_depoweredUpEffect != null && !_depoweredUpEffect.isPlaying)
-            _depoweredUpEffect.Play();
+        _depoweredUpEffect.Play();
+    }
+
+    public void TriggerHealEffect()
+    {
+        _healEffect.Play();
     }
 }

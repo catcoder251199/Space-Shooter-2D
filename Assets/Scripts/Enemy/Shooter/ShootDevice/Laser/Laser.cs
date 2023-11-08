@@ -109,7 +109,8 @@ public class Laser : MonoBehaviour
             hitSomething = hit.collider != null;
             if (hitSomething) // hit something
             {
-                endPosition = hit.collider.transform.position;
+                //endPosition = hit.collider.transform.position;
+                endPosition = hit.point;
                 SetCurrentLength((endPosition - startPosition).magnitude);
                 ProcessCollision(hit.collider);
             }

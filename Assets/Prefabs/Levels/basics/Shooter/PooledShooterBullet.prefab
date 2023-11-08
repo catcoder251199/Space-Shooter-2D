@@ -197,7 +197,8 @@ MonoBehaviour:
   straightSpeed: 10
   lifeTime: 3
   destroyOnHit: 1
-  destroyedCondition: 1
+  _hitEffect: {fileID: 3163475116649435277, guid: 3ee89ee0b0f123d4f8b34f4175a7e477, type: 3}
+  destroyedCondition: 2
 --- !u!114 &2997330453954961705
 MonoBehaviour:
   m_ObjectHideFlags: 0
