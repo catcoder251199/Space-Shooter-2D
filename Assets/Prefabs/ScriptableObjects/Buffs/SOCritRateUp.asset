@@ -16,5 +16,7 @@ MonoBehaviour:
   isDurationStacked: 0
   isEffectStacked: 1
   description: Boost critical rate up
+  sprite: {fileID: 1288612142, guid: 7dfae216a88e1e64ab942bdf54f6d351, type: 3}
+  buffName: Crit rate
   isForever: 1
   critRateIncrease: 0.1

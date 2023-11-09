@@ -16,4 +16,6 @@ MonoBehaviour:
   isDurationStacked: 1
   isEffectStacked: 0
   description: Shoot in Gatling Pattern
+  sprite: {fileID: -599807008, guid: 7dfae216a88e1e64ab942bdf54f6d351, type: 3}
+  buffName: Gatling
   isForever: 1

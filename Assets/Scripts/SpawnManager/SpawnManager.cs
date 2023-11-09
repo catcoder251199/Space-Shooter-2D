@@ -50,6 +50,8 @@ public class SpawnManager : MonoBehaviour
     {
         if (CanStartSpawn())
             _spawnCoroutine = StartCoroutine(SpawnRoutine());
+        else
+            Debug.Log("Can't spawn");
     }
 
     public bool HaveNextWave()
@@ -122,10 +124,8 @@ public class SpawnManager : MonoBehaviour
     public void StopSpawn()
     {
         if (_spawnCoroutine != null)
-        {
             StopCoroutine(_spawnCoroutine);
-            _spawnCoroutine = null;
-        }
+        _spawnCoroutine = null;
     }
 
     public void OnOneSpanwableTerminated(PooledSpawnableProduct spawnedObject)

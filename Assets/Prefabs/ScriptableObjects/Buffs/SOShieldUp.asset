@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa11d0cec3ad0a942a5e8507c1a2870d, type: 3}
   m_Name: SOShieldUp
   m_EditorClassIdentifier: 
-  duration: 5
+  duration: 10
   isDurationStacked: 1
   isEffectStacked: 0
   description: 'Gain a protecting shield '
+  sprite: {fileID: 281818921, guid: 7dfae216a88e1e64ab942bdf54f6d351, type: 3}
+  buffName: Shield
   isForever: 0

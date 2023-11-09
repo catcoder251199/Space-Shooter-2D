@@ -9,6 +9,9 @@ public abstract class BuffSO : ScriptableObject
     public bool isEffectStacked;
     public string description;
 
+    public Sprite sprite;
+    public string buffName;
+
     [Tooltip("if it's true. duration and isDurationStacked are overridden and have no effect")]
     public bool isForever;
 

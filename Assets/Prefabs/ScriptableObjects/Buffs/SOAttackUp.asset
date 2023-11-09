@@ -16,5 +16,7 @@ MonoBehaviour:
   isDurationStacked: 0
   isEffectStacked: 1
   description: Boost attack up
+  sprite: {fileID: 521705123, guid: 7dfae216a88e1e64ab942bdf54f6d351, type: 3}
+  buffName: Attack up
   isForever: 1
   attackIncrease: 10

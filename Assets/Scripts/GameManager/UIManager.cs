@@ -10,12 +10,14 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField, Header("Boss Health Bar")] RectTransform _bossHealthBar;
     private HealthBar _bossHpBar;
-
+    //--
     [SerializeField, Header("Buff Panel")] private RectTransform _buffDescrPanel;
     [SerializeField] private TextMeshProUGUI _buffDescrText;
     private Queue<BuffSO> _buffs = new Queue<BuffSO>();
     private Coroutine _showBuffRoutine;
-
+    //--
+    [SerializeField] private PowerupPopup _powerupPopup;
+    public PowerupPopup PowerupPopup => _powerupPopup;
     private void Awake()
     {
         _bossHpBar = _bossHealthBar.GetComponent<HealthBar>();

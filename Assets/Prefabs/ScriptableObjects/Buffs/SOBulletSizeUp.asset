@@ -16,5 +16,8 @@ MonoBehaviour:
   isDurationStacked: 0
   isEffectStacked: 1
   description: Increase bullet size and it's speed
+  sprite: {fileID: -1930877945, guid: 7dfae216a88e1e64ab942bdf54f6d351, type: 3}
+  buffName: Bullet up
   isForever: 1
   scaleInc: 0.2
+  speedInc: 1
