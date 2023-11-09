@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public UnityEvent OnPlayerDiedEvent;
 
-    [SerializeField, Header("Basic stats")] private int _maxHp = 100;
+    [SerializeField, Header("Basic stats")] private int _initialHealth = 100;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField, Header("Effects")] private ParticleSystem _explosionEffect;
     [SerializeField] private ParticleSystem _poweredUpEffect;
@@ -24,15 +24,6 @@ public class Player : MonoBehaviour
     public PlayerController Controller => _controller;
     public WeaponHandler WeaponHandler => _weaponHandler;
 
-    public int MaxHp 
-    {
-        get { return _maxHp; }
-        set
-        {
-            _maxHp = value;
-            _health.SetMaxHealth(_maxHp);
-        }
-    }
     public Health Health => _health;
     public float FireRate { get => _fireRate; set => _fireRate = value; } // time between 2 sequential bullets
     public PlayerDamageHandler DamageHandler => _damageHandler;
@@ -42,7 +33,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _health = GetComponent<Health>();
-        MaxHp = _maxHp;
+        _health.SetMaxHealth(_initialHealth);
+        _health.SetHealth(_initialHealth);
 
         _damageHandler = GetComponent<PlayerDamageHandler>();
         _bulletPool = GetComponent<PlayerBulletPool>();

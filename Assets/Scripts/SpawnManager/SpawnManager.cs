@@ -71,7 +71,6 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-
     private IEnumerator SpawnRoutine()
     {
         WaveSO waveSO = _waveSOList[_currentWave];

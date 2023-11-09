@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5954341548622295686}
   - component: {fileID: 327455083999961522}
   - component: {fileID: 5665753655529622157}
+  - component: {fileID: 8300883775289417945}
   m_Layer: 21
   m_Name: Buff_Double
   m_TagString: Untagged
@@ -179,3 +180,18 @@ MonoBehaviour:
   _pickableTag: Player
   _moveVec: {x: 0, y: 0}
   _rotateSpeed: 0
+--- !u!114 &8300883775289417945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3656167054425063369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c228ceebac7af9429186d590ac26a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls: []

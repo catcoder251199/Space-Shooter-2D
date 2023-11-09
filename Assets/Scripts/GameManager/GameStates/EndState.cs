@@ -23,6 +23,8 @@ namespace GameState
             Debug.Log("Game End State: Enter");
             _gm.Player.Controller.enabled = false;
             _gm.Player.WeaponHandler.Deactivate();
+            _gm.SpawnManager.StopSpawn();
+            _gm.PowerUpSpawner.StopSpawn();
             ShowEndPanel();
         }
 

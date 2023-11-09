@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 401180431906072034}
   - component: {fileID: 4202426103119839207}
   - component: {fileID: 354676114251735705}
+  - component: {fileID: 17221381722396699}
   m_Layer: 21
   m_Name: Buff_BulletSize
   m_TagString: Untagged
@@ -179,3 +180,18 @@ MonoBehaviour:
   _pickableTag: Player
   _moveVec: {x: 0, y: 0}
   _rotateSpeed: 0
+--- !u!114 &17221381722396699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388670251960656945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c228ceebac7af9429186d590ac26a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls: []

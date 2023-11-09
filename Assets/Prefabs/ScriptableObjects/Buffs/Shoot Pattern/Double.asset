@@ -16,4 +16,4 @@ MonoBehaviour:
   isDurationStacked: 1
   isEffectStacked: 0
   description: Shoot in Double Pattern
-  isForever: 0
+  isForever: 1

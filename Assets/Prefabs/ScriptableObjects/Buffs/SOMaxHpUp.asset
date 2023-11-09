@@ -15,6 +15,6 @@ MonoBehaviour:
   duration: 0
   isDurationStacked: 0
   isEffectStacked: 1
-  description: Increase Max Hp
+  description: Increase max HP
   isForever: 1
   incAmount: 100

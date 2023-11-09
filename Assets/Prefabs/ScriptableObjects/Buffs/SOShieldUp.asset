@@ -15,5 +15,5 @@ MonoBehaviour:
   duration: 5
   isDurationStacked: 1
   isEffectStacked: 0
-  description: GAIN PROTECTING SHIELD
+  description: 'Gain a protecting shield '
   isForever: 0

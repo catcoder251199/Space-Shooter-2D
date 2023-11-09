@@ -35,7 +35,7 @@ namespace Helper
                 case Side.Right:
                     return GetRightSideRandomPos(offset, inputZ, minRange, maxRange);
                 case Side.Top:
-                    return GetTopSideRandomPos(offset, inputZ, minRange, maxRange);
+                    return GetTopSideRandomPosRange(offset, inputZ, minRange, maxRange);
                 case Side.Bottom:
                     return GetBottomSideRandomPos(offset, inputZ, minRange, maxRange);
                 default:
@@ -53,7 +53,7 @@ namespace Helper
                 case Side.Right:
                     return GetRightSideRandomPos(offset, inputZ, minRange, maxRange);
                 case Side.Top:
-                    return GetTopSideRandomPos(offset, inputZ, minRange, maxRange);
+                    return GetTopSideRandomPosRange(offset, inputZ, minRange, maxRange);
                 case Side.Bottom:
                     return GetBottomSideRandomPos(offset, inputZ, minRange, maxRange);
                 default:
@@ -64,10 +64,10 @@ namespace Helper
         public static Vector3 GetTopSideRandomPos(float offset = 0f, float inputZ = 0)
         {
 
-            return GetTopSideRandomPos(offset, inputZ, 0, 1);
+            return GetTopSideRandomPosRange(offset, inputZ, 0, 1);
         }
 
-        public static Vector3 GetTopSideRandomPos(float offset = 0f, float inputZ = 0, float minRange = 0f, float maxRange = 1f)
+        public static Vector3 GetTopSideRandomPosRange(float offset = 0f, float inputZ = 0, float minRange = 0f, float maxRange = 1f)
         {
             Camera cam = Camera.main;
             float camHalfHeight = cam.orthographicSize;

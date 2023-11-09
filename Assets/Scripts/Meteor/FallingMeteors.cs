@@ -149,7 +149,7 @@ public class FallingMeteors : MonoBehaviour
         }
         else if (spanwedSide == Helper.Cam.Side.Top)
         {
-            Vector3 startPosition = Helper.Cam.GetTopSideRandomPos(_offsetFromBounds, 0, 0f, 1f);
+            Vector3 startPosition = Helper.Cam.GetTopSideRandomPosRange(_offsetFromBounds, 0, 0f, 1f);
             this.transform.position = startPosition;
             Vector3 endPosition = Helper.Cam.GetBottomSideRandomPos(0f, 0f, 0.2f, 0.8f);
             Vector2 moveDirection = endPosition - startPosition;

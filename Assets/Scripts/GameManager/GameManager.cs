@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     private SpawnManager _spawnManager;
+    private PowerUpSpawner _powerupSpawner;
     private Player _player;
     private Camera _cam;
 
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     public EndState EndState => _endState;
     public SpawnManager SpawnManager => _spawnManager;
     public UIManager UIManager => _uiManager;
+    public PowerUpSpawner PowerUpSpawner => _powerupSpawner;
 
     private void Awake()
     {
@@ -45,16 +47,16 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
+        _cam = Camera.main;
         _player = FindPlayer();
         _spawnManager = FindSpawnManager();
-        _cam = Camera.main;
+        _powerupSpawner = FindPowerupSpawner();
+        _uiManager = GetComponent<UIManager>();
 
         _startState = GetComponent<StartState>();
         _playState = GetComponent<PlayState>();
         _endWaveState = GetComponent<EndWaveState>();
         _endState = GetComponent<EndState>();
-
-        _uiManager = GetComponent<UIManager>();
     }
 
     private void OnEnable()
@@ -81,6 +83,13 @@ public class GameManager : MonoBehaviour
         if (spawnManager == null)
             spawnManager = FindObjectOfType<SpawnManager>();
         return spawnManager;
+    }
+    private PowerUpSpawner FindPowerupSpawner()
+    {
+        PowerUpSpawner powerupSpawner = GameObject.FindGameObjectWithTag("SpawnManager")?.GetComponent<PowerUpSpawner>();
+        if (powerupSpawner == null)
+            powerupSpawner = FindObjectOfType<PowerUpSpawner>();
+        return powerupSpawner;
     }
 
     public virtual void ChangeState(IGameState _nextState)

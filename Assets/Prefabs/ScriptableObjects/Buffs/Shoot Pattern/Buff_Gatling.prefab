@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8803144329020728292}
   - component: {fileID: 279908329775025324}
   - component: {fileID: 7607917204491992936}
+  - component: {fileID: -6732922625194074798}
   m_Layer: 21
   m_Name: Buff_Gatling
   m_TagString: Untagged
@@ -179,3 +180,18 @@ MonoBehaviour:
   _pickableTag: Player
   _moveVec: {x: 0, y: 0}
   _rotateSpeed: 0
+--- !u!114 &-6732922625194074798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192186895640064102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c228ceebac7af9429186d590ac26a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls: []

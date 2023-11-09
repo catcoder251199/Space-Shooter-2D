@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5522358772163940848}
   - component: {fileID: 4097440557871508776}
   - component: {fileID: 4681809206605936905}
+  - component: {fileID: 6575828701629737371}
   m_Layer: 21
   m_Name: Buff_Split
   m_TagString: Untagged
@@ -179,3 +180,18 @@ MonoBehaviour:
   _pickableTag: Player
   _moveVec: {x: 0, y: 0}
   _rotateSpeed: 0
+--- !u!114 &6575828701629737371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3451587480717014363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c228ceebac7af9429186d590ac26a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInitializeInvoked:
+    m_PersistentCalls:
+      m_Calls: []

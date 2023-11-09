@@ -45,6 +45,7 @@ namespace GameState
             _countDownText.gameObject.SetActive(false);
             if (_gm.SpawnManager.HaveNextWave())
             {
+                _gm.PowerUpSpawner.SpawnRandShootPatterns(3);
                 _gm.SpawnManager.MoveToNextWave();
                 _gm.ChangeState(_gm.PlayState);
             }

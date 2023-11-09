@@ -72,6 +72,7 @@ namespace GameState
         void OnCountDownCompleted()
         {
             _gm.SetCameraFollowActive(true);
+            _gm.PowerUpSpawner.StartSpawn();
             _gm.ChangeState(_gm.PlayState);
         }
 

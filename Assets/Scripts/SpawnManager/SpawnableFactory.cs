@@ -107,4 +107,10 @@ public class SpawnableFactory : MonoBehaviour
         Destroy(pooledObject.gameObject);
     }
     //---
+
+    public int GetRandomInstanceIdInPool()
+    {
+        int idx = Random.Range(0, _prefabList.Length);
+        return _prefabList[idx].InstanceId;
+    }
 }
