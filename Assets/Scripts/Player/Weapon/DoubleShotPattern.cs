@@ -77,6 +77,8 @@ namespace PlayerNS
                     else
                         Debug.LogError("DoubleShotPattern: Pooled Bullet is null !");
                 }
+
+                SoundManager.Instance.PlayEffectOneShot(_weaponHandler.ShootSound);
                 yield return new WaitForSeconds(GetFireRate());
             }
         }

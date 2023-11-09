@@ -90,6 +90,7 @@ MonoBehaviour:
   - {fileID: 1406638478621947505, guid: 9e12a7d0581ac5f4697e957076a31cad, type: 3}
   _explosionEffect: {fileID: 555894976990334792, guid: a1b0658984725da4ebb0606bf826b271, type: 3}
   _pooledProduct: {fileID: 215293253699745781}
+  _explosionSound: {fileID: 8300000, guid: fe60da9eba890ca40bec0d5af8e8791c, type: 3}
 --- !u!114 &586166000563684111
 MonoBehaviour:
   m_ObjectHideFlags: 0

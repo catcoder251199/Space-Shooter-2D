@@ -22,7 +22,7 @@ public class SelfDestructor : MonoBehaviour
     private Quaternion _canvasUIOriginalRotation;
     [SerializeField] private TextMeshProUGUI _countDownText;
     [SerializeField] private PooledSpawnableProduct _spawnableProduct;
-
+    [SerializeField, Header("Sound")] AudioClip _explosionSound;
 
     private Player _target;
     private Rigidbody2D _rb;
@@ -128,6 +128,10 @@ public class SelfDestructor : MonoBehaviour
             var explosion = Instantiate(_explosionPrefab, this.transform.position, Quaternion.identity);
             explosion.damage = _explosionDamage;
         }
+
+        if (_explosionSound != null)
+            SoundManager.Instance.PlayEffectOneShot(_explosionSound);
+
         Deactivate();
     }
 

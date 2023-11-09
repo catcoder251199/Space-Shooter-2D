@@ -15,7 +15,7 @@ namespace Enemy
         [SerializeField] float _offsetFromBounds = 2f;
         [SerializeField] AutoShootDevice _shootDevice;
         [SerializeField] ParticleSystem _explosionEffect;
-
+        [SerializeField, Header("Sound")] AudioClip _explosionSound;
         [SerializeField, Header("Pooled Spawnable Object/Product")] private PooledSpawnableProduct _pooledProduct;
 
         private Rigidbody2D _rb;
@@ -39,6 +39,7 @@ namespace Enemy
         public float AttackTime => _attackTime;
         public float OffsetFromBounds => _offsetFromBounds;
         public Rigidbody2D Rigidbody => _rb;
+
 
         private void Awake()
         {
@@ -79,6 +80,10 @@ namespace Enemy
         {
             if (_explosionEffect != null)
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
+
+            if (_explosionSound != null)
+                SoundManager.Instance.PlayEffectOneShot(_explosionSound);
+
             Deactivate();
         }
 

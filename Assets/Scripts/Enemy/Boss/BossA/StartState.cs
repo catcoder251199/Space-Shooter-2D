@@ -30,6 +30,8 @@ namespace Enemy
                 var gm = GameManager.Instance;
                 gm.UIManager.UpdateBossHealth(_subject.Health.GetHealth(), _subject.Health.GetMaxHealth());
                 gm.UIManager.ShowBossHealth();
+
+                SoundManager.Instance.PlayBossBackgroundMusic();
             }
             public void UpdateExecute()
             {}

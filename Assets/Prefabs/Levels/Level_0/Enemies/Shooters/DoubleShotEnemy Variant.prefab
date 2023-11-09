@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: _speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8165895190844819022, guid: abbebe5a22405294da1ee3bcbbe8713d, type: 3}
+      propertyPath: _explosionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fe60da9eba890ca40bec0d5af8e8791c, type: 3}
     - target: {fileID: 8871106386466327469, guid: abbebe5a22405294da1ee3bcbbe8713d, type: 3}
       propertyPath: _objectToPool
       value: 

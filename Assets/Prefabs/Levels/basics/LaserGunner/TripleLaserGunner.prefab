@@ -201,6 +201,7 @@ MonoBehaviour:
   _explosionEffect: {fileID: 0}
   _offsetFromBounds: 2
   _laserGun: {fileID: 1698824671169569647}
+  _explosionSound: {fileID: 8300000, guid: ff1de1e853b17934daa8644a83239c39, type: 3}
 --- !u!50 &7074398018574343439
 Rigidbody2D:
   serializedVersion: 4

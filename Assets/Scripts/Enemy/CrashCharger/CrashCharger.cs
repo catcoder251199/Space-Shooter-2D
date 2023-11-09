@@ -17,6 +17,7 @@ namespace Enemy
         [SerializeField] Vector2 _rectSize;
         [SerializeField] ParticleSystem _explosionEffect;
         [SerializeField] private PooledSpawnableProduct _spawnableProduct;
+        [SerializeField, Header("Sound")] AudioClip _explosionSound;
 
         private MoveToScreenState _moveToScreenState;
         private WaitAndLookState _waitAndLookState;
@@ -131,6 +132,9 @@ namespace Enemy
         {
             if (_explosionEffect != null)
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
+            
+            if (_explosionSound != null)
+                SoundManager.Instance.PlayEffectOneShot(_explosionSound);
 
             Deactivate();
         }

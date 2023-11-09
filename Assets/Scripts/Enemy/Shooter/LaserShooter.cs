@@ -20,6 +20,8 @@ namespace Enemy
         [SerializeField] float _offsetFromBounds = 2f;
         [SerializeField] LaserGunBase _laserGun;
 
+        [SerializeField, Header("Sound")] private AudioClip _explosionSound;
+
         //[SerializeField, Header("Pooled Spawnable Object/Product")] PooledSpawnableProduct _pooledProduct;
 
         private StartState _startState;
@@ -84,6 +86,9 @@ namespace Enemy
             if (_explosionEffect != null)
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
 
+            if (_explosionSound != null)
+                SoundManager.Instance.PlayEffectOneShot(_explosionSound);
+
             Destroy(gameObject, 0.1f);
         }
 
@@ -96,23 +101,6 @@ namespace Enemy
             _health.SetHealth(_health.GetMaxHealth());
             ChangeState(_startState);
         }
-
-        //public void Deactivate()
-        //{
-        //    if (_pooledProduct != null)
-        //    {
-        //        _rb.velocity = Vector3.zero;
-        //        _rb.angularVelocity = 0;
-        //        transform.position = Vector3.zero;
-        //        transform.rotation = Quaternion.identity;
-        //        _laserGun.SetSightLineEnabled(false);
-        //        _pooledProduct.Release();
-        //    }
-        //    else
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //}
     }
 }
 

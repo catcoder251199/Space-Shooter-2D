@@ -10,6 +10,10 @@ namespace PlayerNS
         [SerializeField] private Transform _bulletCenterSpawn;
         [SerializeField] private Transform _bulletLeftSpawn;
         [SerializeField] private Transform _bulletRightSpawn;
+
+        [SerializeField] AudioClip _shootSoundClip;
+        public AudioClip ShootSound => _shootSoundClip;
+
         public int FireRateStack = 0;
         public float BonusScale = 0;
         public int SpeedStack = 0;

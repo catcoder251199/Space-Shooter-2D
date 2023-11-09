@@ -32,7 +32,7 @@ public class Asteroid : MonoBehaviour
 
     // Object Pool
     [SerializeField, Header("Pooled Spawnable Object/Product")] private PooledSpawnableProduct _pooledProduct;
-
+    [SerializeField] private AudioClip _explosionSound;
     //private Vector2 _moveDir;
     private Rigidbody2D _rb;
     //private Vector2 _targetPosition;
@@ -116,6 +116,8 @@ public class Asteroid : MonoBehaviour
         if (_explosionEffect != null)
             Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
 
+        if (_explosionSound != null)
+            SoundManager.Instance.PlayEffectOneShot(_explosionSound);
         Deactivate();
     }
 

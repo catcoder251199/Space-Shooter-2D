@@ -86,6 +86,7 @@ MonoBehaviour:
   _rectSize: {x: 0, y: 0}
   _explosionEffect: {fileID: 6389210361597389694, guid: 8e8234b2c5438ec4eb4eeb5749c35674, type: 3}
   _spawnableProduct: {fileID: 0}
+  _explosionSound: {fileID: 8300000, guid: 8be872dbd941fc64bb5d8ba64d487878, type: 3}
 --- !u!114 &3544164652768935770
 MonoBehaviour:
   m_ObjectHideFlags: 0

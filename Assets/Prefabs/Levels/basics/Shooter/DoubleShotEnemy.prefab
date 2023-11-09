@@ -118,6 +118,7 @@ MonoBehaviour:
   _offsetFromBounds: 2
   _shootDevice: {fileID: 520934935852076602}
   _explosionEffect: {fileID: 6389210361597389694, guid: 8e8234b2c5438ec4eb4eeb5749c35674, type: 3}
+  _explosionSound: {fileID: 8300000, guid: fe60da9eba890ca40bec0d5af8e8791c, type: 3}
   _pooledProduct: {fileID: 1752330421624483881}
 --- !u!114 &4606061427477100838
 MonoBehaviour:
@@ -154,6 +155,7 @@ MonoBehaviour:
         m_CallState: 2
   _maxHealth: 500
   _currentHealth: 0
+  _damageable: 1
 --- !u!50 &9069711927825996689
 Rigidbody2D:
   serializedVersion: 4

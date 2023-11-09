@@ -68,6 +68,8 @@ namespace PlayerNS
                     bullet.transform.localScale = Vector2.one * (1 + _weaponHandler.BonusScale);
                     bullet.transform.parent = PlaySceneGlobal.Instance.BulletParent;
                     bullet.Speed = GetBulletSpeed();
+
+                    SoundManager.Instance.PlayEffectOneShot(_weaponHandler.ShootSound);
                 }
                 else
                     Debug.LogError("SingleShotPattern: Pooled Bullet is null !");

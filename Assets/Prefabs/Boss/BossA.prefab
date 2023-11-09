@@ -348,6 +348,7 @@ MonoBehaviour:
   _shield: {fileID: 2200529502913053177}
   _rotateSpeed: 30
   _explosionEffect: {fileID: 555894976990334792, guid: b23c1b9d05e017a4f858162c2390dc87, type: 3}
+  _explosionSound: {fileID: 8300000, guid: bb82dc62009210f439acb98234c89a24, type: 3}
   _enrageHpThreshHold: c4090000e8030000f4010000
 --- !u!50 &4334486089462771992
 Rigidbody2D:

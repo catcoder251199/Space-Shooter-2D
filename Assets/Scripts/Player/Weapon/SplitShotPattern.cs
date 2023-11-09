@@ -56,6 +56,7 @@ namespace PlayerNS
             while (true)
             {
                 FireFanShot();
+                SoundManager.Instance.PlayEffectOneShot(_weaponHandler.ShootSound);
                 yield return new WaitForSeconds(GetFireRate());
             }
         }

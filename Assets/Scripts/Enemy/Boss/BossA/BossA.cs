@@ -14,6 +14,7 @@ namespace Enemy
             [SerializeField] private EnemyShield _shield;
             [SerializeField] float _rotateSpeed = 30f;
             [SerializeField] ParticleSystem _explosionEffect;
+            [SerializeField] AudioClip _explosionSound;
             [SerializeField] int[] _enrageHpThreshHold;
             private int _currentEnrageThresholdIdx;
 
@@ -165,6 +166,9 @@ namespace Enemy
                     //vfx.transform.localScale = Vector3.zero * 5;
                 }
                 GameManager.Instance.UIManager.HideBossHealth();
+                if (_explosionSound != null)
+                    SoundManager.Instance.PlayEffectAtPoint(_explosionSound, transform.position);
+                SoundManager.Instance.PlayBackgroundMusic();
                 Destroy(gameObject, 0.1f);
             }
 

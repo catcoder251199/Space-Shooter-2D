@@ -44,8 +44,11 @@ namespace GameState
 
         private void ShowRewardPopup()
         {
-            BuffSO[] _randList = _gm.PowerUpSpawner.GetRandRewardList();
-            _gm.UIManager.PowerupPopup.Show(_randList);
+            if (_gm.SpawnManager.HaveNextWave())
+            {
+                BuffSO[] _randList = _gm.PowerUpSpawner.GetRandRewardList();
+                _gm.UIManager.PowerupPopup.Show(_randList);
+            }
         }
 
         public void OnRewardPopupHidden()

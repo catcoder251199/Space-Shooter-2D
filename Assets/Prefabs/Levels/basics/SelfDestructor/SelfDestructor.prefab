@@ -115,6 +115,7 @@ MonoBehaviour:
   _canvasUI: {fileID: 2414368780722885610}
   _countDownText: {fileID: 6012637407163482909}
   _spawnableProduct: {fileID: 5000223807591014601}
+  _explosionSound: {fileID: 8300000, guid: fe60da9eba890ca40bec0d5af8e8791c, type: 3}
 --- !u!114 &3669511962079537864
 MonoBehaviour:
   m_ObjectHideFlags: 0
