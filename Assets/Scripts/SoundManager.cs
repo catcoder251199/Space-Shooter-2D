@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource _effectSource;
     [SerializeField] private AudioClip _bossMusic;
     [SerializeField] private AudioClip _backgroundMusic;
+    [SerializeField] private AudioClip _buttoneClick;
     [SerializeField, Range(0, 1)] private float _effectVolume;
 
     private void Awake()
@@ -53,4 +54,21 @@ public class SoundManager : MonoBehaviour
         AudioListener.volume = value;
     }
 
+    public void ChangeMusicSourceVolume(float value)
+    {
+        _musicSource.volume = value;
+    }
+
+    public void ChangeEffectVolume(float value)
+    {
+        _effectVolume = value;
+    }
+
+    public float GetMusicVolume() => _musicSource.volume;
+    public float GetEffectVolume() => _effectVolume;
+
+    public void playButtonClickSound()
+    {
+        _effectSource.PlayOneShot(_buttoneClick, _effectVolume);
+    }
 }

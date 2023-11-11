@@ -12,6 +12,9 @@ public class IntEvent : UnityEvent<int> { }
 public class IntBoolEvent : UnityEvent<int, bool> { }
 
 [Serializable]
+public class BoolEvent : UnityEvent<bool> { }
+
+[Serializable]
 public class Collider2D_Event : UnityEvent<Collider2D> { }
 
 

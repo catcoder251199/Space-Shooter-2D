@@ -49,6 +49,11 @@ namespace GameState
                 BuffSO[] _randList = _gm.PowerUpSpawner.GetRandRewardList();
                 _gm.UIManager.PowerupPopup.Show(_randList);
             }
+            else // Should end the scene
+            {
+                _gm.EndState.Victory = true;
+                _gm.ChangeState(_gm.EndState);
+            }
         }
 
         public void OnRewardPopupHidden()

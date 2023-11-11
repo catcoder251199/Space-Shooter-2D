@@ -9,7 +9,7 @@ public class BuffableEntity : MonoBehaviour
     private void Update()
     {
         var gm = GameManager.Instance;
-        if (gm != null && gm.Paused)
+        if (gm != null && GameManager.gameIsPaused)
             return;
 
         Queue<TimedBuff> removed = new Queue<TimedBuff>();

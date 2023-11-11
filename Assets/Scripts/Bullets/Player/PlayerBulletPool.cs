@@ -14,6 +14,10 @@ public class PlayerBulletPool : MonoBehaviour
 
     private IObjectPool<PlayerBullet> _pool;
     public IObjectPool<PlayerBullet> Pool => _pool;
+    public void SetNewBulletPrefab(PlayerBullet bullet)
+    {
+        _bulletPrefab = bullet;
+    }
 
     private void Awake()
     {

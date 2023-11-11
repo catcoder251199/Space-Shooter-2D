@@ -37,7 +37,3 @@ MonoBehaviour:
     count: 1
     nextSpawnDelay: 5
     spawnNextGroupDelay: 5
-  - prefab: {fileID: 7067244137598035668, guid: 3620a25335e78ce4e91d344520d5ee40, type: 3}
-    count: 1
-    nextSpawnDelay: 5
-    spawnNextGroupDelay: 5

@@ -25,22 +25,14 @@ public class Asteroid : MonoBehaviour
     private GameObject _visual;
     [SerializeField] ParticleSystem _explosionEffect;
 
-    //// Hit
-    //[SerializeField, Header("Hit")] float _hitRate = 1f;
-    //private float _hitNextTime = -1f;
-    //[SerializeField] private int _damagePerHit = 10;
-
     // Object Pool
     [SerializeField, Header("Pooled Spawnable Object/Product")] private PooledSpawnableProduct _pooledProduct;
     [SerializeField] private AudioClip _explosionSound;
-    //private Vector2 _moveDir;
+    
     private Rigidbody2D _rb;
-    //private Vector2 _targetPosition;
-    //private float _estimatedFlyToTime = -1f;
-    //private float _floatingTime = 0f;
     private Health _health;
-
     private Vector2 _prePosition;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -50,9 +42,7 @@ public class Asteroid : MonoBehaviour
     private void Start()
     {
         if (_playOnStart)
-        {
             Initialize();
-        }
     }
     public void Initialize()
     {
@@ -98,10 +88,7 @@ public class Asteroid : MonoBehaviour
         bool IsOnScreenBefore = Helper.Cam.IsPositionInWorldCamRect(_prePosition, _offsetFromBounds);
         bool IsOffScreenNow = !Helper.Cam.IsPositionInWorldCamRect(_rb.position, _offsetFromBounds);
         if (IsOnScreenBefore && IsOffScreenNow)
-        {
-            Debug.Log("Asteroid is offscreen!");
             Deactivate();
-        }
         _prePosition = _rb.position;
     }
 
@@ -111,6 +98,7 @@ public class Asteroid : MonoBehaviour
         if (_health.GetHealth() <= 0)
             OnDied();
     }
+
     private void OnDied()
     {
         if (_explosionEffect != null)

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7267743416b2934ab555238fe5383a9, type: 3}
+  m_Name: BasicInfo_1
+  m_EditorClassIdentifier: 
+  spaceShipSprite: {fileID: 21300000, guid: 2b8917d34e5ded945ad99d0c8919a4be, type: 3}
+  trailColor: {r: 0.8539351, g: 1, b: 0.60754716, a: 1}
+  bulletPrefab: {fileID: 943666803536826567, guid: 716e0e0709a00a943a09ff3e439649d6, type: 3}
+  levelSO: {fileID: 11400000, guid: 012283440142aa84f9b39f755acf5fa7, type: 2}
+  description: 'High Hp
+
+    Low Damage'
+  level: 5

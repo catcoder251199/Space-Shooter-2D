@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FallingMeteorsWarning : MonoBehaviour
@@ -16,8 +13,6 @@ public class FallingMeteorsWarning : MonoBehaviour
     [SerializeField] private GameObject _circle;
     [SerializeField] private float _blinkDelay = 0.1f;
 
-    private Coroutine _blinkRoutine;
-
     public FallingMeteors FallingMeteors
     {
         private get { return _meteors; }
@@ -26,7 +21,7 @@ public class FallingMeteorsWarning : MonoBehaviour
 
     private void Start()
     {
-        _blinkRoutine = StartCoroutine(BlinkRoutine());
+        StartCoroutine(BlinkRoutine());
     }
 
     void Update()
@@ -38,7 +33,7 @@ public class FallingMeteorsWarning : MonoBehaviour
         if (Helper.Cam.IsPositionInWorldCamRect(_meteors.transform.position, 2f))
         {
             // No need the warning
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         // Meteors are being off the screen
@@ -49,10 +44,10 @@ public class FallingMeteorsWarning : MonoBehaviour
         if (hit)
         {
             // The meteors are falling towards the camera
-            this.transform.position = hit.point;
+            transform.position = hit.point;
 
             float scaleXY = Mathf.Lerp(_maxSCale, _minScale, Mathf.InverseLerp(minDistanceToCamera, maxDistanceToCamera, hit.distance));
-            this.transform.localScale = new Vector3(scaleXY, scaleXY, 1);
+            transform.localScale = new Vector3(scaleXY, scaleXY, 1);
         }
     }
 
@@ -81,6 +76,6 @@ public class FallingMeteorsWarning : MonoBehaviour
 
     private void Deactivate()
     {
-
+        //TODO
     }
 }

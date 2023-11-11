@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7267743416b2934ab555238fe5383a9, type: 3}
+  m_Name: BasicInfo_2
+  m_EditorClassIdentifier: 
+  spaceShipSprite: {fileID: 21300000, guid: ef5021f8f7fad08428dd480db0b067cd, type: 3}
+  trailColor: {r: 1, g: 0.7461736, b: 0.29622638, a: 1}
+  bulletPrefab: {fileID: 943666803536826567, guid: 7315c29c8d6b81843a8a3e838189d486, type: 3}
+  levelSO: {fileID: 11400000, guid: 60bf8f649080b7d4a944bf04ef71bccd, type: 2}
+  description: 'High Crit Rate
+
+    High Crit Damage'
+  level: 0

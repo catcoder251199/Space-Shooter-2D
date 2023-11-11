@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c49ce79e348f6b4189bc1b0ab01cd80, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  levelList:
+  - hp: 400
+    baseDamage: 30
+  - hp: 470
+    baseDamage: 35
+  - hp: 540
+    baseDamage: 40
+  - hp: 610
+    baseDamage: 45
+  - hp: 680
+    baseDamage: 50
+  - hp: 680
+    baseDamage: 55
+  - hp: 750
+    baseDamage: 60
+  - hp: 820
+    baseDamage: 62
+  - hp: 900
+    baseDamage: 68
+  - hp: 1000
+    baseDamage: 75
+  - hp: 1100
+    baseDamage: 80

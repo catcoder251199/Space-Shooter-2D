@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     public UnityEvent OnPlayerDiedEvent;
 
+    [SerializeField, Header("Custom look")] private SpriteRenderer _airshipSpriteRenderer;
+    [SerializeField] private ParticleSystem _trailEffect;
     [SerializeField, Header("Basic stats")] private int _initialHealth = 100;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField, Header("Effects")] private ParticleSystem _explosionEffect;
@@ -14,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem _depoweredUpEffect;
     [SerializeField] private ParticleSystem _healEffect;
     [SerializeField] private GameObject _shield;
+    [SerializeField, Header("Sound")] private AudioClip _explosionSound;
+
 
     private Health _health;
     private PlayerDamageHandler _damageHandler;
@@ -33,14 +37,32 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _health = GetComponent<Health>();
-        _health.SetMaxHealth(_initialHealth);
-        _health.SetHealth(_initialHealth);
 
         _damageHandler = GetComponent<PlayerDamageHandler>();
         _bulletPool = GetComponent<PlayerBulletPool>();
         _controller = GetComponent<PlayerController>();
         _weaponHandler = GetComponent<WeaponHandler>();
         _weaponHandler.ChangeShootPattern(DefaultShootPattern);
+    }
+
+    public void Init(SpaceShipSO spaceshipInfo)
+    {
+        _airshipSpriteRenderer.sprite = spaceshipInfo.spaceShipSprite;
+        _trailEffect.startColor = spaceshipInfo.trailColor;
+        _bulletPool.SetNewBulletPrefab(spaceshipInfo.bulletPrefab);
+
+        // base stats
+        _initialHealth = spaceshipInfo.GetCurrentHp();
+        _health.SetMaxHealth(_initialHealth);
+        _health.SetHealth(_initialHealth);
+
+        _damageHandler.SetDamage(spaceshipInfo.GetCurrentBaseDamage());
+    }
+
+    public void Init()
+    {
+        _health.SetMaxHealth(_initialHealth);
+        _health.SetHealth(_initialHealth);
     }
 
     private void Start()
@@ -76,7 +98,13 @@ public class Player : MonoBehaviour
         Debug.Log("Player destroyed !!!");
         _weaponHandler.Deactivate();
         _controller.enabled = false;
-        Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
+
+        if (_explosionEffect != null)
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity, PlaySceneGlobal.Instance.VFXParent);
+
+        if (_explosionSound != null)
+            SoundManager.Instance.PlayEffectOneShot(_explosionSound);
+
         OnPlayerDiedEvent?.Invoke();
         gameObject.SetActive(false);
     }

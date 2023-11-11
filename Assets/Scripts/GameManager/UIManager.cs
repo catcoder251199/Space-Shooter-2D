@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Collections;
 using Unity.VisualScripting;
+using TMPro.EditorUtilities;
 
 [RequireComponent(typeof(GameManager))]
 public class UIManager : MonoBehaviour
@@ -18,6 +19,9 @@ public class UIManager : MonoBehaviour
     //--
     [SerializeField] private PowerupPopup _powerupPopup;
     public PowerupPopup PowerupPopup => _powerupPopup;
+    //--
+    [SerializeField] private VictoryPopup _victoryPopup;
+    public VictoryPopup VictoryPopup => _victoryPopup;
     private void Awake()
     {
         _bossHpBar = _bossHealthBar.GetComponent<HealthBar>();

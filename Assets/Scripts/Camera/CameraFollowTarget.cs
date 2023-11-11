@@ -14,9 +14,14 @@ public class CameraFollowTarget : MonoBehaviour
     }
     [SerializeField] private MySize _limitCameraSize;
     private Rigidbody2D _camRb;
-    void Start()
+
+    void Awake()
     {
         _camRb = GetComponent<Rigidbody2D>();
+    }
+    public void SetTarget(Rigidbody2D target)
+    {
+        _targetRb = target;
     }
 
     void FixedUpdate()

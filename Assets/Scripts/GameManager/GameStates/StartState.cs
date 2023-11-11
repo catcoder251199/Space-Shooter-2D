@@ -39,7 +39,6 @@ namespace GameState
 
         private void CountDownToStartGame()
         {
-            Debug.Log("Count down");
             _countDownText.gameObject.SetActive(true);
             _countDownText.text = "";
             float scaleTo = 1.5f;

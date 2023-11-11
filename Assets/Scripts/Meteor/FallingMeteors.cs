@@ -21,8 +21,6 @@ public class FallingMeteors : MonoBehaviour
     private FallingMeteorsWarning _warning;
     bool _isInsideScreen = false;
     private float _currentSpeed = 0f;
-
-
     public float GetOffsetFromBounds() => _offsetFromBounds;
     private Rigidbody2D _rb;
 
@@ -33,7 +31,7 @@ public class FallingMeteors : MonoBehaviour
             Initialize();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!_isInsideScreen && IsOnScreen())
         {
@@ -45,25 +43,16 @@ public class FallingMeteors : MonoBehaviour
             _isInsideScreen = false;
             OnExitScreen();
         }
-
-        MoveForward();
     }
 
-
-
-    void OnEnterScreen()
+    private void FixedUpdate()
     {
-
-    }
-    void OnExitScreen()
-    {
-        Invoke("Deactivate", 2f);
+        _rb.velocity = transform.up * _currentSpeed;
     }
 
-    private void MoveForward()
-    {
-        _rb.velocity = this.transform.up * _currentSpeed;
-    }
+    void OnEnterScreen() { }
+
+    void OnExitScreen() { Invoke("Deactivate", 2f); }
 
     private void StartToWarn()
     {
@@ -85,7 +74,7 @@ public class FallingMeteors : MonoBehaviour
             float positionX = GetBasePosX(startX, i) - delta / 2;
             float positionY = -Random.Range(0f, 1f);
             var meteor = Instantiate(_meteorList[Random.Range(0, _meteorList.Length - 1)], 
-                new Vector3(positionX, positionY, 0f), Quaternion.identity, this.transform);
+                new Vector3(positionX, positionY, 0f), Quaternion.identity, transform);
             _attachedMeteors.Add(meteor);
         }
         _currentSpeed = _speed;
@@ -105,7 +94,7 @@ public class FallingMeteors : MonoBehaviour
         if (spanwedSide == Helper.Cam.Side.Left)
         {
             Vector3 startPositionA = Helper.Cam.GetLeftSideRandomPos(_offsetFromBounds, 0, 1f, 1f); // Spawn the meteors at startPosition. Lets call it A
-            this.transform.position = startPositionA;
+            transform.position = startPositionA;
 
             // Take Q as a point on the right edge but having same world y value as startPosition
             // Take P as a point on the right edge but having same world y value as bottom camera edge
@@ -131,12 +120,12 @@ public class FallingMeteors : MonoBehaviour
             // Randomize Theta from 0f to singedAngle.
             float thetaAngle = Random.Range(0f, signedAngle);
             Vector2 moveDirection = Quaternion.Euler(0, 0, thetaAngle) * vecAB;
-            this.transform.up = moveDirection;
+            transform.up = moveDirection;
         }
         else if (spanwedSide == Helper.Cam.Side.Right)
         {
             Vector3 startPositionA = Helper.Cam.GetRightSideRandomPos(_offsetFromBounds, 0, 1f, 1f);
-            this.transform.position = startPositionA;
+            transform.position = startPositionA;
 
             Vector3 endPositionB = Helper.Cam.GetLeftSidePos(Helper.Cam.GetVerticalEdge01Pos(startPositionA.y) * 3f / 4);
             Vector3 endPositionC = Helper.Cam.GetBottomSidePos(0.5f);
@@ -145,27 +134,27 @@ public class FallingMeteors : MonoBehaviour
             float signedAngle = Vector3.SignedAngle(vecAB, vecAC, Vector3.forward);
             float thetaAngle = Random.Range(0f, signedAngle);
             Vector2 moveDirection = Quaternion.Euler(0, 0, thetaAngle) * vecAB;
-            this.transform.up = moveDirection;
+            transform.up = moveDirection;
         }
         else if (spanwedSide == Helper.Cam.Side.Top)
         {
             Vector3 startPosition = Helper.Cam.GetTopSideRandomPosRange(_offsetFromBounds, 0, 0f, 1f);
-            this.transform.position = startPosition;
+            transform.position = startPosition;
             Vector3 endPosition = Helper.Cam.GetBottomSideRandomPos(0f, 0f, 0.2f, 0.8f);
             Vector2 moveDirection = endPosition - startPosition;
-            this.transform.up = moveDirection;
+            transform.up = moveDirection;
         }
         _isInsideScreen = false;
     }
 
     public bool IsOffScreen()
     {
-        return Helper.Cam.IsPositionOutWorldCamRect(this.transform.position, 0);
+        return Helper.Cam.IsPositionOutWorldCamRect(transform.position, 0);
     }
 
     public bool IsOnScreen()
     {
-        return Helper.Cam.IsPositionInWorldCamRect(this.transform.position, 0);
+        return Helper.Cam.IsPositionInWorldCamRect(transform.position, 0);
     }
 
     private void Deactivate()

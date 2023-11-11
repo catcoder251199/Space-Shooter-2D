@@ -27,40 +27,14 @@ namespace GameState
             _gm.PowerUpSpawner.StopSpawn();
             ShowEndPanel();
         }
-
         private void ShowEndPanel()
         {
             if (Victory)
-                ShowVictoryEndPanel();
+                _gm.UIManager.VictoryPopup.ShowVictory();
             else
-                ShowDefeatEndPanel();
+                _gm.UIManager.VictoryPopup.ShowDefeat();
         }
 
-        private void ShowVictoryEndPanel()
-        {
-            _endPanel.gameObject.SetActive(true);
-            Sequence sequence = DOTween.Sequence();
-
-            CanvasGroup canvasGroup = _endPanel.GetComponent<CanvasGroup>();
-            canvasGroup.alpha = 0f;
-            sequence.Append(canvasGroup.DOFade(1f, 0.75f));
-
-            _victoryText.text = "VICTORY";
-            sequence.Append(_victoryText.rectTransform.DOScale(0.2f, 1f).From().SetEase(Ease.InOutBack));
-        }
-
-        private void ShowDefeatEndPanel()
-        {
-            _endPanel.gameObject.SetActive(true);
-            Sequence sequence = DOTween.Sequence();
-
-            CanvasGroup canvasGroup = _endPanel.GetComponent<CanvasGroup>();
-            canvasGroup.alpha = 0f;
-            sequence.Append(canvasGroup.DOFade(1f, 0.75f));
-
-            _victoryText.text = "DEFEAT";
-            sequence.Append(_victoryText.rectTransform.DOAnchorPos(new Vector3(0, 150, 0), 1f).From().SetEase(Ease.OutBounce));
-        }
 
         public void OnStateExit() 
         {
