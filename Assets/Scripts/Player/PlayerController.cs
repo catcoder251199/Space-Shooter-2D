@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed = 1f;
     [SerializeField] private Vector2 _worldCenter;
-
     [Serializable] private struct MySize
     {
         public float Width;
@@ -30,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private float WorldTop => _worldCenter.y + _worldSize.Height / 2;
     private float WorldBottom => _worldCenter.y - _worldSize.Height / 2;
 
+    public void SetSpeed(float speed) => _speed = speed;
 
     void FixedUpdate()
     {

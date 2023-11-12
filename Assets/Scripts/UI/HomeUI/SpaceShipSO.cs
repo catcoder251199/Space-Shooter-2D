@@ -10,6 +10,10 @@ public class SpaceShipSO : ScriptableObject
     public SpaceShipLevelUpSO levelSO;
     [TextArea] public string description;
     public int level;
+    //--
+    public float baseCritRate = 0.2f;
+    public float baseCritDamageModifier = 0.3f;
+    public float baseSpeed = 8f;  
 
     public int GetCurrentLevel() { return Mathf.Clamp(level, 0, levelSO.levelList.Length - 1); }
     public int GetCurrentHp() { return levelSO.GetHpAtLevel(level); }

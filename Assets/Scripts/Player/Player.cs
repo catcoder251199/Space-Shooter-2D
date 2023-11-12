@@ -1,7 +1,6 @@
 using PlayerNS;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem.XR;
 
 public class Player : MonoBehaviour
 {
@@ -17,7 +16,6 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem _healEffect;
     [SerializeField] private GameObject _shield;
     [SerializeField, Header("Sound")] private AudioClip _explosionSound;
-
 
     private Health _health;
     private PlayerDamageHandler _damageHandler;
@@ -57,6 +55,10 @@ public class Player : MonoBehaviour
         _health.SetHealth(_initialHealth);
 
         _damageHandler.SetDamage(spaceshipInfo.GetCurrentBaseDamage());
+        _damageHandler.SetCritModifier(spaceshipInfo.baseCritDamageModifier);
+        _damageHandler.SetCritRate(spaceshipInfo.baseCritRate);
+
+        _controller.SetSpeed(spaceshipInfo.baseSpeed);
     }
 
     public void Init()
@@ -95,7 +97,7 @@ public class Player : MonoBehaviour
 
     private void OnPlayerDied()
     {
-        Debug.Log("Player destroyed !!!");
+        Debug.Log("Player destroyed !");
         _weaponHandler.Deactivate();
         _controller.enabled = false;
 

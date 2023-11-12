@@ -18,5 +18,10 @@ MonoBehaviour:
   levelSO: {fileID: 11400000, guid: 60bf8f649080b7d4a944bf04ef71bccd, type: 2}
   description: 'High Crit Rate
 
-    High Crit Damage'
+    High Crit Damage
+
+    High Speed'
   level: 0
+  baseCritRate: 0.4
+  baseCritDamageModifier: 0.6
+  baseSpeed: 12

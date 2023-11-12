@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c49ce79e348f6b4189bc1b0ab01cd80, type: 3}
-  m_Name: 3
+  m_Name: 2
   m_EditorClassIdentifier: 
   levelList:
-  - hp: 250
+  - hp: 300
     baseDamage: 40
-  - hp: 290
+  - hp: 340
     baseDamage: 45
-  - hp: 330
+  - hp: 380
     baseDamage: 50
-  - hp: 370
+  - hp: 420
     baseDamage: 55
-  - hp: 410
+  - hp: 460
     baseDamage: 60
-  - hp: 450
+  - hp: 500
     baseDamage: 65
-  - hp: 490
+  - hp: 540
     baseDamage: 70
-  - hp: 530
-    baseDamage: 75
   - hp: 580
     baseDamage: 80
-  - hp: 630
-    baseDamage: 85
-  - hp: 700
+  - hp: 620
     baseDamage: 90
+  - hp: 660
+    baseDamage: 100
+  - hp: 800
+    baseDamage: 120

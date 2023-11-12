@@ -18,5 +18,10 @@ MonoBehaviour:
   levelSO: {fileID: 11400000, guid: 012283440142aa84f9b39f755acf5fa7, type: 2}
   description: 'High Hp
 
-    Low Damage'
+    Low Damage
+
+    Low Speed'
   level: 5
+  baseCritRate: 0.2
+  baseCritDamageModifier: 0.3
+  baseSpeed: 6
