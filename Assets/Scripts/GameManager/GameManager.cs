@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         ChangeState(_startState);
+        SoundManager.Instance.PlayDefaultPlayBackground();
     }
     public virtual void ChangeState(IGameState _nextState)
     {
@@ -176,13 +177,20 @@ public class GameManager : MonoBehaviour
 
     public static void RestartScene()
     {
+        Time.timeScale = 1;
         DOTween.KillAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public static void ChangeToScene(int buildIdx)
     {
+        Time.timeScale = 1;
         DOTween.KillAll();
         SceneManager.LoadScene(buildIdx);
+    }
+
+    public static void PlayButtonClickSound()
+    {
+        SoundManager.Instance.playButtonClickSound();
     }
 }

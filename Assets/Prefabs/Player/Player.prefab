@@ -706,7 +706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4575c522379104099f8cc24a14d2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageableTags: []
+  damageableTags:
+  - Enemy
   damage: 33
   isCritical: 0
   OnTriggerStayEvent:

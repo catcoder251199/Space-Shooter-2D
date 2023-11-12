@@ -71,6 +71,11 @@ public class HomeManager : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayRandomHomePageBackground();
+    }
+
     // Listeners
 
     public void OnSpaceShipChanged(int oldIdx, int newIdx)
@@ -136,6 +141,11 @@ public class HomeManager : MonoBehaviour
     {
         _tracker.selectedSpaceShipSO = _spaceShipList[_currentSpaceshipIdx];
         SceneManager.LoadScene(sceneIdx);
+    }
+
+    public void PlaySoundClickButton()
+    {
+        SoundManager.Instance.playButtonClickSound();
     }
 
     public void OnDisable()

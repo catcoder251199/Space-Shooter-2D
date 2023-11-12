@@ -27,9 +27,6 @@ public class SettingMenu : MonoBehaviour
         tweenSequence.Append(_background.DOFade(1f, 1f));
         _mainPanel.localScale = Vector3.one * 0.2f;
         tweenSequence.Join(_mainPanel.DOScale(1f, 1f).SetEase(Ease.OutBack));
-        tweenSequence.AppendCallback(() =>
-        {
-        });
     }
    
     public void Hide()

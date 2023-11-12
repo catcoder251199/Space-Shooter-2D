@@ -9,6 +9,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip _backgroundMusic;
     [SerializeField] private AudioClip _buttoneClick;
     [SerializeField, Range(0, 1)] private float _effectVolume;
+    [SerializeField, Header("Background Playlist in PlayScene")] private AudioClip[] _backgroundPlayList;
+    [SerializeField] private int _defaultPlayBackground;
+    [SerializeField, Header("Background Playlist in Home")] private AudioClip[] _backgroundHomeList;
 
     private void Awake()
     {
@@ -70,5 +73,32 @@ public class SoundManager : MonoBehaviour
     public void playButtonClickSound()
     {
         _effectSource.PlayOneShot(_buttoneClick, _effectVolume);
+    }
+
+    public void PlayRandomPlayBackground()
+    {
+        if (_backgroundPlayList == null || _backgroundPlayList.Length <= 0)
+            return;
+
+        AudioClip randomChosen = _backgroundPlayList[Random.Range(0, _backgroundPlayList.Length)];
+        PlayMusicClip(randomChosen, _musicSource.volume);
+    }
+
+    public void PlayRandomHomePageBackground()
+    {
+        if (_backgroundHomeList == null || _backgroundHomeList.Length <= 0)
+            return;
+
+        AudioClip randomChosen = _backgroundHomeList[Random.Range(0, _backgroundHomeList.Length)];
+        PlayMusicClip(randomChosen, _musicSource.volume);
+    }
+
+    public void PlayDefaultPlayBackground()
+    {
+        if (_backgroundPlayList == null || _backgroundPlayList.Length <= 0)
+            return;
+
+        AudioClip chosen = _backgroundPlayList[_defaultPlayBackground];
+        PlayMusicClip(chosen, _musicSource.volume);
     }
 }

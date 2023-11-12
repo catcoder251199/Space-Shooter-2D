@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d025eeae6fac1bc428fd0f723a109d04, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -288,7 +288,7 @@ Transform:
   - {fileID: 2644325732851563642}
   - {fileID: 397686553704636013}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4991441274718825406
 MonoBehaviour:
@@ -308,3 +308,13 @@ MonoBehaviour:
   _backgroundMusic: {fileID: 8300000, guid: d025eeae6fac1bc428fd0f723a109d04, type: 3}
   _buttoneClick: {fileID: 8300000, guid: 7d6153f03dd8dfb4f84af0a49795381e, type: 3}
   _effectVolume: 0.7
+  _backgroundPlayList:
+  - {fileID: 8300000, guid: d025eeae6fac1bc428fd0f723a109d04, type: 3}
+  - {fileID: 8300000, guid: aff5bc9c0c8a51d4bb895be393d15ff0, type: 3}
+  _defaultPlayBackground: 0
+  _backgroundHomeList:
+  - {fileID: 8300000, guid: 3394e58f7e32e2147a788c56102dfb90, type: 3}
+  - {fileID: 8300000, guid: 836f6271069ed84419d4080139065a3d, type: 3}
+  - {fileID: 8300000, guid: a389ec9a646c26545bc71e773f6d80f4, type: 3}
+  - {fileID: 8300000, guid: 54915b25f0eecfb448f9a227f46a3d7a, type: 3}
+  - {fileID: 8300000, guid: ee96731622ab5bc419a69c1af63f7883, type: 3}
