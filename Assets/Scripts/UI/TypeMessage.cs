@@ -21,6 +21,8 @@ public class TypeMessage : MonoBehaviour
             StartType();
     }
 
+    public void SetMessageList(string[] list) => _msgList = list;
+
     public void StartType()
     {
         _delayPerChar = 60f / _charactersPerMinute; // seconds
@@ -44,7 +46,7 @@ public class TypeMessage : MonoBehaviour
 
     private IEnumerator TypeRoutine()
     {
-        if (_msgList.Length > 0)
+        if (_msgList != null && _msgList.Length > 0)
         {
             int i = 0;
             while (i  < _msgList.Length)

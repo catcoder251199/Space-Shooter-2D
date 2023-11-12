@@ -26,36 +26,38 @@ public class CameraFollowTarget : MonoBehaviour
 
     void FixedUpdate()
     {
-        ProcessFollowTarget();
     }
 
     private void LateUpdate()
     {
-        
+        ProcessFollowTarget();
     }
 
-    private void ProcessFollowTarget()
+    public void ProcessFollowTarget()
     {
-        if(_camRb == null) 
+        if (_targetRb == null)
             return;
+        Vector2 currentCamPosition = _camRb.position;
+        float left = currentCamPosition.x - _limitCameraSize.Width / 2;
+        float right = currentCamPosition.x + _limitCameraSize.Width / 2;
+        float top = currentCamPosition.y + _limitCameraSize.Height / 2;
+        float bottom = currentCamPosition.y - _limitCameraSize.Height / 2;
 
-        float LimitLeft = _camRb.position.x - _limitCameraSize.Width / 2;
-        float LimitRight = _camRb.position.x + _limitCameraSize.Width / 2;
-        float LimitTop = _camRb.position.y + _limitCameraSize.Height / 2;
-        float LimitBottom = _camRb.position.y - _limitCameraSize.Height / 2;
+        Vector2 targetPosition = _targetRb.position;
+        float dX = 0;
+        float dY = 0;
 
-        Vector2 camMoveDirection = Vector2.zero;
+        if (targetPosition.x < left)
+            dX = targetPosition.x - left;
+        if (targetPosition.x > right) 
+            dX = targetPosition.x - right;
+        if (targetPosition.y > top)
+            dY = targetPosition.y - top;
+        if (targetPosition.y < bottom) 
+            dY = targetPosition.y - bottom;
 
-        if (_targetRb.position.x < LimitLeft)
-            camMoveDirection.x = _targetRb.position.x - LimitLeft;
-        if (_targetRb.position.x > LimitRight)
-            camMoveDirection.x = _targetRb.position.x - LimitRight;
-        if (_targetRb.position.y > LimitTop)
-            camMoveDirection.y = _targetRb.position.y - LimitTop;
-        if (_targetRb.position.y < LimitBottom)
-            camMoveDirection.y = _targetRb.position.y - LimitBottom;
-
-        Vector2 nextPosition = _camRb.position + camMoveDirection.normalized * Time.fixedDeltaTime * _followSpeed;
+        Vector2 destination = currentCamPosition + new Vector2(dX, dY);
+        Vector2 nextPosition = Vector2.MoveTowards(currentCamPosition, destination, _followSpeed * Time.fixedDeltaTime);
         _camRb.MovePosition(nextPosition);
     }
 }

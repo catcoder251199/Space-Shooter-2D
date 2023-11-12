@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private float WorldBottom => _worldCenter.y - _worldSize.Height / 2;
 
     public void SetSpeed(float speed) => _speed = speed;
+    struct mySize { public float Width; public float Height; };
 
     void FixedUpdate()
     {

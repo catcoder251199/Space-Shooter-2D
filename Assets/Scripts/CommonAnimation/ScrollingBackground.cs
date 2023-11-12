@@ -18,6 +18,11 @@ public class ScrollingBackground : MonoBehaviour
     private void Awake()
     {
         _material = GetComponent<SpriteRenderer>().material;
+        StartCoroutine(SpawnRoutine());
+    }
+
+    private IEnumerator SpawnRoutine()
+    {
         float timeDelay = 0f;
         for (int i = 0; i < _asteroidCount; i++)
         {
@@ -26,8 +31,10 @@ public class ScrollingBackground : MonoBehaviour
             asteroid.LimitBottom = _bottomLimit;
             asteroid.LimitLeft = _leftLimit;
             asteroid.LimitRight = _rightLimit;
-            timeDelay += Random.Range(0, 2f);
-            asteroid.StartDelay = timeDelay;
+            timeDelay += Random.Range(0, 5f);
+
+            asteroid.StartDelay = 0;
+            yield return new WaitForSeconds(timeDelay);
         }
     }
 

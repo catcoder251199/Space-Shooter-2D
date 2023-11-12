@@ -8,6 +8,9 @@ public class VictoryPopup : MonoBehaviour
     [SerializeField] private ParticleSystem _confettiEffect;
     [SerializeField] private RectTransform _confettiTransform;
     [SerializeField] private TextMeshProUGUI _victoryText;
+    [SerializeField] private TypeMessage _typeMessage;
+    [SerializeField, TextArea] private string[] _victoryMsgList;
+    [SerializeField, TextArea] private string[] _defeatMsgList;
 
     [SerializeField, Header("Sound")] private AudioClip _victorySound;
     [SerializeField] private AudioClip _defeatSound;
@@ -26,8 +29,10 @@ public class VictoryPopup : MonoBehaviour
         {
             if (_confettiEffect != null)
                 Instantiate(_confettiEffect, _confettiTransform.position, _confettiEffect.transform.rotation);
+            
+            _typeMessage.SetMessageList(_victoryMsgList);
+            _typeMessage.StartType();
         });
-
     }
     public void ShowDefeat()
     {
@@ -40,6 +45,11 @@ public class VictoryPopup : MonoBehaviour
         if (_defeatSound != null)
             tweenSequence.AppendCallback(() => { SoundManager.Instance.PlayEffectOneShot(_defeatSound); });
         tweenSequence.Append(_victoryText.rectTransform.DOAnchorPos(new Vector3(0, 100, 0), 1f).From().SetEase(Ease.OutBounce));
+        tweenSequence.AppendCallback(() => {
+            string[] msgChosen = { _defeatMsgList[Random.Range(0, _defeatMsgList.Length)] };
+            _typeMessage.SetMessageList(msgChosen);
+            _typeMessage.StartType();
+        });
     }
 
     public void Hide()
