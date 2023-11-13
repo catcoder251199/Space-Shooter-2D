@@ -16,9 +16,13 @@ PrefabInstance:
       propertyPath: _speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2692753901723521450, guid: a84c388c5282b6641bf13afbc03172aa, type: 3}
+      propertyPath: _attackTime
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3200294597755233777, guid: a84c388c5282b6641bf13afbc03172aa, type: 3}
       propertyPath: _maxHealth
-      value: 300
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4085268027981723025, guid: a84c388c5282b6641bf13afbc03172aa, type: 3}
       propertyPath: m_RootOrder
@@ -68,6 +72,10 @@ PrefabInstance:
       propertyPath: _objectToPool
       value: 
       objectReference: {fileID: 1263587470905132369, guid: d4cff999ea8532249be8c1a53ff4b3e6, type: 3}
+    - target: {fileID: 6658501734576346658, guid: a84c388c5282b6641bf13afbc03172aa, type: 3}
+      propertyPath: _fireRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6658501734576346658, guid: a84c388c5282b6641bf13afbc03172aa, type: 3}
       propertyPath: _bulletPrefab
       value: 

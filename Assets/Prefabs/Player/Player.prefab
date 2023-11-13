@@ -525,6 +525,7 @@ MonoBehaviour:
   _healEffect: {fileID: 5932397283445994108}
   _shield: {fileID: 6179827031290133925}
   _explosionSound: {fileID: 8300000, guid: 8be872dbd941fc64bb5d8ba64d487878, type: 3}
+  _poweredUpSound: {fileID: 8300000, guid: a8bd9240e4a5f884895cf76baff7945b, type: 3}
 --- !u!114 &493004860517365993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +541,7 @@ MonoBehaviour:
   _speed: 7
   _worldCenter: {x: 0, y: 0}
   _worldSize:
-    Width: 20
+    Width: 14
     Height: 20
 --- !u!114 &2212526154861698738
 MonoBehaviour:

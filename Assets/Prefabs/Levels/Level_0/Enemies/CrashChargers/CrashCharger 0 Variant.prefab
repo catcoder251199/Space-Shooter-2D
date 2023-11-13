@@ -56,6 +56,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1560990061143683522, guid: cb70a26878702b745a306b70cf88be07, type: 3}
+      propertyPath: damage
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544164652768935770, guid: cb70a26878702b745a306b70cf88be07, type: 3}
+      propertyPath: _maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7485372641910135786, guid: cb70a26878702b745a306b70cf88be07, type: 3}
       propertyPath: _playOnStart
       value: 0

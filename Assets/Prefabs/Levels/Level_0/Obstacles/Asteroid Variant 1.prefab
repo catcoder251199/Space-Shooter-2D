@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 586166000563684111, guid: fedbf0cfeae9bc44882a4824e667d844, type: 3}
       propertyPath: _maxHealth
-      value: 300
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 586166000563684111, guid: fedbf0cfeae9bc44882a4824e667d844, type: 3}
       propertyPath: _damageable
@@ -82,11 +82,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3682291699084365725, guid: fedbf0cfeae9bc44882a4824e667d844, type: 3}
       propertyPath: _floatingSpeedMax
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 3682291699084365725, guid: fedbf0cfeae9bc44882a4824e667d844, type: 3}
       propertyPath: _floatingSpeedMin
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

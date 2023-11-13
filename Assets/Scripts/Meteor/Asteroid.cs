@@ -31,7 +31,11 @@ public class Asteroid : MonoBehaviour
     
     private Rigidbody2D _rb;
     private Health _health;
-    private Vector2 _prePosition;
+
+    [SerializeField]  private float _delayDestroyTime = 1.5f; // after the asteroid is off screen, we count down to zero to destroy it
+    private float _countDownDestroyTime = 0f;
+    private bool _isOnScreenOnce = false;
+    private bool _spawnLeft = false;
 
     private void Awake()
     {
@@ -64,32 +68,57 @@ public class Asteroid : MonoBehaviour
         Vector2 endPosition;
         if (startFromLeft)
         {
-            startPosition = Helper.Cam.GetLeftSideRandomPos(_offsetFromBounds, 0f, 0.35f, 1f);
+            startPosition = Helper.Cam.GetLeftSideRandomPos(_offsetFromBounds, 0f, 0.2f, 1f);
             endPosition = Helper.Cam.GetRightSideRandomPos(_offsetFromBounds, 0f, 0f, 0.8f);
+            _spawnLeft = true;
         }
         else // start from the right
         {
-            startPosition = Helper.Cam.GetRightSideRandomPos(_offsetFromBounds, 0f, 0.35f, 1f);
+            startPosition = Helper.Cam.GetRightSideRandomPos(_offsetFromBounds, 0f, 0.2f, 1f);
             endPosition = Helper.Cam.GetLeftSideRandomPos(_offsetFromBounds, 0f, 0f, 0.8f);
+            _spawnLeft = false;
         }
         Vector2 moveDir = (endPosition - startPosition).normalized;
         _rb.position = startPosition;
         transform.position = startPosition;
         _rb.velocity = moveDir * _floatingSpeed;
-        //_estimatedFlyToTime = Vector2.Distance(_targetPosition, startPosition) / _floatingSpeed;
-        //_floatingTime = 0f;
         _rb.angularVelocity = _rotateSpeed * Random.Range(-1f, 1f);
-        _prePosition = startPosition;
         _health.SetHealth(_health.GetMaxHealth());
+
+        _isOnScreenOnce = false;
+        _countDownDestroyTime = _delayDestroyTime;
+    }
+
+    private void Update()
+    {
+        if (GameManager.gameIsPaused)
+            return;
+
+        bool IsOnScreenNow = Helper.Cam.IsPositionInWorldCamRect(transform.position, _offsetFromBounds);
+        if (!_isOnScreenOnce && IsOnScreenNow)
+            _isOnScreenOnce = true;
+
+        //if (IsOnScreenNow)
+        //    _countDownDestroyTime = _delayDestroyTime; // whenever it moves to screen, reset the count down time
+        //else if (_isOnScreenOnce) // if it leaves the screen and has been on screen once, then count down time to zero to destroy it
+        //    _countDownDestroyTime -= Time.deltaTime;
+
+        if (IsOnScreenNow)
+            _countDownDestroyTime = _delayDestroyTime; // whenever it moves to screen, reset the count down time
+        else if (_isOnScreenOnce) // if it leaves the screen and has been on screen once, then count down time to zero to destroy it
+        {
+            if (_spawnLeft && transform.position.x >= Helper.Cam.WorldRight() + _offsetFromBounds)
+                _countDownDestroyTime -= Time.deltaTime;
+            if (!_spawnLeft && transform.position.x <= Helper.Cam.WorldLeft() - _offsetFromBounds)
+                _countDownDestroyTime -= Time.deltaTime;
+        }
+
+        if (_countDownDestroyTime <= 0)
+            Deactivate();
     }
 
     private void FixedUpdate()
     {
-        bool IsOnScreenBefore = Helper.Cam.IsPositionInWorldCamRect(_prePosition, _offsetFromBounds);
-        bool IsOffScreenNow = !Helper.Cam.IsPositionInWorldCamRect(_rb.position, _offsetFromBounds);
-        if (IsOnScreenBefore && IsOffScreenNow)
-            Deactivate();
-        _prePosition = _rb.position;
     }
 
     public void OnTakeDamage(int damage, bool isCritical = false)

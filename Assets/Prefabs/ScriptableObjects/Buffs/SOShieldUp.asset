@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa11d0cec3ad0a942a5e8507c1a2870d, type: 3}
   m_Name: SOShieldUp
   m_EditorClassIdentifier: 
-  duration: 10
+  duration: 15
   isDurationStacked: 1
   isEffectStacked: 0
   description: 'Gain a protecting shield '

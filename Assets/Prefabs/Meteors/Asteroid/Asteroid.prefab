@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playOnStart: 0
-  _offsetFromBounds: 2
+  _offsetFromBounds: 1
   _floatingSpeedMin: 1
   _floatingSpeedMax: 2
   _minScaleXY: 1

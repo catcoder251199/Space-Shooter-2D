@@ -6,11 +6,11 @@ public class PowerUpSpawner : MonoBehaviour
 {
     [SerializeField] private SpawnableFactory _patternFactory;
     [SerializeField, Header("Power-ups")] private SpawnableFactory _powerupFactory;
-    [SerializeField, Tooltip("Number of spawned power-ups per minute"), Range(0, 60)] private int _powerupSpawnRate = 1;
+    [SerializeField, Tooltip("Number of spawned power-ups per minute"), Range(0, 60)] private float _powerupSpawnRate = 1;
     [SerializeField] private int _maxPowerUpCountPerSpawn = 1;
 
     [SerializeField, Header("Heal Up")] private PowerUp _healUpPrefab;
-    [SerializeField, Tooltip("Number of spawned healing-up power-ups per minute"), Range(0, 60)] private int _healSpawnRate = 1;
+    [SerializeField, Tooltip("Number of spawned healing-up power-ups per minute"), Range(0, 60)] private float _healSpawnRate = 1;
     [SerializeField] private int _maxHealUpCountPerSpawn = 1;
 
     [SerializeField, Header("Rewards")] private BuffSO[] _rewardList;
@@ -46,11 +46,15 @@ public class PowerUpSpawner : MonoBehaviour
         // Every second, Check whether we should spawn a new powerup based on spawn probability
         while (true)
         {
-            bool doSpawn = Random.Range(0f, 1f) <= _powerupSpawnRate / 60;
+            float random = Random.Range(0f, 100f);
+            float rate = _powerupSpawnRate / 60f * 100;
+            bool doSpawn = random <= rate;
             if (doSpawn)
                 yield return StartCoroutine(SpawnRandPowerupRoutine(Random.Range(1, _maxPowerUpCountPerSpawn + 1)));
 
-            bool doSpawnHeal = Random.Range(0f, 1f) <= _healSpawnRate / 60;
+            random = Random.Range(0f, 100f);
+            rate = _healSpawnRate / 60f * 100;
+            bool doSpawnHeal = random <= rate;
             if (doSpawnHeal)
                 yield return StartCoroutine(SpawnHealUpRoutine(Random.Range(1, _maxHealUpCountPerSpawn + 1)));
 

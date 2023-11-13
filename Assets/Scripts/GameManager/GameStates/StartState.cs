@@ -11,6 +11,8 @@ namespace GameState
         [SerializeField] private RectTransform _leftHUDTopPanel;
         [SerializeField] private RectTransform _rightHUDTopPanel;
         [SerializeField] private TextMeshProUGUI _countDownText;
+        [SerializeField] private AudioClip _countdownSound;
+        [SerializeField] private AudioClip _startSound;
 
         private GameManager _gm;
 
@@ -45,18 +47,22 @@ namespace GameState
             float scaleDuration = 1f;
 
             var tweenSequence = DOTween.Sequence();
-            Action<string> onFinishedScaleCallback =  (string text) => {
+            Action<string, bool, bool> onFinishedScaleCallback =  (string text, bool playTickSound, bool playStartSound) => {
                 _countDownText.text = text;
                 _countDownText.rectTransform.localScale = Vector3.one * 0.5f;
+                if (playTickSound && _countdownSound != null)
+                    SoundManager.Instance.PlayEffectOneShot(_countdownSound);
+                if (playStartSound && _startSound != null)
+                    SoundManager.Instance.PlayEffectOneShot(_startSound);
             };
             tweenSequence.AppendInterval(1f);
-            tweenSequence.AppendCallback(() => onFinishedScaleCallback("3"));
+            tweenSequence.AppendCallback(() => onFinishedScaleCallback("3", true, false));
             tweenSequence.Append(_countDownText.rectTransform.DOScale(scaleTo, scaleDuration).SetEase(Ease.OutBack));
-            tweenSequence.AppendCallback(() => onFinishedScaleCallback("2"));
+            tweenSequence.AppendCallback(() => onFinishedScaleCallback("2", true, false));
             tweenSequence.Append(_countDownText.rectTransform.DOScale(scaleTo, scaleDuration).SetEase(Ease.OutBack));
-            tweenSequence.AppendCallback(() => onFinishedScaleCallback("1"));
+            tweenSequence.AppendCallback(() => onFinishedScaleCallback("1", true, false));
             tweenSequence.Append(_countDownText.rectTransform.DOScale(scaleTo, scaleDuration).SetEase(Ease.OutBack));
-            tweenSequence.AppendCallback(() => onFinishedScaleCallback("GO"));
+            tweenSequence.AppendCallback(() => onFinishedScaleCallback("GO", false, true));
             tweenSequence.Append(
                 _countDownText.rectTransform.DOScale(scaleTo, scaleDuration)
                 .SetEase(Ease.OutBack)

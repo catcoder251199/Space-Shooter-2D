@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 5
   isDurationStacked: 1
-  isEffectStacked: 0
+  isEffectStacked: 1
   description: Shoot in Double Pattern
   sprite: {fileID: -1129043434, guid: 7dfae216a88e1e64ab942bdf54f6d351, type: 3}
   buffName: Double

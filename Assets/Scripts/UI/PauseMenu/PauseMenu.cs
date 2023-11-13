@@ -78,9 +78,9 @@ public class PauseMenu : MonoBehaviour
     public void OnSoundEffectSliderChanged(float value)
     {
         if (Mathf.Approximately(value, 0))
-            _musicToggleBtn.SetToggleWithoutNotify(false);
+            _effectToggleBtn.SetToggleWithoutNotify(false);
         else
-            _musicToggleBtn.SetToggleWithoutNotify(true);
+            _effectToggleBtn.SetToggleWithoutNotify(true);
         SoundManager.Instance.ChangeEffectVolume(value);
     }
 }

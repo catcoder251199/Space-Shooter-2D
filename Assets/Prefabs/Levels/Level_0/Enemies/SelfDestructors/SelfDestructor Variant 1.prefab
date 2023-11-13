@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7652328824143119267, guid: 5a0420a55969f114fa68f9db5a78f5b2, type: 3}
       propertyPath: _explosionDamage
-      value: 244
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7652328824143119267, guid: 5a0420a55969f114fa68f9db5a78f5b2, type: 3}
       propertyPath: _explosionPrefab

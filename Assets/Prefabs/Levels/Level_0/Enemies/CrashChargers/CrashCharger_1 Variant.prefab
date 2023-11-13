@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3959834773555104403, guid: f307584430a0f604594ff27f157aa4f5, type: 3}
+      propertyPath: damage
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 743096776724983967, guid: f307584430a0f604594ff27f157aa4f5, type: 3}
       propertyPath: m_Name
       value: CrashCharger_1 Variant
@@ -55,6 +59,10 @@ PrefabInstance:
     - target: {fileID: 1293824051850158133, guid: f307584430a0f604594ff27f157aa4f5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544164652768935770, guid: f307584430a0f604594ff27f157aa4f5, type: 3}
+      propertyPath: _maxHealth
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 7485372641910135786, guid: f307584430a0f604594ff27f157aa4f5, type: 3}
       propertyPath: _playOnStart

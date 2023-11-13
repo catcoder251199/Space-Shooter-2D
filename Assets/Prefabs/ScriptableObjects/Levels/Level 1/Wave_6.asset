@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c70ca4764f8244cada8a6d352e534e, type: 3}
+  m_Name: Wave_6
+  m_EditorClassIdentifier: 
+  _spawnedObjectsList:
+  - prefab: {fileID: 900763921571641543, guid: 142f3639edfb70f4096b0038c6f57278, type: 3}
+    count: 5
+    nextSpawnDelay: 0
+    spawnNextGroupDelay: 0
+  - prefab: {fileID: 6267608955833986118, guid: 9ec9ccea35a49904fa03a6591a56fa63, type: 3}
+    count: 3
+    nextSpawnDelay: 2
+    spawnNextGroupDelay: 1
+  - prefab: {fileID: 477842262040436746, guid: 64d934442bf5d2a4792f9b9a604093e5, type: 3}
+    count: 2
+    nextSpawnDelay: 2
+    spawnNextGroupDelay: 0
+  - prefab: {fileID: 8898295919997024232, guid: baca7ad2c55e41946bdcbe332d3bd0c5, type: 3}
+    count: 2
+    nextSpawnDelay: 1
+    spawnNextGroupDelay: 2
+  - prefab: {fileID: 397061726653556263, guid: efd611f6de1d4544aab3f7ae3c82255a, type: 3}
+    count: 2
+    nextSpawnDelay: 1
+    spawnNextGroupDelay: 1
+  - prefab: {fileID: 900763921571641543, guid: 782e855a4b6810d4993c17fc2991974a, type: 3}
+    count: 5
+    nextSpawnDelay: 0
+    spawnNextGroupDelay: 0
+  - prefab: {fileID: 477842262040436746, guid: 64d934442bf5d2a4792f9b9a604093e5, type: 3}
+    count: 1
+    nextSpawnDelay: 2
+    spawnNextGroupDelay: 0

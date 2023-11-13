@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 1263587470905132369, guid: d4cff999ea8532249be8c1a53ff4b3e6, type: 3}
     - target: {fileID: 4606061427477100838, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
       propertyPath: _maxHealth
-      value: 500
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8165895190844819022, guid: ac1d8de977eade645a26f01fce748ca9, type: 3}
       propertyPath: _speed

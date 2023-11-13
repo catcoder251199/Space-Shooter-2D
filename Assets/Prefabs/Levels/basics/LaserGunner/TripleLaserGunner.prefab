@@ -198,7 +198,7 @@ MonoBehaviour:
   _delayBeforeAttack: 1
   _followTargetOnDelay: 1
   _attackCount: 2
-  _explosionEffect: {fileID: 0}
+  _explosionEffect: {fileID: 6389210361597389694, guid: 8e8234b2c5438ec4eb4eeb5749c35674, type: 3}
   _offsetFromBounds: 2
   _laserGun: {fileID: 1698824671169569647}
   _explosionSound: {fileID: 8300000, guid: ff1de1e853b17934daa8644a83239c39, type: 3}

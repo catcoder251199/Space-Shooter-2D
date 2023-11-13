@@ -1,6 +1,7 @@
 using PlayerNS;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem _healEffect;
     [SerializeField] private GameObject _shield;
     [SerializeField, Header("Sound")] private AudioClip _explosionSound;
+    [SerializeField] private AudioClip _poweredUpSound;
 
     private Health _health;
     private PlayerDamageHandler _damageHandler;
@@ -69,14 +71,14 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        var spawnManager = GameManager.Instance.SpawnManager;
+        var spawnManager = GameManager.Instance?.SpawnManager;
         if (spawnManager != null )
             spawnManager.onDamageableSpawnableCountChanged += onDamageableEnemyCountChanged;
     }
 
     private void OnDisable()
     {
-        var spawnManager = GameManager.Instance.SpawnManager;
+        var spawnManager = GameManager.Instance?.SpawnManager;
         if (spawnManager != null)
             spawnManager.onDamageableSpawnableCountChanged -= onDamageableEnemyCountChanged;
     }
@@ -152,8 +154,12 @@ public class Player : MonoBehaviour
 
     public void ChangeShootPattern(IShootPattern pattern)
     {
-        _weaponHandler.ChangeShootPattern(pattern);
-        _weaponHandler.Activate();
+        var currentPattern = _weaponHandler.CurrentPattern;
+        if (pattern != null && (pattern.GetType() != currentPattern.GetType()))
+        {
+            _weaponHandler.ChangeShootPattern(pattern);
+            _weaponHandler.Activate();
+        }
     }
 
     public void SetHpMaxWith(int amount)
@@ -177,6 +183,8 @@ public class Player : MonoBehaviour
     public void TriggerPoweredUpEffect()
     {
         _poweredUpEffect.Play();
+        if (_poweredUpSound != null)
+            SoundManager.Instance.PlayEffectOneShot(_poweredUpSound);
     }
 
     public void TriggerDePoweredUpEffect()
@@ -187,5 +195,7 @@ public class Player : MonoBehaviour
     public void TriggerHealEffect()
     {
         _healEffect.Play();
+        if (_poweredUpSound != null)
+            SoundManager.Instance.PlayEffectOneShot(_poweredUpSound);
     }
 }

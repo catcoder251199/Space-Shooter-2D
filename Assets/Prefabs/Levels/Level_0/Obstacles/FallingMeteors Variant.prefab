@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: damage
       value: 99
       objectReference: {fileID: 0}
+    - target: {fileID: 1497936845034007453, guid: 63ce31e2b41209f42a1e1af42c706c1a, type: 3}
+      propertyPath: hitRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8384580886816354788, guid: 63ce31e2b41209f42a1e1af42c706c1a, type: 3}
       propertyPath: m_Name
       value: FallingMeteors Variant
