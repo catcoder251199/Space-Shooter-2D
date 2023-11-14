@@ -914,6 +914,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1972160024804168093, guid: da612055030bfd94c9b39900d4c8e4bd, type: 3}
+      propertyPath: _victoryMsgList.Array.data[0]
+      value: Congratulations! You conquered the level with skill and style!
+      objectReference: {fileID: 0}
     - target: {fileID: 2055517674133599450, guid: da612055030bfd94c9b39900d4c8e4bd, type: 3}
       propertyPath: m_Name
       value: GameManager

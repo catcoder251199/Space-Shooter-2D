@@ -1,6 +1,4 @@
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Enemy
 {

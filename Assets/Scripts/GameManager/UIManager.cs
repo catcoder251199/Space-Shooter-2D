@@ -3,8 +3,6 @@ using DG.Tweening;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
-using Unity.VisualScripting;
-using TMPro.EditorUtilities;
 
 [RequireComponent(typeof(GameManager))]
 public class UIManager : MonoBehaviour

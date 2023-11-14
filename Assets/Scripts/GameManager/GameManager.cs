@@ -1,7 +1,6 @@
 using UnityEngine;
 using GameState;
 using DG.Tweening;
-using TMPro.EditorUtilities;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
